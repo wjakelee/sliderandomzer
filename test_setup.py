@@ -21,12 +21,161 @@ canvas.place(anchor='nw', relwidth=1, relheight=1)      # canvas placement
 scroll.pack(side='right', fill='y')                     # scroll bar placement
 
 Label(scrollable_frame, text="TEST SETUP", background='white', font='Arial 20 bold underline').grid(row=1, column=1)
+Label(scrollable_frame, text="(SAVE every case)", background='white', font='Arial 12').grid(row=1, column=2)
 
 
-fields = ['Case', 'Reagent Type', 'h&e Slide', 'Nrc Slide', 'Ab Slide']
-with open('case_information.csv', 'w') as caseinfo_csv:
-    csv_writer = csv.writer(caseinfo_csv)
-    csv_writer.writerow(fields)
+dict1 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict2 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict3 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict4 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict5 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict6 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict7 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict8 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict9 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict10 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict11 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict12 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict13 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict14 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict15 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict16 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict17 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict18 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict19 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict20 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict21 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict22 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict23 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict24 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict25 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict26 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict27 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict28 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict29 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict30 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict31 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict32 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict33 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict34 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict35 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict36 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict37 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict38 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict39 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict40 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+save = {'case': ''}
+
+def big_dictionary(list):
+    global dict1, dict2, dict3, dict4, dict5, dict6, dict7, dict8, dict9, dict10, dict11, dict12, dict13, dict14, \
+        dict15, dict16, dict17, dict18, dict19, dict20, dict21, dict22, dict23, dict24, dict25, dict26, dict27, \
+        dict28, dict29, dict30, dict31, dict32, dict33, dict34, dict35, dict36, dict37, dict38, dict39, dict40, save
+
+    if list['case'] == 1:
+        dict1 = list
+    elif list['case'] == 2:
+        dict2 = list
+    elif list['case'] == 3:
+        dict3 = list
+    elif list['case'] == 4:
+        dict4 = list
+    elif list['case'] == 5:
+        dict5 = list
+    elif list['case'] == 6:
+        dict6 = list
+    elif list['case'] == 7:
+        dict7 = list
+    elif list['case'] == 8:
+        dict8 = list
+    elif list['case'] == 9:
+        dict9 = list
+    elif list['case'] == 10:
+        dict10 = list
+    elif list['case'] == 11:
+        dict11 = list
+    elif list['case'] == 12:
+        dict12 = list
+    elif list['case'] == 13:
+        dict13 = list
+    elif list['case'] == 14:
+        dict14 = list
+    elif list['case'] == 15:
+        dict15 = list
+    elif list['case'] == 16:
+        dict16 = list
+    elif list['case'] == 17:
+        dict17 = list
+    elif list['case'] == 18:
+        dict18 = list
+    elif list['case'] == 19:
+        dict19 = list
+    elif list['case'] == 20:
+        dict20 = list
+    elif list['case'] == 21:
+        dict21 = list
+    elif list['case'] == 22:
+        dict22 = list
+    elif list['case'] == 23:
+        dict23 = list
+    elif list['case'] == 24:
+        dict24 = list
+    elif list['case'] == 25:
+        dict25 = list
+    elif list['case'] == 26:
+        dict26 = list
+    elif list['case'] == 27:
+        dict27 = list
+    elif list['case'] == 28:
+        dict28 = list
+    elif list['case'] == 29:
+        dict29 = list
+    elif list['case'] == 30:
+        dict30 = list
+    elif list['case'] == 31:
+        dict31 = list
+    elif list['case'] == 32:
+        dict32 = list
+    elif list['case'] == 33:
+        dict33 = list
+    elif list['case'] == 34:
+        dict34 = list
+    elif list['case'] == 35:
+        dict35 = list
+    elif list['case'] == 36:
+        dict36 = list
+    elif list['case'] == 37:
+        dict37 = list
+    elif list['case'] == 38:
+        dict38 = list
+    elif list['case'] == 39:
+        dict39 = list
+    elif list['case'] == 40:
+        dict40 = list
+    elif list['case'] == 100:
+        save = list
+
+    if dict1['case'] == 1 and dict2['case'] == 2 and dict3['case'] == 3 and dict4['case'] == 4 and dict5['case'] == 5\
+            and dict6['case'] == 6 and dict7['case'] == 7 and dict8['case'] == 8 and dict9['case'] == 9 and dict10[
+        'case'] == 10 and dict11['case'] == 11 and dict12['case'] == 12 and dict13['case'] == 13 and dict14['case'] \
+            == 14 and dict15['case'] == 15 and dict16['case'] == 16 and dict17['case'] == 17 and dict18['case'] == 18\
+            and dict19['case'] == 19 and dict20['case'] == 20 and dict21['case'] == 21 and dict22['case'] == 22 and \
+            dict23['case'] == 23 and dict24['case'] == 24 and dict25['case'] == 25 and dict26['case'] == 26 and \
+            dict27['case'] == 27 and dict28['case'] == 28 and dict29['case'] == 29 and dict30['case'] == 30 and \
+            dict31['case'] == 31 and dict32['case'] == 32 and dict33['case'] == 33 and dict34['case'] \
+            == 34 and dict35['case'] == 35 and dict36['case'] == 36 and dict37['case'] == 37 and dict38['case'] == 38\
+            and dict39['case'] == 39 and dict40['case'] == 40 and save['case'] == 100:
+
+        big_dictionary = [dict1, dict2, dict3, dict4, dict5, dict6, dict7, dict8, dict9, dict10, dict11, dict12,
+                          dict13, dict14, dict15, dict16, dict17, dict18, dict19, dict20, dict21, dict22, dict23,
+                          dict24, dict25, dict26, dict27, dict28, dict29, dict30, dict31, dict32, dict33, dict34,
+                          dict35, dict36, dict37, dict38, dict39, dict40]
+
+        with open('case_information.csv', 'w') as caseinfo_csv:
+            fields = ['case', 'Reagent Type', 'h&e Slide', 'Nrc Slide', 'Ab Slide']
+            csv_writer = csv.DictWriter(caseinfo_csv, fieldnames=fields)
+            csv_writer.writeheader()
+            for case in big_dictionary:
+                csv_writer.writerow(case)
 
 
 # ----- Begin case 1 Entry
@@ -54,13 +203,11 @@ def c1entry():      # function saves entry data for case 1 to CSV file
     c = c1nrc.get()
     d = c1ab.get()
 
-    list = ['1', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 1, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c1entry).grid(row=4, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c1entry).grid(row=4, column=1)      # call save entry data function
 
 # ----- End case 1 Entry
 
@@ -90,13 +237,12 @@ def c2entry():      # function saves entry data for case 2 to CSV file
     c = c2nrc.get()
     d = c2ab.get()
 
-    list = ['2', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 2, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c2entry).grid(row=8, column=1)      # call save entry data function
+
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c2entry).grid(row=8, column=1)      # call save entry data function
 
 # ----- End case 2 entry
 
@@ -126,13 +272,11 @@ def c3entry():      # function saves entry data for case 3 to CSV file
     c = c3nrc.get()
     d = c3ab.get()
 
-    list = ['3', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 3, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c3entry).grid(row=12, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c3entry).grid(row=12, column=1)      # call save entry data function
 
 # ----- End case 3 entry
 
@@ -162,13 +306,12 @@ def c4entry():      # function saves entry data for case 4 to CSV file
     c = c4nrc.get()
     d = c4ab.get()
 
-    list = ['4', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 4, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c4entry).grid(row=16, column=1)      # call save entry data function
+
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c4entry).grid(row=16, column=1)      # call save entry data function
 
 # ----- End case 4 entry
 
@@ -198,13 +341,11 @@ def c5entry():      # function saves entry data for case 5 to CSV file
     c = c5nrc.get()
     d = c5ab.get()
 
-    list = ['5', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 5, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c5entry).grid(row=20, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c5entry).grid(row=20, column=1)      # call save entry data function
 
 # ----- End case 5 entry
 
@@ -234,13 +375,11 @@ def c6entry():      # function saves entry data for case 6 to CSV file
     c = c6nrc.get()
     d = c6ab.get()
 
-    list = ['6', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 6, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c6entry).grid(row=24, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c6entry).grid(row=24, column=1)      # call save entry data function
 
 # ----- End case 6 entry
 
@@ -270,13 +409,11 @@ def c7entry():      # function saves entry data for case 7 to CSV file
     c = c7nrc.get()
     d = c7ab.get()
 
-    list = ['7', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 7, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c7entry).grid(row=28, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c7entry).grid(row=28, column=1)      # call save entry data function
 
 # ----- End case 7 entry
 
@@ -306,13 +443,11 @@ def c8entry():      # function saves entry data for case 8 to CSV file
     c = c8nrc.get()
     d = c8ab.get()
 
-    list = ['8', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 8, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c8entry).grid(row=32, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c8entry).grid(row=32, column=1)      # call save entry data function
 
 # ----- End case 8 entry
 
@@ -342,13 +477,11 @@ def c9entry():      # function saves entry data for case 9 to CSV file
     c = c9nrc.get()
     d = c9ab.get()
 
-    list = ['9', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 9, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c9entry).grid(row=36, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c9entry).grid(row=36, column=1)      # call save entry data function
 
 # ----- End case 9 entry
 
@@ -378,13 +511,11 @@ def c10entry():      # function saves entry data for case 10 to CSV file
     c = c10nrc.get()
     d = c10ab.get()
 
-    list = ['10', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 10, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c10entry).grid(row=40, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c10entry).grid(row=40, column=1)      # call save entry data function
 
 # ----- End case 10 entry
 
@@ -414,13 +545,11 @@ def c11entry():      # function saves entry data for case 11 to CSV file
     c = c11nrc.get()
     d = c11ab.get()
 
-    list = ['11', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 11, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c11entry).grid(row=44, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c11entry).grid(row=44, column=1)      # call save entry data function
 
 # ----- End case 11 entry
 
@@ -450,13 +579,11 @@ def c12entry():      # function saves entry data for case 12 to CSV file
     c = c12nrc.get()
     d = c12ab.get()
 
-    list = ['12', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 12, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c12entry).grid(row=48, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c12entry).grid(row=48, column=1)      # call save entry data function
 
 # ----- End case 12 entry
 
@@ -486,13 +613,11 @@ def c13entry():      # function saves entry data for case 13 to CSV file
     c = c13nrc.get()
     d = c13ab.get()
 
-    list = ['13', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 13, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c13entry).grid(row=52, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c13entry).grid(row=52, column=1)      # call save entry data function
 
 # ----- End case 13 entry
 
@@ -522,13 +647,11 @@ def c14entry():      # function saves entry data for case 14 to CSV file
     c = c14nrc.get()
     d = c14ab.get()
 
-    list = ['14', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 14, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c14entry).grid(row=56, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c14entry).grid(row=56, column=1)      # call save entry data function
 
 # ----- End case 14 entry
 
@@ -558,16 +681,13 @@ def c15entry():      # function saves entry data for case 15 to CSV file
     c = c15nrc.get()
     d = c15ab.get()
 
-    list = ['15', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 15, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c15entry).grid(row=60, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c15entry).grid(row=60, column=1)      # call save entry data function
 
 # ----- End case 15 entry
-
 
 
 # ----- Begin case 16 Entry
@@ -595,16 +715,13 @@ def c16entry():      # function saves entry data for case 16 to CSV file
     c = c16nrc.get()
     d = c16ab.get()
 
-    list = ['16', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 16, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c16entry).grid(row=64, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c16entry).grid(row=64, column=1)      # call save entry data function
 
 # ----- End case 16 entry
-
 
 
 # ----- Begin case 17 Entry
@@ -632,13 +749,11 @@ def c17entry():      # function saves entry data for case 17 to CSV file
     c = c17nrc.get()
     d = c17ab.get()
 
-    list = ['17', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 17, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c17entry).grid(row=68, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c17entry).grid(row=68, column=1)      # call save entry data function
 
 # ----- End case 17 entry
 
@@ -668,13 +783,11 @@ def c18entry():      # function saves entry data for case 18 to CSV file
     c = c18nrc.get()
     d = c18ab.get()
 
-    list = ['18', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 18, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c18entry).grid(row=72, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c18entry).grid(row=72, column=1)      # call save entry data function
 
 # ----- End case 18 entry
 
@@ -704,13 +817,11 @@ def c19entry():      # function saves entry data for case 19 to CSV file
     c = c19nrc.get()
     d = c19ab.get()
 
-    list = ['19', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 19, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c19entry).grid(row=76, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c19entry).grid(row=76, column=1)      # call save entry data function
 
 # ----- End case 19 entry
 
@@ -721,7 +832,7 @@ Label(scrollable_frame, text="\nCASE 20", background='white', font='Arial 12 und
 Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=79, column=2)
 Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=79, column=3)
 Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=80, column=3)
-Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=87, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=81, column=3)
 
 c20rt = StringVar()      # change variable type to string for user entry
 c20he = StringVar()
@@ -740,13 +851,11 @@ def c20entry():      # function saves entry data for case 20 to CSV file
     c = c20nrc.get()
     d = c20ab.get()
 
-    list = ['20', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 20, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c20entry).grid(row=80, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c20entry).grid(row=80, column=1)      # call save entry data function
 
 # ----- End case 20 entry
 
@@ -776,13 +885,11 @@ def c21entry():      # function saves entry data for case 21 to CSV file
     c = c21nrc.get()
     d = c21ab.get()
 
-    list = ['21', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 21, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c21entry).grid(row=84, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c21entry).grid(row=84, column=1)      # call save entry data function
 
 # ----- End case 21 entry
 
@@ -812,13 +919,11 @@ def c22entry():      # function saves entry data for case 22 to CSV file
     c = c22nrc.get()
     d = c22ab.get()
 
-    list = ['22', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 22, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c22entry).grid(row=88, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c22entry).grid(row=88, column=1)      # call save entry data function
 
 # ----- End case 22 entry
 
@@ -848,13 +953,11 @@ def c23entry():      # function saves entry data for case 23 to CSV file
     c = c23nrc.get()
     d = c23ab.get()
 
-    list = ['23', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 23, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c23entry).grid(row=92, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c23entry).grid(row=92, column=1)      # call save entry data function
 
 # ----- End case 23 entry
 
@@ -884,13 +987,11 @@ def c24entry():      # function saves entry data for case 24 to CSV file
     c = c24nrc.get()
     d = c24ab.get()
 
-    list = ['24', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 24, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c24entry).grid(row=96, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c24entry).grid(row=96, column=1)      # call save entry data function
 
 # ----- End case 24 entry
 
@@ -920,13 +1021,11 @@ def c25entry():      # function saves entry data for case 25 to CSV file
     c = c25nrc.get()
     d = c25ab.get()
 
-    list = ['25', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 25, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c25entry).grid(row=100, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c25entry).grid(row=100, column=1)      # call save entry data function
 
 # ----- End case 25 entry
 
@@ -956,13 +1055,11 @@ def c26entry():      # function saves entry data for case 26 to CSV file
     c = c26nrc.get()
     d = c26ab.get()
 
-    list = ['26', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 26, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c26entry).grid(row=104, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c26entry).grid(row=104, column=1)      # call save entry data function
 
 # ----- End case 26 entry
 
@@ -992,13 +1089,11 @@ def c27entry():      # function saves entry data for case 27 to CSV file
     c = c27nrc.get()
     d = c27ab.get()
 
-    list = ['27', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 27, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c27entry).grid(row=108, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c27entry).grid(row=108, column=1)      # call save entry data function
 
 # ----- End case 27 entry
 
@@ -1028,13 +1123,11 @@ def c28entry():      # function saves entry data for case 28 to CSV file
     c = c28nrc.get()
     d = c28ab.get()
 
-    list = ['28', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 28, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c28entry).grid(row=112, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c28entry).grid(row=112, column=1)      # call save entry data function
 
 # ----- End case 28 entry
 
@@ -1064,13 +1157,11 @@ def c29entry():      # function saves entry data for case 29 to CSV file
     c = c29nrc.get()
     d = c29ab.get()
 
-    list = ['29', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 29, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c29entry).grid(row=116, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c29entry).grid(row=116, column=1)      # call save entry data function
 
 # ----- End case 29 entry
 
@@ -1100,13 +1191,11 @@ def c30entry():      # function saves entry data for case 29 to CSV file
     c = c30nrc.get()
     d = c30ab.get()
 
-    list = ['30', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 30, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c30entry).grid(row=120, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c30entry).grid(row=120, column=1)      # call save entry data function
 
 # ----- End case 30 entry
 
@@ -1136,13 +1225,11 @@ def c31entry():      # function saves entry data for case 29 to CSV file
     c = c31nrc.get()
     d = c31ab.get()
 
-    list = ['31', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 31, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c31entry).grid(row=124, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c31entry).grid(row=124, column=1)      # call save entry data function
 
 # ----- End case 31 entry
 
@@ -1172,13 +1259,11 @@ def c32entry():      # function saves entry data for case 29 to CSV file
     c = c32nrc.get()
     d = c32ab.get()
 
-    list = ['32', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 32, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c32entry).grid(row=128, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c32entry).grid(row=128, column=1)      # call save entry data function
 
 # ----- End case 32 entry
 
@@ -1208,13 +1293,11 @@ def c33entry():      # function saves entry data for case 29 to CSV file
     c = c33nrc.get()
     d = c33ab.get()
 
-    list = ['33', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 33, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c33entry).grid(row=132, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c33entry).grid(row=132, column=1)      # call save entry data function
 
 # ----- End case 33 entry
 
@@ -1244,13 +1327,11 @@ def c34entry():      # function saves entry data for case 29 to CSV file
     c = c34nrc.get()
     d = c34ab.get()
 
-    list = ['34', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 34, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c34entry).grid(row=136, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c34entry).grid(row=136, column=1)      # call save entry data function
 
 # ----- End case 34 entry
 
@@ -1280,13 +1361,11 @@ def c35entry():      # function saves entry data for case 29 to CSV file
     c = c35nrc.get()
     d = c35ab.get()
 
-    list = ['35', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 35, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c35entry).grid(row=140, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c35entry).grid(row=140, column=1)      # call save entry data function
 
 # ----- End case 35 entry
 
@@ -1316,13 +1395,11 @@ def c36entry():      # function saves entry data for case 29 to CSV file
     c = c36nrc.get()
     d = c36ab.get()
 
-    list = ['36', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 36, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c36entry).grid(row=144, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c36entry).grid(row=144, column=1)      # call save entry data function
 
 # ----- End case 36 entry
 
@@ -1352,13 +1429,11 @@ def c37entry():      # function saves entry data for case 29 to CSV file
     c = c37nrc.get()
     d = c37ab.get()
 
-    list = ['37', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 37, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c37entry).grid(row=148, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c37entry).grid(row=148, column=1)      # call save entry data function
 
 # ----- End case 37 entry
 
@@ -1388,13 +1463,11 @@ def c38entry():      # function saves entry data for case 29 to CSV file
     c = c38nrc.get()
     d = c38ab.get()
 
-    list = ['38', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 38, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c38entry).grid(row=152, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c38entry).grid(row=152, column=1)      # call save entry data function
 
 # ----- End case 38 entry
 
@@ -1424,13 +1497,11 @@ def c39entry():      # function saves entry data for case 29 to CSV file
     c = c39nrc.get()
     d = c39ab.get()
 
-    list = ['39', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 39, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c39entry).grid(row=156, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c39entry).grid(row=156, column=1)      # call save entry data function
 
 # ----- End case 39 entry
 
@@ -1460,18 +1531,28 @@ def c40entry():      # function saves entry data for case 29 to CSV file
     c = c40nrc.get()
     d = c40ab.get()
 
-    list = ['40', a, b, c, d]
-    with open('case_information.csv', 'a') as caseinfo_csv:
-        csv_writer = csv.writer(caseinfo_csv)
-        csv_writer.writerow(list)
+    list = {'case': 40, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='green', font='Arial 12 bold', command=c40entry).grid(row=160, column=1)      # call save entry data function
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c40entry).grid(row=160, column=1)      # call save entry data function
 
 # ----- End case 40 entry
 
 
 
-set_wind.mainloop()
 
-# NEXT: SAVE ENTRIES TO DATA FILE (DETERMINE HOW I WANT TO FORMAT THE FILE) REPEAT THE CODE FOR 60 ENTIRES
+
+
+def submit_all_entries():
+    list = {'case': 100}
+    big_dictionary(list)
+
+
+Button(scrollable_frame, text="Submit All Entries", background='#33adff', font='Arial 12 bold',
+       command=submit_all_entries).grid(row=170, column=1)
+
+
+
+
+set_wind.mainloop()
