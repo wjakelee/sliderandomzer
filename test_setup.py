@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 import csv
 
 
@@ -8,10 +9,10 @@ set_wind.geometry('800x480')                    # window geometry
 set_wind.configure(background='white')
 frame = Frame(set_wind, background='white')
 canvas = Canvas(frame, background='white')
-scroll = Scrollbar(frame, orient="vertical", command=canvas.yview)
+scroll = Scrollbar(frame, orient="vertical", command=canvas.yview)      # initialize vertical scrollbar position
 scrollable_frame = Frame(canvas, background='white')
 
-canvas.configure(scrollregion=(0, 0, 800, 7000))        # window scroll length
+canvas.configure(scrollregion=(0, 0, 800, 7600))        # window scroll length
 
 canvas.create_window((0, 0), window=scrollable_frame, anchor='nw')
 canvas.configure(yscrollcommand=scroll.set)             # set canvas to scroll
@@ -21,9 +22,9 @@ canvas.place(anchor='nw', relwidth=1, relheight=1)      # canvas placement
 scroll.pack(side='right', fill='y')                     # scroll bar placement
 
 Label(scrollable_frame, text="TEST SETUP", background='white', font='Arial 20 bold underline').grid(row=1, column=1)
-Label(scrollable_frame, text="(SAVE every case)", background='white', font='Arial 12').grid(row=1, column=2)
+Label(scrollable_frame, text="  (SAVE every case, even empty entries)", background='white', font='Arial 12').grid(row=1, column=2, columnspan=2)
 
-
+# initialize dictionaries for each case for global use
 dict1 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
 dict2 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
 dict3 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
@@ -64,13 +65,38 @@ dict37 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab 
 dict38 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
 dict39 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
 dict40 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
-save = {'case': ''}
+dict41 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict42 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict43 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict44 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict45 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict46 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict47 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict48 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict49 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict50 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict51 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict52 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict53 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict54 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict55 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict56 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict57 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict58 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict59 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
+dict60 = {'case': '', 'Reagent Type': '', 'h&e Slide': '', 'Nrc Slide': '', 'Ab Slide': ''}
 
+
+# function creates dictionary of all user entries once all are saved
+# dictionaries are then organized and written to a CSV file
 def big_dictionary(list):
     global dict1, dict2, dict3, dict4, dict5, dict6, dict7, dict8, dict9, dict10, dict11, dict12, dict13, dict14, \
         dict15, dict16, dict17, dict18, dict19, dict20, dict21, dict22, dict23, dict24, dict25, dict26, dict27, \
-        dict28, dict29, dict30, dict31, dict32, dict33, dict34, dict35, dict36, dict37, dict38, dict39, dict40, save
+        dict28, dict29, dict30, dict31, dict32, dict33, dict34, dict35, dict36, dict37, dict38, dict39, dict40, \
+        dict41, dict42, dict43, dict44, dict45, dict46, dict47, dict48, dict49, dict50, dict51, dict52, dict53, \
+        dict54, dict55, dict56, dict57, dict58, dict59, dict60
 
+    # stores user entry in correct dictionary for each case (used to organize the CSV file)
     if list['case'] == 1:
         dict1 = list
     elif list['case'] == 2:
@@ -151,35 +177,92 @@ def big_dictionary(list):
         dict39 = list
     elif list['case'] == 40:
         dict40 = list
-    elif list['case'] == 100:
-        save = list
+    elif list['case'] == 41:
+        dict41 = list
+    elif list['case'] == 42:
+        dict42 = list
+    elif list['case'] == 43:
+        dict43 = list
+    elif list['case'] == 44:
+        dict44 = list
+    elif list['case'] == 45:
+        dict45 = list
+    elif list['case'] == 46:
+        dict46 = list
+    elif list['case'] == 47:
+        dict47 = list
+    elif list['case'] == 48:
+        dict48 = list
+    elif list['case'] == 49:
+        dict49 = list
+    elif list['case'] == 50:
+        dict50 = list
+    elif list['case'] == 51:
+        dict51 = list
+    elif list['case'] == 52:
+        dict52 = list
+    elif list['case'] == 53:
+        dict53 = list
+    elif list['case'] == 54:
+        dict54 = list
+    elif list['case'] == 55:
+        dict55 = list
+    elif list['case'] == 56:
+        dict56 = list
+    elif list['case'] == 57:
+        dict57 = list
+    elif list['case'] == 58:
+        dict58 = list
+    elif list['case'] == 59:
+        dict59 = list
+    elif list['case'] == 60:
+        dict60 = list
 
+    # checks if all case entries have been saved
     if dict1['case'] == 1 and dict2['case'] == 2 and dict3['case'] == 3 and dict4['case'] == 4 and dict5['case'] == 5\
-            and dict6['case'] == 6 and dict7['case'] == 7 and dict8['case'] == 8 and dict9['case'] == 9 and dict10[
-        'case'] == 10 and dict11['case'] == 11 and dict12['case'] == 12 and dict13['case'] == 13 and dict14['case'] \
-            == 14 and dict15['case'] == 15 and dict16['case'] == 16 and dict17['case'] == 17 and dict18['case'] == 18\
-            and dict19['case'] == 19 and dict20['case'] == 20 and dict21['case'] == 21 and dict22['case'] == 22 and \
-            dict23['case'] == 23 and dict24['case'] == 24 and dict25['case'] == 25 and dict26['case'] == 26 and \
-            dict27['case'] == 27 and dict28['case'] == 28 and dict29['case'] == 29 and dict30['case'] == 30 and \
-            dict31['case'] == 31 and dict32['case'] == 32 and dict33['case'] == 33 and dict34['case'] \
-            == 34 and dict35['case'] == 35 and dict36['case'] == 36 and dict37['case'] == 37 and dict38['case'] == 38\
-            and dict39['case'] == 39 and dict40['case'] == 40 and save['case'] == 100:
+            and dict6['case'] == 6 and dict7['case'] == 7 and dict8['case'] == 8 and dict9['case'] == 9 and dict10['case'] == 10 \
+            and dict11['case'] == 11 and dict12['case'] == 12 and dict13['case'] == 13 and dict14['case'] == 14 \
+            and dict15['case'] == 15 and dict16['case'] == 16 and dict17['case'] == 17 and dict18['case'] == 18 \
+            and dict19['case'] == 19 and dict20['case'] == 20 and dict21['case'] == 21 and dict22['case'] == 22 \
+            and dict23['case'] == 23 and dict24['case'] == 24 and dict25['case'] == 25 and dict26['case'] == 26 \
+            and dict27['case'] == 27 and dict28['case'] == 28 and dict29['case'] == 29 and dict30['case'] == 30 \
+            and dict31['case'] == 31 and dict32['case'] == 32 and dict33['case'] == 33 and dict34['case'] == 34 \
+            and dict35['case'] == 35 and dict36['case'] == 36 and dict37['case'] == 37 and dict38['case'] == 38 \
+            and dict39['case'] == 39 and dict40['case'] == 40 and dict41['case'] == 41 and dict42['case'] == 42 \
+            and dict43['case'] == 43 and dict44['case'] == 44 and dict45['case'] == 45 and dict46['case'] == 46 \
+            and dict47['case'] == 47 and dict48['case'] == 48 and dict49['case'] == 49 and dict50['case'] == 50 \
+            and dict51['case'] == 51 and dict52['case'] == 52 and dict53['case'] == 53 and dict54['case'] == 54 \
+            and dict55['case'] == 55 and dict56['case'] == 56 and dict57['case'] == 57 and dict58['case'] == 58 \
+            and dict59['case'] == 59 and dict60['case'] == 60:
 
+        # organizes dictionaries into a larger dictionary
         big_dictionary = [dict1, dict2, dict3, dict4, dict5, dict6, dict7, dict8, dict9, dict10, dict11, dict12,
                           dict13, dict14, dict15, dict16, dict17, dict18, dict19, dict20, dict21, dict22, dict23,
                           dict24, dict25, dict26, dict27, dict28, dict29, dict30, dict31, dict32, dict33, dict34,
-                          dict35, dict36, dict37, dict38, dict39, dict40]
+                          dict35, dict36, dict37, dict38, dict39, dict40, dict41, dict42, dict43, dict44, dict45,
+                          dict46, dict47, dict48, dict49, dict50, dict51, dict52, dict53, dict54, dict55, dict56,
+                          dict57, dict58, dict59, dict60]
 
-        with open('case_information.csv', 'w') as caseinfo_csv:
-            fields = ['case', 'Reagent Type', 'h&e Slide', 'Nrc Slide', 'Ab Slide']
-            csv_writer = csv.DictWriter(caseinfo_csv, fieldnames=fields)
-            csv_writer.writeheader()
-            for case in big_dictionary:
-                csv_writer.writerow(case)
+        # writes big dictionary to CSV file when "Submit All Entries" button is pressed
+        def submit_all_entries():
+            with open('case_information.csv', 'w') as caseinfo_csv:
+                fields = ['case', 'Reagent Type', 'h&e Slide', 'Nrc Slide', 'Ab Slide']
+                csv_writer = csv.DictWriter(caseinfo_csv, fieldnames=fields)
+                csv_writer.writeheader()
+                for case in big_dictionary:
+                    csv_writer.writerow(case)
+
+            # notifies user that entries were saved to data file
+            messagebox.showinfo("Entries Saved", "All entries saved to data file.")
+
+        # button does not appear until all entries saved
+        Button(scrollable_frame, text="Submit All Entries", background='#33adff', font='Arial 12 bold',
+               command=submit_all_entries).grid(row=244, column=1, columnspan=3)
 
 
 # ----- Begin case 1 Entry
 
+# Case entry labels
 Label(scrollable_frame, text="\nCASE 1", background='white', font='Arial 12 underline').grid(row=2, column=1)
 Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=3, column=2)
 Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=3, column=3)
@@ -196,18 +279,19 @@ Entry(scrollable_frame, textvariable=c1nrc, background='#e6e6e6').grid(row=4, co
 Entry(scrollable_frame, textvariable=c1ab, background='#e6e6e6').grid(row=5, column=4)
 
 
-def c1entry():      # function saves entry data for case 1 to CSV file
+def c1entry():      # gets values from user entry and saves values to dictionary
     Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=4, column=5)
     a = c1rt.get()
     b = c1he.get()
     c = c1nrc.get()
     d = c1ab.get()
 
-    list = {'case': 1, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
-    big_dictionary(list)
+    list = {'case': 1, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}    # creates dictionary
+    big_dictionary(list)            # call big dictionary function
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c1entry).grid(row=4, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c1entry).grid(row=4, column=1)
 
 # ----- End case 1 Entry
 
@@ -241,8 +325,8 @@ def c2entry():      # function saves entry data for case 2 to CSV file
     big_dictionary(list)
 
 
-
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c2entry).grid(row=8, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c2entry).grid(row=8, column=1)
 
 # ----- End case 2 entry
 
@@ -276,7 +360,8 @@ def c3entry():      # function saves entry data for case 3 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c3entry).grid(row=12, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c3entry).grid(row=12, column=1)
 
 # ----- End case 3 entry
 
@@ -310,8 +395,8 @@ def c4entry():      # function saves entry data for case 4 to CSV file
     big_dictionary(list)
 
 
-
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c4entry).grid(row=16, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c4entry).grid(row=16, column=1)
 
 # ----- End case 4 entry
 
@@ -345,7 +430,8 @@ def c5entry():      # function saves entry data for case 5 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c5entry).grid(row=20, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c5entry).grid(row=20, column=1)
 
 # ----- End case 5 entry
 
@@ -379,7 +465,8 @@ def c6entry():      # function saves entry data for case 6 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c6entry).grid(row=24, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c6entry).grid(row=24, column=1)
 
 # ----- End case 6 entry
 
@@ -413,7 +500,8 @@ def c7entry():      # function saves entry data for case 7 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c7entry).grid(row=28, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c7entry).grid(row=28, column=1)
 
 # ----- End case 7 entry
 
@@ -447,7 +535,8 @@ def c8entry():      # function saves entry data for case 8 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c8entry).grid(row=32, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c8entry).grid(row=32, column=1)
 
 # ----- End case 8 entry
 
@@ -481,7 +570,8 @@ def c9entry():      # function saves entry data for case 9 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c9entry).grid(row=36, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c9entry).grid(row=36, column=1)
 
 # ----- End case 9 entry
 
@@ -549,7 +639,8 @@ def c11entry():      # function saves entry data for case 11 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c11entry).grid(row=44, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c11entry).grid(row=44, column=1)
 
 # ----- End case 11 entry
 
@@ -583,7 +674,8 @@ def c12entry():      # function saves entry data for case 12 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c12entry).grid(row=48, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c12entry).grid(row=48, column=1)
 
 # ----- End case 12 entry
 
@@ -617,7 +709,8 @@ def c13entry():      # function saves entry data for case 13 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c13entry).grid(row=52, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c13entry).grid(row=52, column=1)
 
 # ----- End case 13 entry
 
@@ -651,7 +744,8 @@ def c14entry():      # function saves entry data for case 14 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c14entry).grid(row=56, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c14entry).grid(row=56, column=1)
 
 # ----- End case 14 entry
 
@@ -685,7 +779,8 @@ def c15entry():      # function saves entry data for case 15 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c15entry).grid(row=60, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c15entry).grid(row=60, column=1)
 
 # ----- End case 15 entry
 
@@ -719,7 +814,8 @@ def c16entry():      # function saves entry data for case 16 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c16entry).grid(row=64, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c16entry).grid(row=64, column=1)
 
 # ----- End case 16 entry
 
@@ -753,7 +849,8 @@ def c17entry():      # function saves entry data for case 17 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c17entry).grid(row=68, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c17entry).grid(row=68, column=1)
 
 # ----- End case 17 entry
 
@@ -787,7 +884,8 @@ def c18entry():      # function saves entry data for case 18 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c18entry).grid(row=72, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c18entry).grid(row=72, column=1)
 
 # ----- End case 18 entry
 
@@ -821,7 +919,8 @@ def c19entry():      # function saves entry data for case 19 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c19entry).grid(row=76, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c19entry).grid(row=76, column=1)
 
 # ----- End case 19 entry
 
@@ -855,7 +954,8 @@ def c20entry():      # function saves entry data for case 20 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c20entry).grid(row=80, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c20entry).grid(row=80, column=1)
 
 # ----- End case 20 entry
 
@@ -889,7 +989,8 @@ def c21entry():      # function saves entry data for case 21 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c21entry).grid(row=84, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c21entry).grid(row=84, column=1)
 
 # ----- End case 21 entry
 
@@ -923,7 +1024,8 @@ def c22entry():      # function saves entry data for case 22 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c22entry).grid(row=88, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c22entry).grid(row=88, column=1)
 
 # ----- End case 22 entry
 
@@ -957,7 +1059,8 @@ def c23entry():      # function saves entry data for case 23 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c23entry).grid(row=92, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c23entry).grid(row=92, column=1)
 
 # ----- End case 23 entry
 
@@ -991,7 +1094,8 @@ def c24entry():      # function saves entry data for case 24 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c24entry).grid(row=96, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c24entry).grid(row=96, column=1)
 
 # ----- End case 24 entry
 
@@ -1025,7 +1129,8 @@ def c25entry():      # function saves entry data for case 25 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c25entry).grid(row=100, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c25entry).grid(row=100, column=1)
 
 # ----- End case 25 entry
 
@@ -1059,7 +1164,8 @@ def c26entry():      # function saves entry data for case 26 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c26entry).grid(row=104, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c26entry).grid(row=104, column=1)
 
 # ----- End case 26 entry
 
@@ -1093,7 +1199,8 @@ def c27entry():      # function saves entry data for case 27 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c27entry).grid(row=108, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c27entry).grid(row=108, column=1)
 
 # ----- End case 27 entry
 
@@ -1127,7 +1234,8 @@ def c28entry():      # function saves entry data for case 28 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c28entry).grid(row=112, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c28entry).grid(row=112, column=1)
 
 # ----- End case 28 entry
 
@@ -1161,7 +1269,8 @@ def c29entry():      # function saves entry data for case 29 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c29entry).grid(row=116, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c29entry).grid(row=116, column=1)
 
 # ----- End case 29 entry
 
@@ -1184,7 +1293,7 @@ Entry(scrollable_frame, textvariable=c30nrc, background='#e6e6e6').grid(row=120,
 Entry(scrollable_frame, textvariable=c30ab, background='#e6e6e6').grid(row=121, column=4)
 
 
-def c30entry():      # function saves entry data for case 29 to CSV file
+def c30entry():      # function saves entry data for case 30 to CSV file
     Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=120, column=5)
     a = c30rt.get()
     b = c30he.get()
@@ -1195,7 +1304,8 @@ def c30entry():      # function saves entry data for case 29 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c30entry).grid(row=120, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c30entry).grid(row=120, column=1)
 
 # ----- End case 30 entry
 
@@ -1218,7 +1328,7 @@ Entry(scrollable_frame, textvariable=c31nrc, background='#e6e6e6').grid(row=124,
 Entry(scrollable_frame, textvariable=c31ab, background='#e6e6e6').grid(row=125, column=4)
 
 
-def c31entry():      # function saves entry data for case 29 to CSV file
+def c31entry():      # function saves entry data for case 31 to CSV file
     Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=124, column=5)
     a = c31rt.get()
     b = c31he.get()
@@ -1229,7 +1339,8 @@ def c31entry():      # function saves entry data for case 29 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c31entry).grid(row=124, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c31entry).grid(row=124, column=1)
 
 # ----- End case 31 entry
 
@@ -1252,7 +1363,7 @@ Entry(scrollable_frame, textvariable=c32nrc, background='#e6e6e6').grid(row=128,
 Entry(scrollable_frame, textvariable=c32ab, background='#e6e6e6').grid(row=129, column=4)
 
 
-def c32entry():      # function saves entry data for case 29 to CSV file
+def c32entry():      # function saves entry data for case 32 to CSV file
     Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=128, column=5)
     a = c32rt.get()
     b = c32he.get()
@@ -1263,7 +1374,8 @@ def c32entry():      # function saves entry data for case 29 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c32entry).grid(row=128, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c32entry).grid(row=128, column=1)
 
 # ----- End case 32 entry
 
@@ -1286,7 +1398,7 @@ Entry(scrollable_frame, textvariable=c33nrc, background='#e6e6e6').grid(row=132,
 Entry(scrollable_frame, textvariable=c33ab, background='#e6e6e6').grid(row=133, column=4)
 
 
-def c33entry():      # function saves entry data for case 29 to CSV file
+def c33entry():      # function saves entry data for case 33 to CSV file
     Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=132, column=5)
     a = c33rt.get()
     b = c33he.get()
@@ -1297,7 +1409,8 @@ def c33entry():      # function saves entry data for case 29 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c33entry).grid(row=132, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c33entry).grid(row=132, column=1)
 
 # ----- End case 33 entry
 
@@ -1320,7 +1433,7 @@ Entry(scrollable_frame, textvariable=c34nrc, background='#e6e6e6').grid(row=136,
 Entry(scrollable_frame, textvariable=c34ab, background='#e6e6e6').grid(row=137, column=4)
 
 
-def c34entry():      # function saves entry data for case 29 to CSV file
+def c34entry():      # function saves entry data for case 34 to CSV file
     Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=136, column=5)
     a = c34rt.get()
     b = c34he.get()
@@ -1331,7 +1444,8 @@ def c34entry():      # function saves entry data for case 29 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c34entry).grid(row=136, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c34entry).grid(row=136, column=1)
 
 # ----- End case 34 entry
 
@@ -1354,7 +1468,7 @@ Entry(scrollable_frame, textvariable=c35nrc, background='#e6e6e6').grid(row=140,
 Entry(scrollable_frame, textvariable=c35ab, background='#e6e6e6').grid(row=141, column=4)
 
 
-def c35entry():      # function saves entry data for case 29 to CSV file
+def c35entry():      # function saves entry data for case 35 to CSV file
     Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=140, column=5)
     a = c35rt.get()
     b = c35he.get()
@@ -1365,7 +1479,8 @@ def c35entry():      # function saves entry data for case 29 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c35entry).grid(row=140, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c35entry).grid(row=140, column=1)
 
 # ----- End case 35 entry
 
@@ -1388,7 +1503,7 @@ Entry(scrollable_frame, textvariable=c36nrc, background='#e6e6e6').grid(row=144,
 Entry(scrollable_frame, textvariable=c36ab, background='#e6e6e6').grid(row=145, column=4)
 
 
-def c36entry():      # function saves entry data for case 29 to CSV file
+def c36entry():      # function saves entry data for case 36 to CSV file
     Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=144, column=5)
     a = c36rt.get()
     b = c36he.get()
@@ -1399,7 +1514,8 @@ def c36entry():      # function saves entry data for case 29 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c36entry).grid(row=144, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c36entry).grid(row=144, column=1)
 
 # ----- End case 36 entry
 
@@ -1422,7 +1538,7 @@ Entry(scrollable_frame, textvariable=c37nrc, background='#e6e6e6').grid(row=148,
 Entry(scrollable_frame, textvariable=c37ab, background='#e6e6e6').grid(row=149, column=4)
 
 
-def c37entry():      # function saves entry data for case 29 to CSV file
+def c37entry():      # function saves entry data for case 37 to CSV file
     Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=148, column=5)
     a = c37rt.get()
     b = c37he.get()
@@ -1433,7 +1549,8 @@ def c37entry():      # function saves entry data for case 29 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c37entry).grid(row=148, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c37entry).grid(row=148, column=1)
 
 # ----- End case 37 entry
 
@@ -1456,7 +1573,7 @@ Entry(scrollable_frame, textvariable=c38nrc, background='#e6e6e6').grid(row=152,
 Entry(scrollable_frame, textvariable=c38ab, background='#e6e6e6').grid(row=153, column=4)
 
 
-def c38entry():      # function saves entry data for case 29 to CSV file
+def c38entry():      # function saves entry data for case 38 to CSV file
     Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=152, column=5)
     a = c38rt.get()
     b = c38he.get()
@@ -1467,7 +1584,8 @@ def c38entry():      # function saves entry data for case 29 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c38entry).grid(row=152, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c38entry).grid(row=152, column=1)
 
 # ----- End case 38 entry
 
@@ -1490,7 +1608,7 @@ Entry(scrollable_frame, textvariable=c39nrc, background='#e6e6e6').grid(row=156,
 Entry(scrollable_frame, textvariable=c39ab, background='#e6e6e6').grid(row=157, column=4)
 
 
-def c39entry():      # function saves entry data for case 29 to CSV file
+def c39entry():      # function saves entry data for case 39 to CSV file
     Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=156, column=5)
     a = c39rt.get()
     b = c39he.get()
@@ -1501,7 +1619,8 @@ def c39entry():      # function saves entry data for case 29 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c39entry).grid(row=156, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c39entry).grid(row=156, column=1)
 
 # ----- End case 39 entry
 
@@ -1524,7 +1643,7 @@ Entry(scrollable_frame, textvariable=c40nrc, background='#e6e6e6').grid(row=160,
 Entry(scrollable_frame, textvariable=c40ab, background='#e6e6e6').grid(row=161, column=4)
 
 
-def c40entry():      # function saves entry data for case 29 to CSV file
+def c40entry():      # function saves entry data for case 40 to CSV file
     Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=160, column=5)
     a = c40rt.get()
     b = c40he.get()
@@ -1535,24 +1654,714 @@ def c40entry():      # function saves entry data for case 29 to CSV file
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c40entry).grid(row=160, column=1)      # call save entry data function
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c40entry).grid(row=160, column=1)
 
 # ----- End case 40 entry
 
 
+# ----- Begin case 41 Entry
+
+Label(scrollable_frame, text="\nCASE 41", background='white', font='Arial 12 underline').grid(row=162, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=163, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=163, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=164, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=165, column=3)
+
+c41rt = StringVar()      # change variable type to string for user entry
+c41he = StringVar()
+c41nrc = StringVar()
+c41ab = StringVar()
+Entry(scrollable_frame, textvariable=c41rt, background='#e6e6e6').grid(row=164, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c41he, background='#e6e6e6').grid(row=163, column=4)
+Entry(scrollable_frame, textvariable=c41nrc, background='#e6e6e6').grid(row=164, column=4)
+Entry(scrollable_frame, textvariable=c41ab, background='#e6e6e6').grid(row=165, column=4)
 
 
+def c41entry():      # function saves entry data for case 41 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=164, column=5)
+    a = c41rt.get()
+    b = c41he.get()
+    c = c41nrc.get()
+    d = c41ab.get()
 
-
-def submit_all_entries():
-    list = {'case': 100}
+    list = {'case': 41, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
     big_dictionary(list)
 
 
-Button(scrollable_frame, text="Submit All Entries", background='#33adff', font='Arial 12 bold',
-       command=submit_all_entries).grid(row=170, column=1)
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c41entry).grid(row=164, column=1)
+
+# ----- End case 41 entry
 
 
+# ----- Begin case 42 Entry
+
+Label(scrollable_frame, text="\nCASE 41", background='white', font='Arial 12 underline').grid(row=166, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=167, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=167, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=168, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=169, column=3)
+
+c42rt = StringVar()      # change variable type to string for user entry
+c42he = StringVar()
+c42nrc = StringVar()
+c42ab = StringVar()
+Entry(scrollable_frame, textvariable=c42rt, background='#e6e6e6').grid(row=168, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c42he, background='#e6e6e6').grid(row=167, column=4)
+Entry(scrollable_frame, textvariable=c42nrc, background='#e6e6e6').grid(row=168, column=4)
+Entry(scrollable_frame, textvariable=c42ab, background='#e6e6e6').grid(row=169, column=4)
+
+
+def c42entry():      # function saves entry data for case 42 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=168, column=5)
+    a = c42rt.get()
+    b = c42he.get()
+    c = c42nrc.get()
+    d = c42ab.get()
+
+    list = {'case': 42, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c42entry).grid(row=168, column=1)
+
+# ----- End case 42 entry
+
+
+# ----- Begin case 43 Entry
+
+Label(scrollable_frame, text="\nCASE 43", background='white', font='Arial 12 underline').grid(row=170, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=171, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=171, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=172, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=173, column=3)
+
+c43rt = StringVar()      # change variable type to string for user entry
+c43he = StringVar()
+c43nrc = StringVar()
+c43ab = StringVar()
+Entry(scrollable_frame, textvariable=c43rt, background='#e6e6e6').grid(row=172, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c43he, background='#e6e6e6').grid(row=171, column=4)
+Entry(scrollable_frame, textvariable=c43nrc, background='#e6e6e6').grid(row=172, column=4)
+Entry(scrollable_frame, textvariable=c43ab, background='#e6e6e6').grid(row=173, column=4)
+
+
+def c43entry():      # function saves entry data for case 43 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=172, column=5)
+    a = c43rt.get()
+    b = c43he.get()
+    c = c43nrc.get()
+    d = c43ab.get()
+
+    list = {'case': 43, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c43entry).grid(row=172, column=1)
+
+# ----- End case 43 entry
+
+
+# ----- Begin case 44 Entry
+
+Label(scrollable_frame, text="\nCASE 44", background='white', font='Arial 12 underline').grid(row=174, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=175, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=175, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=176, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=177, column=3)
+
+c44rt = StringVar()      # change variable type to string for user entry
+c44he = StringVar()
+c44nrc = StringVar()
+c44ab = StringVar()
+Entry(scrollable_frame, textvariable=c44rt, background='#e6e6e6').grid(row=176, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c44he, background='#e6e6e6').grid(row=175, column=4)
+Entry(scrollable_frame, textvariable=c44nrc, background='#e6e6e6').grid(row=176, column=4)
+Entry(scrollable_frame, textvariable=c44ab, background='#e6e6e6').grid(row=177, column=4)
+
+
+def c44entry():      # function saves entry data for case 44 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=176, column=5)
+    a = c44rt.get()
+    b = c44he.get()
+    c = c44nrc.get()
+    d = c44ab.get()
+
+    list = {'case': 44, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c44entry).grid(row=176, column=1)
+
+# ----- End case 44 entry
+
+
+# ----- Begin case 45 Entry
+
+Label(scrollable_frame, text="\nCASE 45", background='white', font='Arial 12 underline').grid(row=178, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=179, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=179, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=180, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=181, column=3)
+
+c45rt = StringVar()      # change variable type to string for user entry
+c45he = StringVar()
+c45nrc = StringVar()
+c45ab = StringVar()
+Entry(scrollable_frame, textvariable=c45rt, background='#e6e6e6').grid(row=180, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c45he, background='#e6e6e6').grid(row=179, column=4)
+Entry(scrollable_frame, textvariable=c45nrc, background='#e6e6e6').grid(row=180, column=4)
+Entry(scrollable_frame, textvariable=c45ab, background='#e6e6e6').grid(row=181, column=4)
+
+
+def c45entry():      # function saves entry data for case 45 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=180, column=5)
+    a = c45rt.get()
+    b = c45he.get()
+    c = c45nrc.get()
+    d = c45ab.get()
+
+    list = {'case': 45, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c45entry).grid(row=180, column=1)
+
+# ----- End case 45 entry
+
+
+# ----- Begin case 46 Entry
+
+Label(scrollable_frame, text="\nCASE 46", background='white', font='Arial 12 underline').grid(row=182, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=183, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=183, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=184, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=185, column=3)
+
+c46rt = StringVar()      # change variable type to string for user entry
+c46he = StringVar()
+c46nrc = StringVar()
+c46ab = StringVar()
+Entry(scrollable_frame, textvariable=c46rt, background='#e6e6e6').grid(row=184, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c46he, background='#e6e6e6').grid(row=183, column=4)
+Entry(scrollable_frame, textvariable=c46nrc, background='#e6e6e6').grid(row=184, column=4)
+Entry(scrollable_frame, textvariable=c46ab, background='#e6e6e6').grid(row=185, column=4)
+
+
+def c46entry():      # function saves entry data for case 46 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=184, column=5)
+    a = c46rt.get()
+    b = c46he.get()
+    c = c46nrc.get()
+    d = c46ab.get()
+
+    list = {'case': 46, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c46entry).grid(row=184, column=1)
+
+# ----- End case 46 entry
+
+
+# ----- Begin case 47 Entry
+
+Label(scrollable_frame, text="\nCASE 47", background='white', font='Arial 12 underline').grid(row=186, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=187, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=187, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=188, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=189, column=3)
+
+c47rt = StringVar()      # change variable type to string for user entry
+c47he = StringVar()
+c47nrc = StringVar()
+c47ab = StringVar()
+Entry(scrollable_frame, textvariable=c47rt, background='#e6e6e6').grid(row=188, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c47he, background='#e6e6e6').grid(row=187, column=4)
+Entry(scrollable_frame, textvariable=c47nrc, background='#e6e6e6').grid(row=188, column=4)
+Entry(scrollable_frame, textvariable=c47ab, background='#e6e6e6').grid(row=189, column=4)
+
+
+def c47entry():      # function saves entry data for case 47 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=188, column=5)
+    a = c47rt.get()
+    b = c47he.get()
+    c = c47nrc.get()
+    d = c47ab.get()
+
+    list = {'case': 47, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c47entry).grid(row=188, column=1)
+
+# ----- End case 47 entry
+
+
+# ----- Begin case 48 Entry
+
+Label(scrollable_frame, text="\nCASE 48", background='white', font='Arial 12 underline').grid(row=190, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=191, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=191, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=192, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=193, column=3)
+
+c48rt = StringVar()      # change variable type to string for user entry
+c48he = StringVar()
+c48nrc = StringVar()
+c48ab = StringVar()
+Entry(scrollable_frame, textvariable=c48rt, background='#e6e6e6').grid(row=192, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c48he, background='#e6e6e6').grid(row=191, column=4)
+Entry(scrollable_frame, textvariable=c48nrc, background='#e6e6e6').grid(row=192, column=4)
+Entry(scrollable_frame, textvariable=c48ab, background='#e6e6e6').grid(row=193, column=4)
+
+
+def c48entry():      # function saves entry data for case 48 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=192, column=5)
+    a = c48rt.get()
+    b = c48he.get()
+    c = c48nrc.get()
+    d = c48ab.get()
+
+    list = {'case': 48, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c48entry).grid(row=192, column=1)
+
+# ----- End case 48 entry
+
+
+# ----- Begin case 49 Entry
+
+Label(scrollable_frame, text="\nCASE 49", background='white', font='Arial 12 underline').grid(row=194, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=195, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=195, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=196, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=197, column=3)
+
+c49rt = StringVar()      # change variable type to string for user entry
+c49he = StringVar()
+c49nrc = StringVar()
+c49ab = StringVar()
+Entry(scrollable_frame, textvariable=c49rt, background='#e6e6e6').grid(row=196, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c49he, background='#e6e6e6').grid(row=195, column=4)
+Entry(scrollable_frame, textvariable=c49nrc, background='#e6e6e6').grid(row=196, column=4)
+Entry(scrollable_frame, textvariable=c49ab, background='#e6e6e6').grid(row=197, column=4)
+
+
+def c49entry():      # function saves entry data for case 49 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=196, column=5)
+    a = c49rt.get()
+    b = c49he.get()
+    c = c49nrc.get()
+    d = c49ab.get()
+
+    list = {'case': 49, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c49entry).grid(row=196, column=1)
+
+# ----- End case 49 entry
+
+
+# ----- Begin case 50 Entry
+
+Label(scrollable_frame, text="\nCASE 50", background='white', font='Arial 12 underline').grid(row=198, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=199, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=199, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=200, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=201, column=3)
+
+c50rt = StringVar()      # change variable type to string for user entry
+c50he = StringVar()
+c50nrc = StringVar()
+c50ab = StringVar()
+Entry(scrollable_frame, textvariable=c50rt, background='#e6e6e6').grid(row=200, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c50he, background='#e6e6e6').grid(row=199, column=4)
+Entry(scrollable_frame, textvariable=c50nrc, background='#e6e6e6').grid(row=200, column=4)
+Entry(scrollable_frame, textvariable=c50ab, background='#e6e6e6').grid(row=201, column=4)
+
+
+def c50entry():      # function saves entry data for case 50 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=200, column=5)
+    a = c50rt.get()
+    b = c50he.get()
+    c = c50nrc.get()
+    d = c50ab.get()
+
+    list = {'case': 50, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c50entry).grid(row=200, column=1)
+
+# ----- End case 50 entry
+
+
+# ----- Begin case 51 Entry
+
+Label(scrollable_frame, text="\nCASE 51", background='white', font='Arial 12 underline').grid(row=202, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=203, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=203, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=204, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=205, column=3)
+
+c51rt = StringVar()      # change variable type to string for user entry
+c51he = StringVar()
+c51nrc = StringVar()
+c51ab = StringVar()
+Entry(scrollable_frame, textvariable=c51rt, background='#e6e6e6').grid(row=204, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c51he, background='#e6e6e6').grid(row=203, column=4)
+Entry(scrollable_frame, textvariable=c51nrc, background='#e6e6e6').grid(row=204, column=4)
+Entry(scrollable_frame, textvariable=c51ab, background='#e6e6e6').grid(row=205, column=4)
+
+
+def c51entry():      # function saves entry data for case 51 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=204, column=5)
+    a = c51rt.get()
+    b = c51he.get()
+    c = c51nrc.get()
+    d = c51ab.get()
+
+    list = {'case': 51, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c51entry).grid(row=204, column=1)
+
+# ----- End case 51 entry
+
+
+# ----- Begin case 52 Entry
+
+Label(scrollable_frame, text="\nCASE 52", background='white', font='Arial 12 underline').grid(row=206, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=207, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=207, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=208, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=209, column=3)
+
+c52rt = StringVar()      # change variable type to string for user entry
+c52he = StringVar()
+c52nrc = StringVar()
+c52ab = StringVar()
+Entry(scrollable_frame, textvariable=c52rt, background='#e6e6e6').grid(row=208, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c52he, background='#e6e6e6').grid(row=207, column=4)
+Entry(scrollable_frame, textvariable=c52nrc, background='#e6e6e6').grid(row=208, column=4)
+Entry(scrollable_frame, textvariable=c52ab, background='#e6e6e6').grid(row=209, column=4)
+
+
+def c52entry():      # function saves entry data for case 52 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=208, column=5)
+    a = c52rt.get()
+    b = c52he.get()
+    c = c52nrc.get()
+    d = c52ab.get()
+
+    list = {'case': 52, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c52entry).grid(row=208, column=1)
+
+# ----- End case 52 entry
+
+
+# ----- Begin case 53 Entry
+
+Label(scrollable_frame, text="\nCASE 53", background='white', font='Arial 12 underline').grid(row=210, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=211, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=211, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=212, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=213, column=3)
+
+c53rt = StringVar()      # change variable type to string for user entry
+c53he = StringVar()
+c53nrc = StringVar()
+c53ab = StringVar()
+Entry(scrollable_frame, textvariable=c53rt, background='#e6e6e6').grid(row=212, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c53he, background='#e6e6e6').grid(row=211, column=4)
+Entry(scrollable_frame, textvariable=c53nrc, background='#e6e6e6').grid(row=212, column=4)
+Entry(scrollable_frame, textvariable=c53ab, background='#e6e6e6').grid(row=213, column=4)
+
+
+def c53entry():      # function saves entry data for case 53 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=212, column=5)
+    a = c53rt.get()
+    b = c53he.get()
+    c = c53nrc.get()
+    d = c53ab.get()
+
+    list = {'case': 53, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c53entry).grid(row=212, column=1)
+
+# ----- End case 53 entry
+
+
+# ----- Begin case 54 Entry
+
+Label(scrollable_frame, text="\nCASE 54", background='white', font='Arial 12 underline').grid(row=214, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=215, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=215, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=216, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=217, column=3)
+
+c54rt = StringVar()      # change variable type to string for user entry
+c54he = StringVar()
+c54nrc = StringVar()
+c54ab = StringVar()
+Entry(scrollable_frame, textvariable=c54rt, background='#e6e6e6').grid(row=216, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c54he, background='#e6e6e6').grid(row=215, column=4)
+Entry(scrollable_frame, textvariable=c54nrc, background='#e6e6e6').grid(row=216, column=4)
+Entry(scrollable_frame, textvariable=c54ab, background='#e6e6e6').grid(row=217, column=4)
+
+
+def c54entry():      # function saves entry data for case 54 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=216, column=5)
+    a = c54rt.get()
+    b = c54he.get()
+    c = c54nrc.get()
+    d = c54ab.get()
+
+    list = {'case': 54, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c54entry).grid(row=216, column=1)
+
+# ----- End case 54 entry
+
+
+# ----- Begin case 55 Entry
+
+Label(scrollable_frame, text="\nCASE 55", background='white', font='Arial 12 underline').grid(row=218, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=219, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=219, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=220, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=221, column=3)
+
+c55rt = StringVar()      # change variable type to string for user entry
+c55he = StringVar()
+c55nrc = StringVar()
+c55ab = StringVar()
+Entry(scrollable_frame, textvariable=c55rt, background='#e6e6e6').grid(row=220, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c55he, background='#e6e6e6').grid(row=219, column=4)
+Entry(scrollable_frame, textvariable=c55nrc, background='#e6e6e6').grid(row=220, column=4)
+Entry(scrollable_frame, textvariable=c55ab, background='#e6e6e6').grid(row=221, column=4)
+
+
+def c55entry():      # function saves entry data for case 55 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=220, column=5)
+    a = c55rt.get()
+    b = c55he.get()
+    c = c55nrc.get()
+    d = c55ab.get()
+
+    list = {'case': 55, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c55entry).grid(row=220, column=1)
+
+# ----- End case 55 entry
+
+
+# ----- Begin case 56 Entry
+
+Label(scrollable_frame, text="\nCASE 56", background='white', font='Arial 12 underline').grid(row=222, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=223, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=223, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=224, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=225, column=3)
+
+c56rt = StringVar()      # change variable type to string for user entry
+c56he = StringVar()
+c56nrc = StringVar()
+c56ab = StringVar()
+Entry(scrollable_frame, textvariable=c56rt, background='#e6e6e6').grid(row=224, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c56he, background='#e6e6e6').grid(row=223, column=4)
+Entry(scrollable_frame, textvariable=c56nrc, background='#e6e6e6').grid(row=224, column=4)
+Entry(scrollable_frame, textvariable=c56ab, background='#e6e6e6').grid(row=225, column=4)
+
+
+def c56entry():      # function saves entry data for case 56 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=224, column=5)
+    a = c56rt.get()
+    b = c56he.get()
+    c = c56nrc.get()
+    d = c56ab.get()
+
+    list = {'case': 56, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c56entry).grid(row=224, column=1)
+
+# ----- End case 56 entry
+
+
+# ----- Begin case 57 Entry
+
+Label(scrollable_frame, text="\nCASE 57", background='white', font='Arial 12 underline').grid(row=226, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=227, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=227, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=228, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=229, column=3)
+
+c57rt = StringVar()      # change variable type to string for user entry
+c57he = StringVar()
+c57nrc = StringVar()
+c57ab = StringVar()
+Entry(scrollable_frame, textvariable=c57rt, background='#e6e6e6').grid(row=228, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c57he, background='#e6e6e6').grid(row=227, column=4)
+Entry(scrollable_frame, textvariable=c57nrc, background='#e6e6e6').grid(row=228, column=4)
+Entry(scrollable_frame, textvariable=c57ab, background='#e6e6e6').grid(row=229, column=4)
+
+
+def c57entry():      # function saves entry data for case 57 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=228, column=5)
+    a = c57rt.get()
+    b = c57he.get()
+    c = c57nrc.get()
+    d = c57ab.get()
+
+    list = {'case': 57, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c57entry).grid(row=228, column=1)
+
+# ----- End case 57 entry
+
+
+# ----- Begin case 58 Entry
+
+Label(scrollable_frame, text="\nCASE 58", background='white', font='Arial 12 underline').grid(row=230, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=231, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=231, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=232, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=233, column=3)
+
+c58rt = StringVar()      # change variable type to string for user entry
+c58he = StringVar()
+c58nrc = StringVar()
+c58ab = StringVar()
+Entry(scrollable_frame, textvariable=c58rt, background='#e6e6e6').grid(row=232, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c58he, background='#e6e6e6').grid(row=231, column=4)
+Entry(scrollable_frame, textvariable=c58nrc, background='#e6e6e6').grid(row=232, column=4)
+Entry(scrollable_frame, textvariable=c58ab, background='#e6e6e6').grid(row=233, column=4)
+
+
+def c58entry():      # function saves entry data for case 58 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=232, column=5)
+    a = c58rt.get()
+    b = c58he.get()
+    c = c58nrc.get()
+    d = c58ab.get()
+
+    list = {'case': 58, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c58entry).grid(row=232, column=1)
+
+# ----- End case 58 entry
+
+
+# ----- Begin case 59 Entry
+
+Label(scrollable_frame, text="\nCASE 59", background='white', font='Arial 12 underline').grid(row=234, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=235, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=235, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=236, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=237, column=3)
+
+c59rt = StringVar()      # change variable type to string for user entry
+c59he = StringVar()
+c59nrc = StringVar()
+c59ab = StringVar()
+Entry(scrollable_frame, textvariable=c59rt, background='#e6e6e6').grid(row=236, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c59he, background='#e6e6e6').grid(row=235, column=4)
+Entry(scrollable_frame, textvariable=c59nrc, background='#e6e6e6').grid(row=236, column=4)
+Entry(scrollable_frame, textvariable=c59ab, background='#e6e6e6').grid(row=237, column=4)
+
+
+def c59entry():      # function saves entry data for case 59 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=236, column=5)
+    a = c59rt.get()
+    b = c59he.get()
+    c = c59nrc.get()
+    d = c59ab.get()
+
+    list = {'case': 59, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c59entry).grid(row=236, column=1)
+
+# ----- End case 59 entry
+
+
+# ----- Begin case 60 Entry
+
+Label(scrollable_frame, text="\nCASE 60", background='white', font='Arial 12 underline').grid(row=238, column=1)
+Label(scrollable_frame, text="Reagent Type:", background='white', font='Arial 12').grid(row=239, column=2)
+Label(scrollable_frame, text="       h&e:", background='white', font='Arial 12').grid(row=239, column=3)
+Label(scrollable_frame, text="       Nrc:", background='white', font='Arial 12').grid(row=240, column=3)
+Label(scrollable_frame, text="       Ab:", background='white', font='Arial 12').grid(row=241, column=3)
+
+c60rt = StringVar()      # change variable type to string for user entry
+c60he = StringVar()
+c60nrc = StringVar()
+c60ab = StringVar()
+Entry(scrollable_frame, textvariable=c60rt, background='#e6e6e6').grid(row=240, column=2)      # user entry bars
+Entry(scrollable_frame, textvariable=c60he, background='#e6e6e6').grid(row=239, column=4)
+Entry(scrollable_frame, textvariable=c60nrc, background='#e6e6e6').grid(row=240, column=4)
+Entry(scrollable_frame, textvariable=c60ab, background='#e6e6e6').grid(row=241, column=4)
+
+
+def c60entry():      # function saves entry data for case 60 to CSV file
+    Label(scrollable_frame, text="SAVED", background='white', font='Arial 12').grid(row=240, column=5)
+    a = c60rt.get()
+    b = c60he.get()
+    c = c60nrc.get()
+    d = c60ab.get()
+
+    list = {'case': 60, 'Reagent Type': a, 'h&e Slide': b, 'Nrc Slide': c, 'Ab Slide': d}
+    big_dictionary(list)
+
+
+# save entry button
+Button(scrollable_frame, text="Save", background='#2eb82e', font='Arial 12 bold', command=c60entry).grid(row=240, column=1)
+
+# ----- End case 60 entry
+
+
+Label(scrollable_frame, text="\nSubmit button will not appear until all entries are saved.\n(including empty cases)",
+      background='white', font='Arial 12 bold').grid(row=242, column=1, columnspan=3)
 
 
 set_wind.mainloop()
