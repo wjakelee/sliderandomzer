@@ -5,10 +5,12 @@ window = Tk()
 window.geometry('800x400')
 
 # In order to prevent the window from getting resized you will call 'resizable' method on the window
-window.resizable(0, 0)
+#window.resizable(0, 0)
 
 window.title("PIN")
-
+top_frame = Frame(window, background='white')
+top_frame.place(anchor='nw', relwidth=1, relheight=1)
+Label(top_frame, text = "Please enter your PIN below:",font = 'Arial 20 bold', bg = "white").place(relx=0.5, rely=0.05, anchor = 'n')
 
 # Let's now define the required functions for the PIN to function properly.
 
@@ -44,7 +46,7 @@ input_text = StringVar()
 
 # The first thing is to create a frame for the input field
 input_frame = Frame(window, width = 312, height = 50, bd = 0, highlightbackground = "black", highlightcolor = "black", highlightthickness = 1)
-input_frame.pack(side = TOP)
+input_frame.place(relx=0.5, rely=0.16, anchor = 'n')
 
 
 # Then you will create an input field inside the 'Frame' that was created in the previous step. Here the digits or the output will be displayed as 'right' aligned
@@ -55,32 +57,36 @@ input_field.pack(ipady = 10) # 'ipady' is an internal padding to increase the he
 
 # Once you have the input field defined then you need a separate frame which will incorporate all the buttons inside it below the 'input field'
 btns_frame = Frame(window, width = 312, height = 272.5, bg = "grey")
-btns_frame.pack()
+btns_frame.place(relx=0.5, rely=0.3, anchor = 'n')
 
 
 # The first row will comprise of the buttons 'Clear (C)'
-clear = Button(btns_frame, text = "C", fg = "black", width = 32, height = 3, bd = 0, bg = "#eee", cursor = "hand2", command = lambda: btn_clear()).grid(row = 0, column = 0, columnspan = 3, padx = 1, pady = 1)
+#clear = Button(btns_frame, text = "C", fg = "black", width = 32, height = 3, bd = 0, bg = "#CEF6F5", cursor = "hand2", command = lambda: btn_clear()).grid(row = 0, column = 0, columnspan = 3, padx = 1, pady = 1)
 
 
 # The second row will comprise of the buttons '7', '8', '9'
-seven = Button(btns_frame, text = "7", fg = "black", width = 10, height = 3, bd = 0, bg = "#fff", cursor = "hand2", command = lambda: btn_click(7)).grid(row = 1, column = 0, padx = 1, pady = 1)
-eight = Button(btns_frame, text = "8", fg = "black", width = 10, height = 3, bd = 0, bg = "#fff", cursor = "hand2", command = lambda: btn_click(8)).grid(row = 1, column = 1, padx = 1, pady = 1)
-nine = Button(btns_frame, text = "9", fg = "black", width = 10, height = 3, bd = 0, bg = "#fff", cursor = "hand2", command = lambda: btn_click(9)).grid(row = 1, column = 2, padx = 1, pady = 1)
+seven = Button(btns_frame, text = "7", fg = "black", width = 10, height = 3, bd = 0, bg = "#81DAF5", cursor = "hand2", command = lambda: btn_click(7)).grid(row = 1, column = 0, padx = 1, pady = 1)
+eight = Button(btns_frame, text = "8", fg = "black", width = 10, height = 3, bd = 0, bg = "#81DAF5", cursor = "hand2", command = lambda: btn_click(8)).grid(row = 1, column = 1, padx = 1, pady = 1)
+nine = Button(btns_frame, text = "9", fg = "black", width = 10, height = 3, bd = 0, bg = "#81DAF5", cursor = "hand2", command = lambda: btn_click(9)).grid(row = 1, column = 2, padx = 1, pady = 1)
 
 
 # The third row will comprise of the buttons '4', '5', '6'
-four = Button(btns_frame, text = "4", fg = "black", width = 10, height = 3, bd = 0, bg = "#fff", cursor = "hand2", command = lambda: btn_click(4)).grid(row = 2, column = 0, padx = 1, pady = 1)
-five = Button(btns_frame, text = "5", fg = "black", width = 10, height = 3, bd = 0, bg = "#fff", cursor = "hand2", command = lambda: btn_click(5)).grid(row = 2, column = 1, padx = 1, pady = 1)
-six = Button(btns_frame, text = "6", fg = "black", width = 10, height = 3, bd = 0, bg = "#fff", cursor = "hand2", command = lambda: btn_click(6)).grid(row = 2, column = 2, padx = 1, pady = 1)
+four = Button(btns_frame, text = "4", fg = "black", width = 10, height = 3, bd = 0, bg = "#81DAF5", cursor = "hand2", command = lambda: btn_click(4)).grid(row = 2, column = 0, padx = 1, pady = 1)
+five = Button(btns_frame, text = "5", fg = "black", width = 10, height = 3, bd = 0, bg = "#81DAF5", cursor = "hand2", command = lambda: btn_click(5)).grid(row = 2, column = 1, padx = 1, pady = 1)
+six = Button(btns_frame, text = "6", fg = "black", width = 10, height = 3, bd = 0, bg = "#81DAF5", cursor = "hand2", command = lambda: btn_click(6)).grid(row = 2, column = 2, padx = 1, pady = 1)
 
 
 # The fourth row will comprise of the buttons '1', '2', '3'
-one = Button(btns_frame, text = "1", fg = "black", width = 10, height = 3, bd = 0, bg = "#fff", cursor = "hand2", command = lambda: btn_click(1)).grid(row = 3, column = 0, padx = 1, pady = 1)
-two = Button(btns_frame, text = "2", fg = "black", width = 10, height = 3, bd = 0, bg = "#fff", cursor = "hand2", command = lambda: btn_click(2)).grid(row = 3, column = 1, padx = 1, pady = 1)
-three = Button(btns_frame, text = "3", fg = "black", width = 10, height = 3, bd = 0, bg = "#fff", cursor = "hand2", command = lambda: btn_click(3)).grid(row = 3, column = 2, padx = 1, pady = 1)
+one = Button(btns_frame, text = "1", fg = "black", width = 10, height = 3, bd = 0, bg = "#81DAF5", cursor = "hand2", command = lambda: btn_click(1)).grid(row = 3, column = 0, padx = 1, pady = 1)
+two = Button(btns_frame, text = "2", fg = "black", width = 10, height = 3, bd = 0, bg = "#81DAF5", cursor = "hand2", command = lambda: btn_click(2)).grid(row = 3, column = 1, padx = 1, pady = 1)
+three = Button(btns_frame, text = "3", fg = "black", width = 10, height = 3, bd = 0, bg = "#81DAF5", cursor = "hand2", command = lambda: btn_click(3)).grid(row = 3, column = 2, padx = 1, pady = 1)
 
 # Finally, the fifth row will comprise of the buttons '0'
-zero = Button(btns_frame, text = "0", fg = "black", width = 21, height = 3, bd = 0, bg = "#fff", cursor = "hand2", command = lambda: btn_click(0)).grid(row = 4, column = 0, columnspan = 2, padx = 1, pady = 1)
-enter = Button(btns_frame, text = "Enter", fg = "black", width = 10, height = 3, bd = 0, bg = "#eee", cursor = "hand2", command = lambda: btn_click("")).grid(row = 4, column = 2, padx = 1, pady = 1)
+zero = Button(btns_frame, text = "0", fg = "black", width = 10, height = 3, bd = 0, bg = "#81DAF5", cursor = "hand2", command = lambda: btn_click(0)).grid(row = 4, column = 1, padx = 1, pady = 1)
+clear = Button(btns_frame,text='Clear',fg = "black", width = 10, height = 3, bd = 0, bg = "#F6CEF5", cursor = "hand2", command=btn_clear).grid(row = 4, column = 0, padx = 1, pady = 1)
+enter = Button(btns_frame, text = "Enter", fg = "black", width = 10, height = 3, bd = 0, bg = "#58FAAC", cursor = "hand2", command = lambda: btn_click("")).grid(row = 4, column = 2, padx = 1, pady = 1)
 #figure out how to get enter button to work
+
+Button(top_frame, text = "Exit to Desktop", fg = "black", bg = "#ff4d4d").place(relx=1.0, rely=1.0, anchor=SE)
+
 window.mainloop()
