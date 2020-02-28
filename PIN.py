@@ -85,7 +85,7 @@ three = Button(btns_frame, text = "3", fg = "black", width = 10, height = 3, bd 
 zero = Button(btns_frame, text = "0", fg = "black", width = 10, height = 3, bd = 0, bg = "#81DAF5", cursor = "hand2", command = lambda: btn_click(0)).grid(row = 4, column = 1, padx = 1, pady = 1)
 clear = Button(btns_frame,text='Clear',fg = "black", width = 10, height = 3, bd = 0, bg = "#F6CEF5", cursor = "hand2", command=btn_clear).grid(row = 4, column = 0, padx = 1, pady = 1)
 enter = Button(btns_frame, text = "Enter", fg = "black", width = 10, height = 3, bd = 0, bg = "#58FAAC", cursor = "hand2", command = lambda: btn_click("")).grid(row = 4, column = 2, padx = 1, pady = 1)
-#figure out how to get enter and clear button to work
+#figure out how to get enter button to work
 
 Button(top_frame, text = "Exit to Desktop", fg = "black", bg = "#ff4d4d").place(relx=1.0, rely=1.0, anchor=SE)
 
