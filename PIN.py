@@ -61,7 +61,7 @@ btns_frame.place(relx=0.5, rely=0.3, anchor = 'n')
 
 
 # The first row will comprise of the buttons 'Clear (C)'
-clear = Button(btns_frame, text = "C", fg = "black", width = 32, height = 3, bd = 0, bg = "#CEF6F5", cursor = "hand2", command = lambda: btn_clear()).grid(row = 0, column = 0, columnspan = 3, padx = 1, pady = 1)
+#clear = Button(btns_frame, text = "C", fg = "black", width = 32, height = 3, bd = 0, bg = "#CEF6F5", cursor = "hand2", command = lambda: btn_clear()).grid(row = 0, column = 0, columnspan = 3, padx = 1, pady = 1)
 
 
 # The second row will comprise of the buttons '7', '8', '9'
@@ -83,7 +83,7 @@ three = Button(btns_frame, text = "3", fg = "black", width = 10, height = 3, bd 
 
 # Finally, the fifth row will comprise of the buttons '0'
 zero = Button(btns_frame, text = "0", fg = "black", width = 10, height = 3, bd = 0, bg = "#81DAF5", cursor = "hand2", command = lambda: btn_click(0)).grid(row = 4, column = 1, padx = 1, pady = 1)
-clear = Button(btns_frame,text='Clear',fg = "black", width = 10, height = 3, bd = 0, bg = "#F6CEF5", cursor = "hand2", command=clear).grid(row = 4, column = 0, padx = 1, pady = 1)
+clear = Button(btns_frame,text='Clear',fg = "black", width = 10, height = 3, bd = 0, bg = "#F6CEF5", cursor = "hand2", command=btn_clear).grid(row = 4, column = 0, padx = 1, pady = 1)
 enter = Button(btns_frame, text = "Enter", fg = "black", width = 10, height = 3, bd = 0, bg = "#58FAAC", cursor = "hand2", command = lambda: btn_click("")).grid(row = 4, column = 2, padx = 1, pady = 1)
 #figure out how to get enter and clear button to work
 
