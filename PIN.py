@@ -87,6 +87,6 @@ clear = Button(btns_frame,text='Clear',fg = "black", width = 10, height = 3, bd 
 enter = Button(btns_frame, text = "Enter", fg = "black", width = 10, height = 3, bd = 0, bg = "#58FAAC", cursor = "hand2", command = lambda: btn_click("")).grid(row = 4, column = 2, padx = 1, pady = 1)
 #figure out how to get enter button to work
 
-Button(top_frame, text = "Exit to Desktop", fg = "black", bg = "#ff4d4d").place(relx=1.0, rely=1.0, anchor=SE)
+Button(top_frame, text = "Back To Home", fg = "black", bg = "#81DAF5").place(relx=1.0, rely=1.0, anchor=SE)
 
 window.mainloop()
