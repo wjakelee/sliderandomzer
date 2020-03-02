@@ -15,6 +15,6 @@ Button(top_frame, text = "Generate Randomization Order", font = 'Arial 14 bold',
 
 Button(top_frame, text = "Export Data", font = 'Arial 14 bold', width = '25', height = '3', fg = "black", bg = "#99ff66").place(relx=0.5, rely=0.75, anchor=CENTER)
 
-Button(top_frame, text = "Exit to Desktop", fg = "black", bg = "#ff4d4d").place(relx=1.0, rely=1.0, anchor=SE)
+Button(top_frame, text = "Back To Home", fg = "black", bg = "#81DAF5").place(relx=1.0, rely=1.0, anchor=SE)
 
 window.mainloop()
