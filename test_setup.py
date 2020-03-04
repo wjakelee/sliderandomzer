@@ -90,7 +90,7 @@ case60 = Data(0, 0, 0)
 def selectfile():
     global case1, case2, case3, case4, case5, case6, case7, case8, case9, case10, case11, case12, case13, case14,\
         case15, case16, case17, case18, case19, case20, case21, case22, case23, case24, case25, case26, case27, \
-        case28, case29, case30, case31, case32, case33, case34, case35, case36, case27, case38, case39, case40, \
+        case28, case29, case30, case31, case32, case33, case34, case35, case36, case37, case38, case39, case40, \
         case41, case42, case43, case44, case45, case46, case47, case48, case49, case50, case51, case52, case53, \
         case54, case55, case56, case57, case58, case59, case60
 
@@ -101,7 +101,7 @@ def selectfile():
     with open(selected_file, 'r', newline='') as setupfile:                     # opens selected file for reading
         file_reader = csv.DictReader(setupfile)                                 # reads selected file as dictionary
 
-        # loops through csv file and stores barcode information for each case in instance variables of the class 'Data'
+        # loops through csv file and stores barcode information for each case in attributes of the class 'Data'
         for row in file_reader:
             if row['case'] == '1':
                 case1 = Data(row['he'], row['nrc'], row['ab'])
