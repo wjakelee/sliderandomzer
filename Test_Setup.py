@@ -41,6 +41,19 @@ class TestSetup(Frame):
             Label(self, text="Setup file read.\nScan and read a slide to determine its corresponding case and slot:",
                   background='white', font='Arial 12 bold').place(anchor='n', relx=.5, rely=.325)
 
+            # initializes barcode_entry variable as type: string
+            barcode_entry = StringVar()
+
+            # entry field for scanned barcode
+            Entry(self, textvariable=barcode_entry, background='#e6e6e6', font='Arial 20', ).place(
+                anchor='n', relx=.575, rely=.45, width='450', height='70')
+
+            # button to read the scanned barcode, command calls 'compare' function
+            Button(self, text='Read\nBarcode', font='Arial 12 bold', bg='#00cc66', activebackground='#80ffbf',
+                   height='3', width='10', command=lambda: compare(barcode_entry.get(), barcodes)).place(anchor='n',
+                                                                                                         relx=.2,
+                                                                                                         rely=.45)
+
             # prompts user to place slide in the correct slot depending on the barcode scanned
             def compare(barcode_entry, barcodes):
 
@@ -54,19 +67,6 @@ class TestSetup(Frame):
                             Label(self, textvariable=key_val, font='Arial 12 bold').place(anchor='n', relx=.52,
                                                                                           rely=.7)
                             Label(self, text='Slot #:', font='Arial 12 bold').place(anchor='n', relx=.48, rely=.7)
-
-            # initializes barcode_entry variable as type: string
-            barcode_entry = StringVar()
-
-            # entry field for scanned barcode
-            Entry(self, textvariable=barcode_entry, background='#e6e6e6', font='Arial 20', ).place(
-                anchor='n', relx=.575, rely=.45, width='450', height='70')
-
-            # button to read the scanned barcode, command calls 'compare' function
-            Button(self, text='Read\nBarcode', font='Arial 12 bold', bg='#00cc66', activebackground='#80ffbf',
-                   height='3', width='10', command=lambda: compare(barcode_entry.get(), barcodes)).place(anchor='n',
-                                                                                                         relx=.2,
-                                                                                                         rely=.45)
 
 # need to figure how to run this module on its own
 
