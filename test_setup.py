@@ -14,13 +14,6 @@ frame.place(anchor='nw', relwidth=1, relheight=1)       # Frame placement
 Label(frame, text="TEST SETUP", background='white', font='Arial 20 bold underline').place(anchor='n', relx=.5)
 
 
-# class Data:
-#     def __init__(self, he, nrc, ab):
-#         self.he = he
-#         self.nrc = nrc
-#         self.ab = ab
-
-
 cases = {}
 barcodes = {}
 
@@ -44,14 +37,13 @@ def select_file(cases, barcodes):
 
     # prompts user to place slide in the correct slot depending on the barcode scanned
     def compare(barcode_entry, barcodes):
-
         for case, case_info in barcodes.items():      # loops through 'barcodes' dictionary
             for key in case_info:
                 if barcode_entry == key:              # checks to see if scanned barcode matches a value from csv file
                     Label(frame, text="Place scanned slide in the illuminated slot.", background='white',
                           font='Arial 12 bold').place(anchor='n', relx=.5, rely=.65)
                     key_val = StringVar()
-                    key_val.set(key)
+                    key_val.set(case)
                     Label(frame, textvariable=key_val, font='Arial 12 bold').place(anchor='n', relx=.52, rely=.7)
                     Label(frame, text='Slot #:', font='Arial 12 bold').place(anchor='n', relx=.48, rely=.7)
 
