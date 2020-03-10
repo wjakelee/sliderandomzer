@@ -20,7 +20,7 @@ class StartPage(Frame):                         # start up / home page, class in
 
         # Button exits desktop (doesnt do anything yet, may not actually need this button)
         Button(self, text="Exit to Desktop", font="Arial 14", fg="black", bg="#ff4d4d", width='15',
-               height='2').place(relx=1.0, rely=1.0, anchor=SE)
+               height='2', command=parent.master.destroy).place(relx=1.0, rely=1.0, anchor=SE)
 
 
 # need to figure how to run this module on its own
