@@ -10,9 +10,9 @@ class SetDatRand(Frame):
         Button(self, text="Test Setup", fg="black", font='Arial 14 bold', width='25', height='3',
                bg="#01DF3A", command=lambda: controller.show_frame("TestSetup")).place(relx=0.5, rely=0.25, anchor=CENTER)
 
-        # button takes you to Data File and Randomization page (still need to setup)
+        # button takes you to Data File and Randomization page
         Button(self, text="Data File & Randomization", font='Arial 14 bold', width='25', height='3', fg="black",
-               bg="#2E9AFE").place(relx=0.5, rely=0.5, anchor=CENTER)
+               bg="#2E9AFE", command=lambda: controller.show_frame("RandAndFile")).place(relx=0.5, rely=0.5, anchor=CENTER)
 
         # button calls show_frame method and takes you to Start Page
         Button(self, text="Back To Home", fg="black", bg="#81DAF5", font="Arial 14", width='15', height='2',
