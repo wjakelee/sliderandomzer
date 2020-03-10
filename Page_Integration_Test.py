@@ -1,9 +1,9 @@
 from tkinter import *
-from tkinter import filedialog
-from test_setup import TestSetup
-from SetDatRand import SetDatRand
-from Login import Login
-from Homepage import StartPage
+from Test_Setup import TestSetup
+from Set_Dat_Rand import SetDatRand
+from Login_Page import Login
+from Start_Page import StartPage
+from Rand_And_Data import RandAndFile
 
 
 class Application(Tk):
@@ -20,12 +20,13 @@ class Application(Tk):
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}                      # initializes a dictionary that will store different page frames
-        self.pages = {'StartPage': StartPage, 'Login': Login, 'SetDatRand': SetDatRand, 'TestSetup': TestSetup}
+        self.pages = {'StartPage': StartPage, 'Login': Login, 'SetDatRand': SetDatRand, 'TestSetup': TestSetup,
+                      'RandAndFile': RandAndFile}
 
-        for name, F in self.pages.items():                      # loops through page frames to add to dictionary
+        for name, F in self.pages.items():                      # loops through dictionary 'pages'
             frame = F(container, self)                              # assigns iterated frame to a variable 'frame'
             frame.grid(row=0, column=0, sticky="nsew")              # frame positioning
-            self.frames[name] = frame                                  # adds each page frame frame to dictionary of frames
+            self.frames[name] = frame                               # adds each page frame to dictionary of frames
 
         self.show_frame("StartPage")              # calls show_frame method to raise StartPage frame when run
 
