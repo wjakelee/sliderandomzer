@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 
 class Login(Frame):  # Sample Login page
 
@@ -32,6 +33,8 @@ class Login(Frame):  # Sample Login page
                 username.set("")
                 password.set("")
                 controller.show_frame("SetDatRand")                   # raises SetDatRand frame
+            else:
+                messagebox.showerror(title="Invalid", message="Incorrect username or password.")
 
 # need to figure how to run this module on its own
 
