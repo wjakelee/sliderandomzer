@@ -14,18 +14,21 @@ class TestSetup(Frame):
 
         # button to select setup file, command calls 'select_file' function
         Button(self, text='Select Setup File', font='Arial 12 bold', bg='#80bfff', activebackground='#ccebff',
-               height='3', width='30', command=lambda: select_file(cases, barcodes)).place(anchor='n', relx=.5,
+               height='3', width='30', command=lambda: select_file(barcodes)).place(anchor='n', relx=.5,
                                                                                            rely=.15)
         # button calls show_frame method and takes you page to Start Page
         Button(self, text="Back To Home", fg="black", bg="#81DAF5", font="Arial 14", width='15', height='2',
-               command=lambda: controller.show_frame("StarPage")).place(relx=1.0, rely=1.0, anchor=SE)
+               command=lambda: controller.show_frame("StartPage")).place(relx=1.0, rely=1.0, anchor=SE)
 
-        # initializes two dictionaries to store barcode information
-        cases = {}
+        # button calls show_frame method and takes you back one page to SetDatRand
+        Button(self, text="Back", fg="black", bg="#81DAF5", font="Arial 14", width='15', height='2',
+               command=lambda: controller.show_frame("SetDatRand")).place(relx=0.8, rely=1.0, anchor=SE)
+
+        # initializes dictionary to store barcode information
         barcodes = {}
 
         # function opens file selection window and saves selected csv file information into dictionaries
-        def select_file(cases, barcodes):
+        def select_file(barcodes):
             # opens file selector window
             selected_file = filedialog.askopenfilename(title="Select a CSV File", filetypes=(("CSV files", "*.csv"),
                                                                                              ("all files", "*.*")))
@@ -33,9 +36,18 @@ class TestSetup(Frame):
             with open(selected_file, 'r', newline='') as setup_file:        # opens selected file for reading
                 setup_file_reader = csv.reader(setup_file)                  # reads selected file
                 next(setup_file_reader)                                     # goes to second line of csv file
+
                 for row in setup_file_reader:
-                    cases[row[0]] = {'he': row[1], 'nrc': row[2], 'ab': row[3]}     # saves csv info to dictionary
-                    barcodes[row[0]] = {row[1]: 'he', row[2]: 'nrc', row[3]: 'ab'}  # saves csv info to 2nd dictionary
+                    barcodes[row[0]] = {row[1]: 'he', row[2]: 'nrc', row[3]: 'ab'}  # saves csv info to dictionary
+
+            with open(selected_file, 'r', newline='') as temp_setup_file:  # opens selected file for reading
+                temp_file_reader = csv.reader(temp_setup_file)
+                next(temp_file_reader)                                     # goes to second line of csv file
+
+                with open('temporary_file.csv', 'w') as temp_file:         # opens a temporary file used later
+                    temp_file_writer = csv.writer(temp_file)               # creates a csv writer
+                    for line in temp_file_reader:
+                        temp_file_writer.writerow(line)                    # copies setup file to temporary file
 
             # prompts user to scan and read barcode once setup file is selected
             Label(self, text="Setup file read.\nScan and read a slide to determine its corresponding case and slot:",
@@ -67,6 +79,7 @@ class TestSetup(Frame):
                             Label(self, textvariable=key_val, font='Arial 12 bold').place(anchor='n', relx=.52,
                                                                                           rely=.7)
                             Label(self, text='Slot #:', font='Arial 12 bold').place(anchor='n', relx=.48, rely=.7)
+
 
 # need to figure how to run this module on its own
 
