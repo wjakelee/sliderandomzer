@@ -7,7 +7,7 @@ window.title("Test Intro Page")
 top_frame = Frame(window, background='white')
 top_frame.place(anchor='nw', relwidth=1, relheight=1)
 
-Label(top_frame, text = "Please enter the following information:",font = 'Arial 20 bold', bg = "white").place(relx=0.5, rely=0.1, anchor = 'n')
+Label(top_frame, text = "Please Enter The Following Information:",font = 'Arial 20 bold', bg = "white").place(relx=0.5, rely=0.1, anchor = 'n')
 
 Label(window, text="Name:",fg = "black", background='white',font = 'Arial 12 bold').place(relx=0.38, rely=0.25, anchor=CENTER)
 Label(window, text="Date:",fg = "black", background='white',font = 'Arial 12 bold').place(relx=0.38, rely=0.35, anchor=CENTER)
