@@ -53,7 +53,7 @@ class TestIntro(Frame):                         # start up / home page, class in
                height='2', command=lambda: user_info(name.get(), date.get(), time.get())).place(relx=.5, rely=.6, anchor=CENTER)
 
         # Button takes user them to the questionnaire page
-        Button(self, text="Being The Test", fg="black", bg="#9FF781", font="Arial 14", width='25',
+        Button(self, text="Begin The Test", fg="black", bg="#9FF781", font="Arial 14", width='25',
                height='2', command=lambda: controller.show_frame("QuestionPage")).place(relx=.5, rely=.73, anchor=CENTER)
 
         # button calls show_frame method and takes you page to Start Page
