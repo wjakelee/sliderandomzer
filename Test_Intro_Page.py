@@ -1,30 +1,47 @@
 from tkinter import *
 
-window = Tk()
-window.geometry('800x400')
 
-window.title("Test Intro Page")
-top_frame = Frame(window, background='white')
-top_frame.place(anchor='nw', relwidth=1, relheight=1)
+class TestIntro(Frame):                         # start up / home page, class inherits Frame
 
-Label(top_frame, text = "Please Enter The Following Information:",font = 'Arial 20 bold', bg = "white").place(relx=0.5, rely=0.1, anchor = 'n')
+    def __init__(self, parent, controller):
+        Frame.__init__(self, parent)
 
-Label(window, text="Name:",fg = "black", background='white',font = 'Arial 12 bold').place(relx=0.38, rely=0.25, anchor=CENTER)
-Label(window, text="Date:",fg = "black", background='white',font = 'Arial 12 bold').place(relx=0.38, rely=0.35, anchor=CENTER)
-Label(window, text="Time:",fg = "black",background='white',font = 'Arial 12 bold').place(relx=0.38, rely=0.45, anchor=CENTER)
-Button(top_frame, text = "Submit To Being The Test", fg = "black", bg = "#9FF781").place(relx=.5, rely=.6, anchor=CENTER)
+        # instructional label
+        Label(self, text="Please Enter The Following Information:", font='Arial 20 bold',
+              bg="white").place(relx=0.5, rely=0.1, anchor='n')
+
+        # name label
+        Label(self, text="Name:", fg="black", background='white',
+              font='Arial 14 bold').place(relx=0.38, rely=0.25, anchor=CENTER)
+
+        # date label
+        Label(self, text="Date:", fg="black", background='white',
+              font='Arial 14 bold').place(relx=0.38, rely=0.35, anchor=CENTER)
+
+        # time label
+        Label(self, text="Time:", fg="black", background='white',
+              font='Arial 14 bold').place(relx=0.38, rely=0.45, anchor=CENTER)
+
+        # Button saves users entries and take them to the questionnaire page
+        Button(self, text="Submit To Being The Test", fg="black",
+               bg="#9FF781", font="Arial 14", width='25', height='2').place(relx=.5, rely=.6, anchor=CENTER)
+
+        # entry for users name
+        Entry(self, background='light gray').place(relx=0.55, rely=0.25, anchor=CENTER)
+
+        # entry for the date
+        Entry(self, background='light gray').place(relx=0.55, rely=0.35, anchor=CENTER)
+
+        # entry for the time
+        Entry(self, background='light gray').place(relx=0.55, rely=0.45, anchor=CENTER)
+
+        # button calls show_frame method and takes you page to Start Page
+        Button(self, text="Back To Home", fg="black", bg="#81DAF5", font="Arial 14", width='15', height='2',
+               command=lambda: controller.show_frame("StartPage")).place(relx=1.0, rely=1.0, anchor=SE)
+
+# need to figure how to run this module on its own
 
 
-e1 = Entry(window, background='light gray')
-e2 = Entry(window, background='light gray')
-e3 = Entry(window, background='light gray')
-
-e1.place(relx=0.5, rely=0.25, anchor=CENTER)
-e2.place(relx=0.5, rely=0.35, anchor=CENTER)
-e3.place(relx=0.5, rely=0.45, anchor=CENTER)
-
-Button(top_frame, text = "Back To Home", fg = "black", bg = "#81DAF5").place(relx=1.0, rely=1.0, anchor=SE)
-
-
-window.mainloop()
-
+if __name__ == "__main__":
+    app = Tk()
+    app.mainloop()
