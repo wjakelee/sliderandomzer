@@ -1,5 +1,7 @@
 from tkinter import *
 
+# still need to save user entries to export file
+
 
 class TestIntro(Frame):                         # start up / home page, class inherits Frame
 
@@ -23,8 +25,8 @@ class TestIntro(Frame):                         # start up / home page, class in
               font='Arial 14 bold').place(relx=0.38, rely=0.45, anchor=CENTER)
 
         # Button saves users entries and take them to the questionnaire page
-        Button(self, text="Submit To Being The Test", fg="black",
-               bg="#9FF781", font="Arial 14", width='25', height='2').place(relx=.5, rely=.6, anchor=CENTER)
+        Button(self, text="Submit To Being The Test", fg="black", bg="#9FF781", font="Arial 14", width='25',
+               height='2').place(relx=.5, rely=.6, anchor=CENTER)
 
         # entry for users name
         Entry(self, background='light gray').place(relx=0.55, rely=0.25, anchor=CENTER)
