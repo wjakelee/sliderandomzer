@@ -19,7 +19,7 @@ class StartPage(Frame):                         # start up / home page, class in
             relx=0.65, rely=0.5, anchor=CENTER)
 
         # Button exits desktop
-        Button(self, text="Exit to Desktop", font="Arial 14", fg="black", bg="#ff4d4d", width='15',
+        Button(self, text="Exit to Desktop", font="Arial 14", fg="black", bg="#ff4d4d", width='12',
                height='1', command=parent.master.destroy).place(relx=1.0, rely=1.0, anchor=SE)
 
 
