@@ -25,6 +25,7 @@ class Application(Tk):
         self.pages = {'StartPage': StartPage, 'Login': Login, 'SetDatRand': SetDatRand, 'TestSetup': TestSetup,
                       'RandAndFile': RandAndFile, 'TestIntro': TestIntro, 'QuestionPage': QuestionPage}
 
+        # loop creates a frame for each page
         for name, F in self.pages.items():                      # loops through dictionary 'pages'
             frame = F(container, self)                              # assigns iterated frame to a variable 'frame'
             frame.grid(row=0, column=0, sticky="nsew")              # frame positioning
