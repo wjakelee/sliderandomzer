@@ -10,12 +10,12 @@ class TestSetup(Frame):
     def __init__(self, parent, controller):
         Frame.__init__(self, parent)
 
-        Label(self, text="TEST SETUP", font='Arial 20 bold underline').place(anchor='n', relx=.5)
+        Label(self, text="TEST SETUP", font='Arial 20 bold underline').place(anchor='n', relx=0.5, rely=0.05)
 
         # button to select setup file, command calls 'select_file' function
         Button(self, text='Select Setup File', font='Arial 12 bold', bg='#80bfff', activebackground='#ccebff',
                height='3', width='30', command=lambda: select_file(barcodes)).place(anchor='n', relx=.5,
-                                                                                           rely=.15)
+                                                                                           rely=.2)
         # button calls show_frame method and takes you page to Start Page
         Button(self, text="Back To Home", fg="black", bg="#81DAF5", font="Arial 14", width='12', height='1',
                command=lambda: controller.show_frame("StartPage")).place(relx=1.0, rely=1.0, anchor=SE)
@@ -51,20 +51,20 @@ class TestSetup(Frame):
 
             # prompts user to scan and read barcode once setup file is selected
             Label(self, text="Setup file read.\nScan and read a slide to determine its corresponding case and slot:",
-                  font='Arial 12 bold').place(anchor='n', relx=.5, rely=.325)
+                  font='Arial 12 bold').place(anchor='n', relx=.5, rely=.375)
 
             # initializes barcode_entry variable as type: string
             barcode_entry = StringVar()
 
             # entry field for scanned barcode
             Entry(self, textvariable=barcode_entry, background='light grey', font='Arial 20', ).place(
-                anchor='n', relx=.575, rely=.45, width='450', height='70')
+                anchor='n', relx=.575, rely=.5, width='450', height='70')
 
             # button to read the scanned barcode, command calls 'compare' function
             Button(self, text='Read\nBarcode', font='Arial 12 bold', bg='#00cc66', activebackground='#80ffbf',
                    height='3', width='10', command=lambda: compare(barcode_entry.get(), barcodes)).place(anchor='n',
                                                                                                          relx=.2,
-                                                                                                         rely=.45)
+                                                                                                         rely=.5)
 
             # prompts user to place slide in the correct slot depending on the barcode scanned
             def compare(barcode_entry, barcodes):
@@ -73,12 +73,12 @@ class TestSetup(Frame):
                     for key in case_info:
                         if barcode_entry == key:        # checks to see if scanned barcode matches a value from csv file
                             Label(self, text="Place scanned slide in the illuminated slot.",
-                                  font='Arial 12 bold').place(anchor='n', relx=.5, rely=.65)
+                                  font='Arial 12 bold').place(anchor='n', relx=.5, rely=.7)
                             key_val = StringVar()
                             key_val.set(case)
                             Label(self, textvariable=key_val, font='Arial 12 bold').place(anchor='n', relx=.52,
-                                                                                          rely=.7)
-                            Label(self, text='Slot #:', font='Arial 12 bold').place(anchor='n', relx=.48, rely=.7)
+                                                                                          rely=.75)
+                            Label(self, text='Slot #:', font='Arial 12 bold').place(anchor='n', relx=.48, rely=.75)
 
 
 # need to figure how to run this module on its own
