@@ -1,4 +1,6 @@
 from tkinter import *
+import os
+from tkinter import filedialog
 from tkinter import messagebox
 import csv
 import random
@@ -46,12 +48,21 @@ class RandAndFile(Frame):
 
         # generates a list of random numbers from 1-60 w/o repeats
         def generate_random():
-            with open('temporary_file.csv', 'r') as temp_file:
+            with open('temporary_file.csv', 'r', newline="") as temp_file:
                 reader = csv.reader(temp_file)
                 import_list = []
                 for row in reader:
-                    import_list.append(row[0])
+                    import_list.append(row)
+
             random.shuffle(import_list)
+
+            with open('temp_file_change.csv', 'w', newline="") as change_file:
+                writer = csv.writer(change_file)
+                for row in import_list:
+                    writer.writerow(row)
+
+            os.remove('temporary_file.csv')
+            os.rename('temp_file_change.csv', 'temporary_file.csv')
 
             if import_list == []:
                 messagebox.showerror(title="No Order Selected!", message="Please set up the test prior to "
@@ -64,11 +75,25 @@ class RandAndFile(Frame):
 
         # imports order of numbers from temporary csv file
         def import_random():
-            with open('temporary_file.csv', 'r') as temp_file:
-                reader = csv.reader(temp_file)
+            # opens file selector window
+            selected_file = filedialog.askopenfilename(title="Select the setup CSV File",
+                                                       filetypes=(("CSV files", "*.csv"), ("all files", "*.*")))
+
+            with open(selected_file, 'r', newline="") as order_file:         # opens selected file for reading
+                reader = csv.reader(order_file)                         # reads selected file
+                next(reader)
                 import_list = []
                 for row in reader:
-                    import_list.append(row[0])
+                    import_list.append(row)
+
+            with open(selected_file, 'r', newline="") as order_file:        # opens selected file for reading
+                reader = csv.reader(order_file)                         # reads selected file
+                next(reader)
+
+                with open('temporary_file.csv', 'w', newline='') as temp_file:   # opens a temporary file used later
+                    writer = csv.writer(temp_file)                       # creates a csv writer
+                    for line in reader:
+                        writer.writerow(line)
 
             if import_list == []:
                 messagebox.showerror(title="No Order Selected!", message="Please set up the test prior to "
@@ -95,8 +120,6 @@ class RandAndFile(Frame):
         Button(self, text="Back", fg="black", bg="#81DAF5", font="Arial 14", width='12', height='1',
                command=lambda: controller.show_frame("SetDatRand")).place(relx=0.8, rely=1.0, anchor=SE)
 
-
-# need to figure how to run this module on its own
 
 if __name__ == "__main__":
     app = Application()
