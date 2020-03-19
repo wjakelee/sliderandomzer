@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 import csv
 
 
@@ -49,12 +50,8 @@ class TestIntro(Frame):                         # start up / home page, class in
         Entry(self, background='light gray', textvariable=time).place(relx=0.4, rely=0.45, anchor='w', width='190')
 
         # Button saves users entries
-        Button(self, text="Save Information", fg="black", bg="#9FF781", font="Arial 14", width='25',
+        Button(self, text="Save Information", fg="black", bg="#33adff", font="Arial 14", width='20',
                height='2', command=lambda: user_info(name.get(), date.get(), time.get())).place(relx=.5, rely=.6, anchor=CENTER)
-
-        # Button takes user them to the questionnaire page
-        Button(self, text="Begin The Test", fg="black", bg="#9FF781", font="Arial 14", width='25',
-               height='2', command=lambda: controller.show_frame("QuestionPage")).place(relx=.5, rely=.8, anchor=CENTER)
 
         # button calls show_frame method and takes you page to Start Page
         Button(self, text="Back To Home", fg="black", bg="#81DAF5", font="Arial 14", width='15', height='1',
@@ -66,6 +63,16 @@ class TestIntro(Frame):                         # start up / home page, class in
             with open('export_file.csv', 'w') as export_file:       # opens a temporary file used later
                 export_file_writer = csv.writer(export_file)        # creates a csv writer
                 export_file_writer.writerow(info_list)
+
+            if name == "" and date == "" and time == "":
+                messagebox.showerror(title="Missing Fields", message="Entry fields are missing data.")
+
+            if name != "" and date != "" and time != "":
+                # Button takes user them to the questionnaire page
+                Button(self, text="Begin The Test", fg="black", bg="#47d147", font="Arial 14", width='20',
+                       height='2', command=lambda: controller.show_frame("QuestionPage")).place(relx=.5, rely=.8,
+                                                                                                anchor=CENTER)
+
 
 # need to figure how to run this module on its own
 
