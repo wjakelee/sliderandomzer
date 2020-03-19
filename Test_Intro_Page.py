@@ -50,7 +50,7 @@ class TestIntro(Frame):                         # start up / home page, class in
         Entry(self, background='light gray', textvariable=time).place(relx=0.4, rely=0.45, anchor='w', width='190')
 
         # Button saves users entries
-        Button(self, text="Save Information", fg="black", bg="#33adff", font="Arial 14", width='20',
+        Button(self, text="Save Information", fg="black", bg="#80bfff", font="Arial 14", width='20',
                height='2', command=lambda: user_info(name.get(), date.get(), time.get())).place(relx=.5, rely=.6, anchor=CENTER)
 
         # button calls show_frame method and takes you page to Start Page
