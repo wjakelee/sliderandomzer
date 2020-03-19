@@ -8,45 +8,45 @@ class TestIntro(Frame):                         # start up / home page, class in
         Frame.__init__(self, parent)
 
         # instructional label
-        Label(self, text="Please Enter The Following Information:", font='Arial 20 bold',
-              bg="white").place(relx=0.5, rely=0.1, anchor='n')
+        Label(self, text="Please Enter The Following Information:",
+              font='Arial 20 bold').place(relx=0.5, rely=0.1, anchor='n')
 
         # name label
-        Label(self, text="Name:", fg="black", background='white',
-              font='Arial 14 bold').place(relx=0.37, rely=0.25, anchor=CENTER)
+        Label(self, text="Name:", fg="black",
+              font='Arial 14 bold').place(relx=0.3, rely=0.25, anchor='w')
 
         # date label
-        Label(self, text="Date:", fg="black", background='white',
-              font='Arial 14 bold').place(relx=0.37, rely=0.35, anchor=CENTER)
+        Label(self, text="Date:", fg="black",
+              font='Arial 14 bold').place(relx=0.3, rely=0.35, anchor='w')
 
         # time label
-        Label(self, text="Time:", fg="black", background='white',
-              font='Arial 14 bold').place(relx=0.37, rely=0.45, anchor=CENTER)
+        Label(self, text="Time:", fg="black",
+              font='Arial 14 bold').place(relx=0.3, rely=0.45, anchor='w')
 
         # name label
-        Label(self, text="(first and last)", fg="black", background='white',
-              font='Arial 10').place(relx=0.72, rely=0.25, anchor=CENTER)
+        Label(self, text="(first and last)", fg="black",
+              font='Arial 10').place(relx=0.65, rely=0.25, anchor='w')
 
         # date label
-        Label(self, text="(xx/xx/xxx)", fg="black", background='white',
-              font='Arial 10').place(relx=0.71, rely=0.35, anchor=CENTER)
+        Label(self, text="(xx/xx/xxx)", fg="black",
+              font='Arial 10').place(relx=0.65, rely=0.35, anchor='w')
 
         # time label
-        Label(self, text="(xx:xx AM/PM)", fg="black", background='white',
-              font='Arial 10').place(relx=0.72, rely=0.45, anchor=CENTER)
+        Label(self, text="(xx:xx AM/PM)", fg="black",
+              font='Arial 10').place(relx=0.65, rely=0.45, anchor='w')
 
         name = StringVar()
         date = StringVar()
         time = StringVar()
 
         # entry for users name
-        Entry(self, background='light gray', textvariable=name).place(relx=0.55, rely=0.25, anchor=CENTER)
+        Entry(self, background='light gray', textvariable=name).place(relx=0.4, rely=0.25, anchor='w', width='190')
 
         # entry for the date
-        Entry(self, background='light gray', textvariable=date).place(relx=0.55, rely=0.35, anchor=CENTER)
+        Entry(self, background='light gray', textvariable=date).place(relx=0.4, rely=0.35, anchor='w', width='190')
 
         # entry for the time
-        Entry(self, background='light gray', textvariable=time).place(relx=0.55, rely=0.45, anchor=CENTER)
+        Entry(self, background='light gray', textvariable=time).place(relx=0.4, rely=0.45, anchor='w', width='190')
 
         # Button saves users entries
         Button(self, text="Save Information", fg="black", bg="#9FF781", font="Arial 14", width='25',
@@ -54,10 +54,10 @@ class TestIntro(Frame):                         # start up / home page, class in
 
         # Button takes user them to the questionnaire page
         Button(self, text="Begin The Test", fg="black", bg="#9FF781", font="Arial 14", width='25',
-               height='2', command=lambda: controller.show_frame("QuestionPage")).place(relx=.5, rely=.73, anchor=CENTER)
+               height='2', command=lambda: controller.show_frame("QuestionPage")).place(relx=.5, rely=.8, anchor=CENTER)
 
         # button calls show_frame method and takes you page to Start Page
-        Button(self, text="Back To Home", fg="black", bg="#81DAF5", font="Arial 14", width='15', height='2',
+        Button(self, text="Back To Home", fg="black", bg="#81DAF5", font="Arial 14", width='15', height='1',
                command=lambda: controller.show_frame("StartPage")).place(relx=1.0, rely=1.0, anchor=SE)
 
         # function writes user information to export file
