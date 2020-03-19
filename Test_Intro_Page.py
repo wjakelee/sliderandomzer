@@ -93,7 +93,7 @@ class TestIntro(Frame):                         # start up / home page, class in
                 export_file_writer = csv.writer(export_file)        # creates a csv writer
                 export_file_writer.writerow(info_list)
 
-            if name == "" and date == "" and time == "":
+            if name == "" or date == "" or time == "":
                 messagebox.showerror(title="Missing Fields", message="Entry fields are missing data.")
 
             if name != "" and date != "" and time != "":
