@@ -21,7 +21,7 @@ class Login(Frame):  # Sample Login page
               font='Arial 14').place(relx=0.5, rely=0.575, anchor='n', width='180',)  # password entry
 
         # button commands check_entry function
-        Button(self, text="Enter", font='Arial 16 bold', fg="black", bg="#33adff", height='2', width='10',
+        Button(self, text="Enter", font='Arial 16 bold', fg="black", bg="#80bfff", height='2', width='10',
                command=lambda: check_entry(username, password)).place(relx=0.5, rely=0.7, anchor='n')
 
         # button calls show_frame method and takes you page to Start Page
