@@ -15,7 +15,7 @@ class StartPage(Frame):                         # start up / home page, class in
 
         # button calls show_frame method and raises to Login frame
         Button(self, text="Setup, DataFile,\nRandomization (Admin Only)", font='Arial 14 bold', width='25',
-               height='4', fg="black", bg="#6699ff", command=lambda: controller.show_frame("Login")).place(
+               height='4', fg="black", bg="#33adff", command=lambda: controller.show_frame("Login")).place(
             relx=0.65, rely=0.5, anchor=CENTER)
 
         # Button exits desktop
