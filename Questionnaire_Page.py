@@ -70,24 +70,25 @@ class QuestionPage(Frame):
         comments = StringVar()
 
         # entry field for comments
-        Entry(self, textvariable=comments, background='#e6e6e6', font='Arial 12', ).place(
-            anchor='w', relx=.4, rely=.68, width='430', height='120')
+        Entry(self, textvariable=comments, background='light grey', font='Arial 12',
+              justify=LEFT).place(anchor='w', relx=.41, rely=.725, width='430', height='120')
 
         # need to finish start_test function, reads randomization order for temporary_file.csv and begins test
         def start_test():
-            order = [1, 2, 3]                   # temporary order, I will change this to []
 
-            # need to get this part to read a single column of temporary_file
-            # with open('temporary_file.csv', 'r', newline='') as random_order:
-            #     file_reader = csv.reader(random_order)
+            with open('temporary_file.csv', 'r', newline="") as temp_file:          # open temporary file
+                reader = csv.reader(temp_file)
+                order_list = []
+                for row in reader:
+                    order_list.append(row[0])                # determine order of cases from first column of temp file
 
             Label(self, text='Case #', background='light gray',
                   font='Arial 18').place(anchor='w', relx=.03, rely=.3, width='100', height='50')
 
             number = StringVar()            # makes number variable type String
-            number.set(order[0])            # sets number variable to first number in order list
+            number.set(order_list[0])            # sets number variable to first number in order list
             Label(self, textvariable=number, font='Arial 18',
-                  background='light gray').place(anchor='w', relx=.14, rely=.3, width='25', height='50')
+                  background='light gray').place(anchor='w', relx=.15, rely=.3, width='35', height='50')
 
         # button calls start_test function
         Button(self, text='Start Test', bg='#47d147', fg='black', font='Arial 16 bold',
@@ -103,7 +104,7 @@ class QuestionPage(Frame):
 
         # button calls save_answers function, still need to add this function
         Button(self, text='Save Answers', bg='#33adff', fg='black',
-               font='Arial 16 bold').place(anchor='w', relx=0.725, rely=0.875, width='160', height='40')
+               font='Arial 16 bold').place(anchor='w', relx=0.725, rely=0.9, width='160', height='40')
 
 
 if __name__ == "__main__":
