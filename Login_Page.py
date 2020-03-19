@@ -25,7 +25,7 @@ class Login(Frame):  # Sample Login page
                command=lambda: check_entry(username, password)).place(relx=0.5, rely=0.7, anchor='n')
 
         # button calls show_frame method and takes you page to Start Page
-        Button(self, text="Back To Home", fg="black", bg="#81DAF5", font="Arial 14", width='15', height='1',
+        Button(self, text="Back To Home", fg="black", bg="#81DAF5", font="Arial 14", width='12', height='1',
                command=lambda: controller.show_frame("StartPage")).place(relx=1.0, rely=1.0, anchor=SE)
 
         # Function checks to see if the entered username/password are correct and calls show_frame module to raise
