@@ -11,11 +11,11 @@ class StartPage(Frame):                         # start up / home page, class in
 
         # Button takes you to take test intro page
         Button(self, text="Take Test", fg="black", font='Arial 14 bold', width='15', height='4',
-               bg="#33cc33", command=lambda: controller.show_frame("TestIntro")).place(relx=0.275, rely=0.5, anchor=CENTER)
+               bg="#47d147", command=lambda: controller.show_frame("TestIntro")).place(relx=0.275, rely=0.5, anchor=CENTER)
 
         # button calls show_frame method and raises to Login frame
         Button(self, text="Setup, DataFile,\nRandomization (Admin Only)", font='Arial 14 bold', width='25',
-               height='4', fg="black", bg="#33adff", command=lambda: controller.show_frame("Login")).place(
+               height='4', fg="black", bg="#80bfff", command=lambda: controller.show_frame("Login")).place(
             relx=0.65, rely=0.5, anchor=CENTER)
 
         # Button exits desktop
