@@ -6,6 +6,8 @@ from Start_Page import StartPage
 from Rand_And_Data import RandAndFile
 from Test_Intro_Page import TestIntro
 from Questionnaire_Page import QuestionPage
+from Confirmation_Page import ConfirmationPage
+from Test_Return_Home_Page import TestCompletePage
 
 
 class Application(Tk):
@@ -23,7 +25,8 @@ class Application(Tk):
 
         self.frames = {}                      # initializes a dictionary that will store different page frames
         self.pages = {'StartPage': StartPage, 'Login': Login, 'SetDatRand': SetDatRand, 'TestSetup': TestSetup,
-                      'RandAndFile': RandAndFile, 'TestIntro': TestIntro, 'QuestionPage': QuestionPage}
+                      'RandAndFile': RandAndFile, 'TestIntro': TestIntro, 'QuestionPage': QuestionPage,
+                      'ConfirmationPage': ConfirmationPage, 'TestCompletePage': TestCompletePage}
 
         # loop creates a frame for each page
         for name, F in self.pages.items():                      # loops through dictionary 'pages'
