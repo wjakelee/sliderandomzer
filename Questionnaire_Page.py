@@ -1,5 +1,5 @@
 from tkinter import *
-from IOPi import IOPi
+# from IOPi import IOPi
 import csv
 import itertools
 from Start_Page import StartPage
@@ -44,7 +44,68 @@ class QuestionPage(Frame):
         self.next_number = 0        # initialization of attribute next_number, this value gets updated when next
                                     # case function executes
 
-        self.test_answers = {}      # initialize empty dictionary to save test answers
+        # initialize empty dictionary to save test answers (empty values are called upon in next_case function)
+        self.test_answers = {'1': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '2': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '3': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '4': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '5': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '6': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '7': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '8': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '9': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '10': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '11': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '12': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '13': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '14': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '15': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '16': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '17': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '18': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '19': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '20': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '21': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '22': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '23': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '24': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '25': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '26': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '27': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '28': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '29': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '30': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '31': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '32': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '33': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '34': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '35': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '36': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '37': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '38': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '39': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '40': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '41': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '42': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '43': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '44': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '45': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '46': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '47': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '48': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '49': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '50': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '51': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '52': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '53': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '54': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '55': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '56': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '57': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '58': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '59': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
+                             '60': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''}}
+
 
         # reads randomization order from temporary_file.csv and begins test
         def start_test():
@@ -59,32 +120,45 @@ class QuestionPage(Frame):
 
             # function saves answers to test_answers dictionary for each case
             def save_answers(ans_1, ans_2, ans_3, ans_4, ans_5, ans_6, comments):
-                self.test_answers[self.next_number] = {'Q1': ans_1, 'Q2': ans_2, 'Q3': ans_3, 'Q4': ans_4,
-                                      'Q5': ans_5, 'Q6': ans_6, 'Comments':  comments}
+                self.test_answers[self.next_number] = {'Q1': ans_1.get(), 'Q2': ans_2.get(), 'Q3': ans_3.get(), 'Q4': ans_4.get(),
+                                                       'Q5': ans_5.get(), 'Q6': ans_6.get(), 'Comments':  comments.get()}
+
                 print(self.test_answers)
 
             # displays next case number
-            def next_case(case_order):
+            def next_case(case_order, ans_1, ans_2, ans_3, ans_4, ans_5, ans_6, comments):
+
                 self.next_number = next(case_order)        # next number in randomization order
+
+                ans_1.set(self.test_answers[self.next_number]['Q1'])
+                ans_2.set(self.test_answers[self.next_number]['Q2'])
+                ans_3.set(self.test_answers[self.next_number]['Q3'])
+                ans_4.set(self.test_answers[self.next_number]['Q4'])
+                ans_5.set(self.test_answers[self.next_number]['Q5'])
+                ans_6.set(self.test_answers[self.next_number]['Q6'])
+                comments.set(self.test_answers[self.next_number]['Comments'])
+
                 value = StringVar()                        # makes number variable type String
                 value.set(self.next_number)                # sets number variable to next number in randomization order
                 Label(self, textvariable=value, font='Arial 18',
                       background='light gray').place(anchor='w', relx=.15, rely=.3, width='35', height='50')
 
-                # dictionary stores 4 different bus addresses
-                buses = {'1': IOPi(0x21), '2': IOPi(0x22), '3': IOPi(0x23), '4': IOPi(0x24)}
-                # dictionary maps each slot to a bus and pin (need to add the rest of the slots)
-                map = {1: {'bus': 1, 'pin': 1}, 2: {'bus': 1, 'pin': 2}, 3: {'bus': 1, 'pin': 3},
-                       4: {'bus': 1, 'pin': 4}, 5: {'bus': 1, 'pin': 5}, 6: {'bus': 1, 'pin': 6},
-                       7: {'bus': 1, 'pin': 7}, 8: {'bus': 1, 'pin': 8}, 9: {'bus': 1, 'pin': 9},
-                       10: {'bus': 1, 'pin': 10}, 11: {'bus': 1, 'pin': 11}, 12: {'bus': 1, 'pin': 12},
-                       13: {'bus': 1, 'pin': 13}, 14: {'bus': 1, 'pin': 14}, 15: {'bus': 1, 'pin': 15},
-                       16: {'bus': 1, 'pin': 16}}
-
-                bus_number = map[self.next_number]['bus']       # determines bus number of current case
-                pin_number = map[self.next_number]['pin']       # determines pin number of current case
-                bus = buses[bus_number]                         # determines which bus address to use
-                bus.write_pin(pin_number, 1)                    # turns on LED for current slot
+                # # dictionary stores 4 different bus addresses
+                # buses = {'1': IOPi(0x21), '2': IOPi(0x22), '3': IOPi(0x23), '4': IOPi(0x24)}
+                # # dictionary maps each slot to a bus and pin (need to add the rest of the slots)
+                # map = {1: {'bus': 1, 'pin': 1}, 2: {'bus': 1, 'pin': 2}, 3: {'bus': 1, 'pin': 3},
+                #        4: {'bus': 1, 'pin': 4}, 5: {'bus': 1, 'pin': 5}, 6: {'bus': 1, 'pin': 6},
+                #        7: {'bus': 1, 'pin': 7}, 8: {'bus': 1, 'pin': 8}, 9: {'bus': 1, 'pin': 9},
+                #        10: {'bus': 1, 'pin': 10}, 11: {'bus': 1, 'pin': 11}, 12: {'bus': 1, 'pin': 12},
+                #        13: {'bus': 1, 'pin': 13}, 14: {'bus': 1, 'pin': 14}, 15: {'bus': 1, 'pin': 15},
+                #        16: {'bus': 1, 'pin': 16}}
+                #
+                # bus_number = map[self.next_number]['bus']       # determines bus number of current case
+                # pin_number = map[self.next_number]['pin']       # determines pin number of current case
+                # bus = buses[bus_number]                         # determines which bus address to use
+                # bus.set_port_direction(0, 0x00)                 # set port direction
+                # bus.write_port(0, 0x00)                         # write port
+                # bus.write_pin(pin_number, 1)                    # turns on LED for current slot
 
             # label for question 1
             Label(self, text='1. H&E Acceptable? (Yes/No)',
@@ -166,14 +240,13 @@ class QuestionPage(Frame):
 
             # button calls save_answers function to save the first case answers only
             Button(self, text='Save Answers', bg='#33adff', fg='black', font='Arial 16 bold',
-                   command=lambda: save_answers(ans_1.get(), ans_2.get(), ans_3.get(),
-                                                ans_4.get(), ans_5.get(), ans_6.get(),
-                                                comments.get())).place(anchor='w', relx=0.725, rely=0.9,
-                                                                       width='160', height='40')
+                   command=lambda: save_answers(ans_1, ans_2, ans_3, ans_4, ans_5, ans_6,
+                                                comments)).place(anchor='w', relx=0.725, rely=0.9,
+                                                                 width='160', height='40')
 
             # button calls next_case function
             Button(self, text='Next Case', bg='#bfbfbf', fg='black',
-                   font='Arial 16 bold', command=lambda: next_case(case_order)).place(anchor='w', relx=0.03, rely=0.9,
+                   font='Arial 16 bold', command=lambda: next_case(case_order, ans_1, ans_2, ans_3, ans_4, ans_5, ans_6, comments)).place(anchor='w', relx=0.03, rely=0.9,
                                                                                       width='120', height='60')
 
             # button calls end_test function
