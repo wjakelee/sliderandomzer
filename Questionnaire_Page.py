@@ -1,5 +1,6 @@
 from tkinter import *
 import csv
+import itertools
 from Start_Page import StartPage
 from Test_Intro_Page import TestIntro
 
@@ -39,21 +40,35 @@ class QuestionPage(Frame):
     def __init__(self, parent, controller):
         Frame.__init__(self, parent)
 
-        # need to finish start_test function, reads randomization order for temporary_file.csv and begins test
+        self.next_number = 0        # initialization of attribute next_number, this value gets updated when next
+                                    # case function executes
+
+        self.test_answers = {}      # initialize empty dictionary to save test answers
+
+        # reads randomization order from temporary_file.csv and begins test
         def start_test():
 
             with open('temporary_file.csv', 'r', newline="") as temp_file:          # open temporary file
                 reader = csv.reader(temp_file)
-                order_list = []
+                order_list = []                              # initialize empty list
                 for row in reader:
-                    order_list.append(row[0])                # determine order of cases from first column of temp file
+                    order_list.append(row[0])                 # creates an list with the randomization order
+                case_order = itertools.cycle(order_list)        # allow cycle through list indefinitely
+                self.next_number = next(case_order)             # first number in case order
 
-            test_answers = {}
-
-            def save_answers(test_answers, case, ans_1, ans_2, ans_3, ans_4, ans_5, ans_6, comments):
-                test_answers[case] = {'Q1': ans_1, 'Q2': ans_2, 'Q3': ans_3, 'Q4': ans_4,
+            # function saves answers to test_answers dictionary for each case
+            def save_answers(ans_1, ans_2, ans_3, ans_4, ans_5, ans_6, comments):
+                self.test_answers[self.next_number] = {'Q1': ans_1, 'Q2': ans_2, 'Q3': ans_3, 'Q4': ans_4,
                                       'Q5': ans_5, 'Q6': ans_6, 'Comments':  comments}
-                print(test_answers)
+                print(self.test_answers)
+
+            # displays next case number
+            def next_case(case_order):
+                self.next_number = next(case_order)        # next number in randomization order
+                value = StringVar()                        # makes number variable type String
+                value.set(self.next_number)                # sets number variable to next number in randomization order
+                Label(self, textvariable=value, font='Arial 18',
+                      background='light gray').place(anchor='w', relx=.15, rely=.3, width='35', height='50')
 
             # label for question 1
             Label(self, text='1. H&E Acceptable? (Yes/No)',
@@ -118,51 +133,36 @@ class QuestionPage(Frame):
             Entry(self, textvariable=comments, background='light grey', font='Arial 12',
                   justify=LEFT).place(anchor='w', relx=.41, rely=.7, width='430', height='120')
 
+            # Case number display
             Label(self, text='Case #', background='light gray',
                   font='Arial 18').place(anchor='w', relx=.03, rely=.3, width='100', height='50')
 
-            number = StringVar()  # makes number variable type String
-            number.set(order_list[0])  # sets number variable to first number in order list
-            Label(self, textvariable=number, font='Arial 18',
+            value = StringVar()                       # makes number variable type String
+            value.set(self.next_number)               # initial case number to be displayed
+            Label(self, textvariable=value, font='Arial 18',
                   background='light gray').place(anchor='w', relx=.15, rely=.3, width='35', height='50')
 
+            # instructional display
             Label(self, text='1. Evaluate all slides in case.\n2. Answer all questions.'
                              '\n3. Save Answers.\n4. Press "next case" for\nnew case evaluation.',
                   background='light gray', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03, rely=.5,
                                                                                 width='200', height='120')
 
-
-            # NEED TO FIGURE OUT HOW TO STEP TO NEXT CASE IN ORDER_LIST
-            # def next_case(order_list):
-            #     # CASE NUMBER OUTPUT
-            #     next(order_list)
-            #     Label(self, text='Case #', background='light gray',
-            #           font='Arial 18').place(anchor='w', relx=.03, rely=.3, width='100', height='50')
-            #
-            #     number = StringVar()            # makes number variable type String
-            #     number.set(order_list)            # sets number variable to first number in order list
-            #     Label(self, textvariable=number, font='Arial 18',
-            #           background='light gray').place(anchor='w', relx=.15, rely=.3, width='35', height='50')
-            #
-            #     Label(self, text='1. Evaluate all slides in case.\n2. Answer all questions.'
-            #                      '\n3. Save Answers.\n4. Press "next case" for\nnew case evaluation.',
-            #           background='light gray', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03, rely=.5,
-            #                                                                         width='200', height='120')
-            #
-            #     # button calls save_answers function
-            #     Button(self, text='Save Answers', bg='#33adff', fg='black', font='Arial 16 bold',
-            #            command=lambda: save_answers(test_answers, order_list[0], ans_1.get(), ans_2.get(), ans_3.get(),
-            #                                         ans_4.get(), ans_5.get(), ans_6.get(),
-            #                                         comments.get())).place(anchor='w', relx=0.725, rely=0.9,
-            #                                                                width='160', height='40')
+            # button calls save_answers function to save the first case answers only
+            Button(self, text='Save Answers', bg='#33adff', fg='black', font='Arial 16 bold',
+                   command=lambda: save_answers(ans_1.get(), ans_2.get(), ans_3.get(),
+                                                ans_4.get(), ans_5.get(), ans_6.get(),
+                                                comments.get())).place(anchor='w', relx=0.725, rely=0.9,
+                                                                       width='160', height='40')
 
             # button calls next_case function
-            # Button(self, text='Next Case', bg='#bfbfbf', fg='black',
-            #       font='Arial 16 bold', command=lambda: next_case(order_list)).place(anchor='w', relx=0.03, rely=0.9, width='120', height='60')
+            Button(self, text='Next Case', bg='#bfbfbf', fg='black',
+                   font='Arial 16 bold', command=lambda: next_case(case_order)).place(anchor='w', relx=0.03, rely=0.9,
+                                                                                      width='120', height='60')
 
-            # button calls end_test function, still need to add this function
-            Button(self, text='End Test', bg='#ff4d4d', fg='black',
-                   font='Arial 16 bold').place(anchor='w', relx=0.225, rely=0.9, width='120', height='60')
+            # button calls end_test function
+            Button(self, text='End Test', bg='#ff4d4d', fg='black', font='Arial 16 bold',
+                   command=lambda: controller.show_frame("ConfirmationPage")).place(anchor='w', relx=0.225, rely=0.9, width='120', height='60')
 
         # button calls start_test function
         Button(self, text='Start Test', bg='#47d147', fg='black', font='Arial 16 bold',
