@@ -1,18 +1,18 @@
 from tkinter import *
 
-window = Tk()
-window.geometry('800x400')
 
-window.title("Confirmation Page")
-top_frame = Frame(window, background='white')
-top_frame.place(anchor='nw', relwidth=1, relheight=1)
+class ConfirmationPage(Frame):
 
-Label(top_frame, text = "Are You Sure You Want To End The Test?",font = 'Arial 20 bold', bg = "white").place(relx=0.5, rely=0.1, anchor = 'n')
+    def __init__(self, parent, controller):
+        Frame.__init__(self, parent)
 
-Button(top_frame, text = "Yes", fg = "black", font = "Arial 14 bold", width = "25", height = "3",  bg = "#01DF3A").place(relx=.5, rely=.4, anchor=CENTER)
+        Label(self, text="Are You Sure You Want To End The Test?", font='Arial 20 bold',).place(relx=0.5,
+                                                                                                rely=0.1, anchor='n')
 
-Button(top_frame, text = "No", fg = "black", font = "Arial 14 bold", width = "25", height = "3",  bg = "#FF0000").place(relx=.5, rely=.7, anchor=CENTER)
+        Button(self, text="Yes.\nI am finished.", fg="black", font="Arial 14 bold", width="25", height="3",
+               bg="#01DF3A", command=lambda: controller.show_frame("TestCompletePage")).place(relx=.5, rely=.4,
+                                                                                              anchor=CENTER)
 
-
-
-window.mainloop()
+        Button(self, text="No.\nReturn to test.", fg="black", font="Arial 14 bold", width="25", height="3",
+               bg="#FF0000", command=lambda: controller.show_frame("QuestionPage")).place(relx=.5, rely=.7,
+                                                                                          anchor=CENTER)
