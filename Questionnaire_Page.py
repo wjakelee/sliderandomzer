@@ -1,4 +1,5 @@
 from tkinter import *
+from IOPi import IOPi
 import csv
 import itertools
 from Start_Page import StartPage
@@ -69,6 +70,21 @@ class QuestionPage(Frame):
                 value.set(self.next_number)                # sets number variable to next number in randomization order
                 Label(self, textvariable=value, font='Arial 18',
                       background='light gray').place(anchor='w', relx=.15, rely=.3, width='35', height='50')
+
+                # dictionary stores 4 different bus addresses
+                buses = {'1': IOPi(0x21), '2': IOPi(0x22), '3': IOPi(0x23), '4': IOPi(0x24)}
+                # dictionary maps each slot to a bus and pin (need to add the rest of the slots)
+                map = {1: {'bus': 1, 'pin': 1}, 2: {'bus': 1, 'pin': 2}, 3: {'bus': 1, 'pin': 3},
+                       4: {'bus': 1, 'pin': 4}, 5: {'bus': 1, 'pin': 5}, 6: {'bus': 1, 'pin': 6},
+                       7: {'bus': 1, 'pin': 7}, 8: {'bus': 1, 'pin': 8}, 9: {'bus': 1, 'pin': 9},
+                       10: {'bus': 1, 'pin': 10}, 11: {'bus': 1, 'pin': 11}, 12: {'bus': 1, 'pin': 12},
+                       13: {'bus': 1, 'pin': 13}, 14: {'bus': 1, 'pin': 14}, 15: {'bus': 1, 'pin': 15},
+                       16: {'bus': 1, 'pin': 16}}
+
+                bus_number = map[self.next_number]['bus']       # determines bus number of current case
+                pin_number = map[self.next_number]['pin']       # determines pin number of current case
+                bus = buses[bus_number]                         # determines which bus address to use
+                bus.write_pin(pin_number, 1)                    # turns on LED for current slot
 
             # label for question 1
             Label(self, text='1. H&E Acceptable? (Yes/No)',
