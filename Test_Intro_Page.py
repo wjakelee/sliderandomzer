@@ -59,6 +59,10 @@ class TestIntro(Frame):                         # start up / home page, class in
         Button(self, text="Back To Home", fg="black", bg="#81DAF5", font="Arial 14", width='15', height='1',
                command=lambda: controller.show_frame("StartPage")).place(relx=1.0, rely=1.0, anchor=SE)
 
+        def next_page():
+            name.set("")
+            controller.show_frame("QuestionPage")
+
         # function writes user information to export file
         def user_info(name):
             x = datetime.datetime.now()             # records date and time when "save" is pressed
@@ -72,9 +76,8 @@ class TestIntro(Frame):                         # start up / home page, class in
 
             if name.get() != "":
                 # Button takes user them to the questionnaire page
-                name.set("")
                 Button(self, text="Begin The Test", fg="black", bg="#47d147", font="Arial 14", width='20',
-                       height='2', command=lambda: controller.show_frame("QuestionPage")).place(relx=.5, rely=.8,
+                       height='2', command=next_page).place(relx=.5, rely=.8,
                                                                                                 anchor=CENTER)
 
 
