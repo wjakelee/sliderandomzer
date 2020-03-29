@@ -144,7 +144,7 @@ class QuestionPage(Frame):
                       background='light gray').place(anchor='w', relx=.15, rely=.3, width='35', height='50')
 
                 # # dictionary stores 4 different bus addresses
-                # buses = {'1': IOPi(0x21), '2': IOPi(0x22), '3': IOPi(0x23), '4': IOPi(0x24)}
+                # buses = {'1': IOPi(0x20), '2': IOPi(0x21), '3': IOPi(0x22), '4': IOPi(0x23)}
                 # # dictionary maps each slot to a bus and pin (need to add the rest of the slots)
                 # map = {1: {'bus': 1, 'pin': 1}, 2: {'bus': 1, 'pin': 2}, 3: {'bus': 1, 'pin': 3},
                 #        4: {'bus': 1, 'pin': 4}, 5: {'bus': 1, 'pin': 5}, 6: {'bus': 1, 'pin': 6},
