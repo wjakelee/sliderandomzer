@@ -1,5 +1,5 @@
 from tkinter import *
-# from IOPi import IOPi
+# from IOPi import IOPi # (COMMENT  WHEN TESTING WITHOUT HARDWARE)
 import csv
 import itertools
 from Start_Page import StartPage
@@ -63,6 +63,33 @@ class QuestionPage(Frame):
         self.next_number = 0        # initialization of attribute next_number, this value gets updated when next
                                     # case function executes
 
+        # dictionary stores 4 different bus addresses (COMMENT WHEN TESTING WITHOUT HARDWARE)
+        # self.buses = {1: IOPi(0x20), 2: IOPi(0x21), 3: IOPi(0x22), 4: IOPi(0x23)}
+
+        self.test_buses = {1: '0x20', 2: '0x21', 3: '0x22', 4: '0x23'}  # COMMENT WHEN USING HARDWARE
+
+        # dictionary maps each slot to a bus and pin (need to add the rest of the slots)
+        self.map = {'1': {'bus': 1, 'pin': 1}, '2': {'bus': 1, 'pin': 2}, '3': {'bus': 1, 'pin': 3},
+                    '4': {'bus': 1, 'pin': 4}, '5': {'bus': 1, 'pin': 5}, '6': {'bus': 1, 'pin': 6},
+                    '7': {'bus': 1, 'pin': 7}, '8': {'bus': 1, 'pin': 8}, '9': {'bus': 1, 'pin': 9},
+                    '10': {'bus': 1, 'pin': 10}, '11': {'bus': 1, 'pin': 11}, '12': {'bus': 1, 'pin': 12},
+                    '13': {'bus': 1, 'pin': 13}, '14': {'bus': 1, 'pin': 14}, '15': {'bus': 1, 'pin': 15},
+                    '16': {'bus': 1, 'pin': 16}, '17': {'bus': 2, 'pin': 1}, '18': {'bus': 2, 'pin': 2},
+                    '19': {'bus': 2, 'pin': 3}, '20': {'bus': 2, 'pin': 4}, '21': {'bus': 2, 'pin': 5},
+                    '22': {'bus': 2, 'pin': 6}, '23': {'bus': 2, 'pin': 7}, '24': {'bus': 2, 'pin': 8},
+                    '25': {'bus': 2, 'pin': 9}, '26': {'bus': 2, 'pin': 10}, '27': {'bus': 2, 'pin': 11},
+                    '28': {'bus': 2, 'pin': 12}, '29': {'bus': 2, 'pin': 13}, '30': {'bus': 2, 'pin': 14},
+                    '31': {'bus': 2, 'pin': 15}, '32': {'bus': 2, 'pin': 16}, '33': {'bus': 3, 'pin': 1},
+                    '34': {'bus': 3, 'pin': 2}, '35': {'bus': 3, 'pin': 3}, '36': {'bus': 3, 'pin': 4},
+                    '37': {'bus': 3, 'pin': 5}, '38': {'bus': 3, 'pin': 6}, '39': {'bus': 3, 'pin': 7},
+                    '40': {'bus': 3, 'pin': 8}, '41': {'bus': 3, 'pin': 9}, '42': {'bus': 3, 'pin': 10},
+                    '43': {'bus': 3, 'pin': 11}, '44': {'bus': 3, 'pin': 12}, '45': {'bus': 3, 'pin': 13},
+                    '46': {'bus': 3, 'pin': 14}, '47': {'bus': 3, 'pin': 15}, '48': {'bus': 3, 'pin': 16},
+                    '49': {'bus': 4, 'pin': 1}, '50': {'bus': 4, 'pin': 2}, '51': {'bus': 4, 'pin': 3},
+                    '52': {'bus': 4, 'pin': 4}, '53': {'bus': 4, 'pin': 5}, '54': {'bus': 4, 'pin': 6},
+                    '55': {'bus': 4, 'pin': 7}, '56': {'bus': 4, 'pin': 8}, '57': {'bus': 4, 'pin': 9},
+                    '58': {'bus': 4, 'pin': 10}, '59': {'bus': 4, 'pin': 11}, '60': {'bus': 4, 'pin': 12}}
+
         # initialize empty dictionary to save test answers (empty values are called upon in next_case function)
         self.test_answers = defaultdict(dict)
         n_list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18',
@@ -78,8 +105,6 @@ class QuestionPage(Frame):
             self.test_answers[i]['Q6'] = ''
             self.test_answers[i]['Comments'] = ''
 
-        # print(self.test_answers)
-
         # reads randomization order from temporary_file.csv and begins test
         def start_test():
 
@@ -91,6 +116,17 @@ class QuestionPage(Frame):
                 case_order = itertools.cycle(order_list)        # allow cycle through list indefinitely
                 self.next_number = next(case_order)             # first number in case order
 
+            bus_number = self.map[self.next_number]['bus']  # determines bus number of current case
+            pin_number = self.map[self.next_number]['pin']  # determines pin number of current case
+
+            bus = self.test_buses[bus_number]  # COMMENT WHEN USING HARDWARE
+            print(bus)  # COMMENT WHEN USING HARDWARE
+            print(pin_number)  # COMMENT WHEN USING HARDWARE
+            print('ON')  # COMMENT WHEN USING HARDWARE
+
+            # bus = buses[bus_number]    # determines which bus address to use (COMMENT WHEN TESTING WITHOUT HARDWARE)
+            # bus.write_pin(pin_number, 1)     # turns ON LED for current slot (COMMENT WHEN TESTING WITHOUT HARDWARE)
+
             # function saves answers to test_answers dictionary for each case
             def save_answers(ans_1, ans_2, ans_3, ans_4, ans_5, ans_6, comments):
                 self.test_answers[self.next_number] = {'Q1': ans_1.get(), 'Q2': ans_2.get(), 'Q3': ans_3.get(),
@@ -101,6 +137,17 @@ class QuestionPage(Frame):
 
             # displays next case number
             def next_case(case_order, ans_1, ans_2, ans_3, ans_4, ans_5, ans_6, comments):
+
+                bus_number = self.map[self.next_number]['bus']  # determines bus number of current case
+                pin_number = self.map[self.next_number]['pin']  # determines pin number of current case
+
+                bus = self.test_buses[bus_number]  # COMMENT WHEN USING HARDWARE
+                print(bus)  # COMMENT WHEN USING HARDWARE
+                print(pin_number)  # COMMENT WHEN USING HARDWARE
+                print('OFF')  # COMMENT WHEN USING HARDWARE
+
+                # bus = buses[bus_number]    # determines which bus address to use (COMMENT WHEN TESTING WITHOUT HARDWARE)
+                # bus.write_pin(pin_number, 0)     # turns OFF LED for current slot (COMMENT WHEN TESTING WITHOUT HARDWARE)
 
                 self.next_number = next(case_order)        # next number in randomization order
 
@@ -118,42 +165,16 @@ class QuestionPage(Frame):
                 Label(self, textvariable=value, font='Arial 18',
                       background='light gray').place(anchor='w', relx=.15, rely=.3, width='35', height='50')
 
-                # dictionary stores 4 different bus addresses (COMMENT WHEN TESTING WITHOUT HARDWARE)
-                buses = {1: IOPi(0x20), 2: IOPi(0x21), 3: IOPi(0x22), 4: IOPi(0x23)}
+                bus_number = self.map[self.next_number]['bus']       # determines bus number of current case
+                pin_number = self.map[self.next_number]['pin']       # determines pin number of current case
 
-                # test_buses = {1: '0x20', 2: '0x21', 3: '0x22', 4: '0x23'}   # UNCOMMENT WHEN TESTING WITHOUT HARDWARE
+                bus = self.test_buses[bus_number]  # COMMENT FOR TESTING WITH HARDWARE
+                print(bus)  # COMMENT WHEN USING HARDWARE
+                print(pin_number)  # COMMENT WHEN USING HARDWARE
+                print('ON')  # COMMENT WHEN USING HARDWARE
 
-                # dictionary maps each slot to a bus and pin (need to add the rest of the slots)
-                map = {'1': {'bus': 1, 'pin': 1}, '2': {'bus': 1, 'pin': 2}, '3': {'bus': 1, 'pin': 3},
-                       '4': {'bus': 1, 'pin': 4}, '5': {'bus': 1, 'pin': 5}, '6': {'bus': 1, 'pin': 6},
-                       '7': {'bus': 1, 'pin': 7}, '8': {'bus': 1, 'pin': 8}, '9': {'bus': 1, 'pin': 9},
-                       '10': {'bus': 1, 'pin': 10}, '11': {'bus': 1, 'pin': 11}, '12': {'bus': 1, 'pin': 12},
-                       '13': {'bus': 1, 'pin': 13}, '14': {'bus': 1, 'pin': 14}, '15': {'bus': 1, 'pin': 15},
-                       '16': {'bus': 1, 'pin': 16}, '17': {'bus': 2, 'pin': 1}, '18': {'bus': 2, 'pin': 2},
-                       '19': {'bus': 2, 'pin': 3}, '20': {'bus': 2, 'pin': 4}, '21': {'bus': 2, 'pin': 5},
-                       '22': {'bus': 2, 'pin': 6}, '23': {'bus': 2, 'pin': 7}, '24': {'bus': 2, 'pin': 8},
-                       '25': {'bus': 2, 'pin': 9}, '26': {'bus': 2, 'pin': 10}, '27': {'bus': 2, 'pin': 11},
-                       '28': {'bus': 2, 'pin': 12}, '29': {'bus': 2, 'pin': 13}, '30': {'bus': 2, 'pin': 14},
-                       '31': {'bus': 2, 'pin': 11}, '32': {'bus': 2, 'pin': 12}, '33': {'bus': 3, 'pin': 13},
-                       '34': {'bus': 3, 'pin': 14}, '35': {'bus': 3, 'pin': 15}, '36': {'bus': 3, 'pin': 16},
-                       '37': {'bus': 3, 'pin': 1}, '38': {'bus': 3, 'pin': 2}, '39': {'bus': 3, 'pin': 3},
-                       '40': {'bus': 3, 'pin': 4}, '41': {'bus': 3, 'pin': 5}, '42': {'bus': 3, 'pin': 6},
-                       '43': {'bus': 3, 'pin': 7}, '44': {'bus': 3, 'pin': 8}, '45': {'bus': 3, 'pin': 9},
-                       '46': {'bus': 3, 'pin': 10}, '47': {'bus': 3, 'pin': 11}, '48': {'bus': 3, 'pin': 12},
-                       '49': {'bus': 4, 'pin': 13}, '50': {'bus': 4, 'pin': 14}, '51': {'bus': 4, 'pin': 5},
-                       '52': {'bus': 4, 'pin': 6}, '53': {'bus': 4, 'pin': 7}, '54': {'bus': 4, 'pin': 8},
-                       '55': {'bus': 4, 'pin': 9}, '56': {'bus': 4, 'pin': 10}, '57': {'bus': 4, 'pin': 11},
-                       '58': {'bus': 4, 'pin': 12}, '59': {'bus': 4, 'pin': 13}, '60': {'bus': 4, 'pin': 14}}
-
-                bus_number = map[self.next_number]['bus']       # determines bus number of current case
-                pin_number = map[self.next_number]['pin']       # determines pin number of current case
-
-                # bus = test_buses[bus_number]  # UNCOMMENT FOR TESTING WITHOUT HARDWARE
-                # print(bus)  # UNCOMMENT FOR TESTING WITHOUT HARDWARE
-                # print(pin_number)  # UNCOMMENT FOR TESTING WITHOUT HARDWARE
-
-                bus = buses[bus_number]    # determines which bus address to use (COMMENT WHEN TESTING WITHOUT HARDWARE)
-                bus.write_pin(pin_number, 1)     # turns on LED for current slot (COMMENT WHEN TESTING WITHOUT HARDWARE)
+                # bus = buses[bus_number]    # determines which bus address to use (COMMENT WHEN TESTING WITHOUT HARDWARE)
+                # bus.write_pin(pin_number, 1)     # turns ON LED for current slot (COMMENT WHEN TESTING WITHOUT HARDWARE)
 
             # label for question 1
             Label(self, text='1. H&E Acceptable? (Yes/No)',
