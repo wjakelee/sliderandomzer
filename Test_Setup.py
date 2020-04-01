@@ -14,8 +14,8 @@ class TestSetup(Frame):
 
         # button to select setup file, command calls 'select_file' function
         Button(self, text='Select Setup File', font='Arial 12 bold', bg='#80bfff', activebackground='#ccebff',
-               height='3', width='30', command=lambda: select_file(barcodes)).place(anchor='n', relx=.5,
-                                                                                           rely=.2)
+               height='3', width='30', command=lambda: select_file()).place(anchor='n', relx=.5, rely=.2)
+
         # button calls show_frame method and takes you page to Start Page
         Button(self, text="Back To Home", fg="black", bg="#81DAF5", font="Arial 14", width='12', height='1',
                command=lambda: controller.show_frame("StartPage")).place(relx=1.0, rely=1.0, anchor=SE)
@@ -25,10 +25,10 @@ class TestSetup(Frame):
                command=lambda: controller.show_frame("SetDatRand")).place(relx=0.8, rely=1.0, anchor=SE)
 
         # initializes dictionary to store barcode information
-        barcodes = {}
+        self.barcodes = {}
 
         # function opens file selection window and saves selected csv file information into dictionaries
-        def select_file(barcodes):
+        def select_file():
             # opens file selector window
             selected_file = filedialog.askopenfilename(title="Select a CSV File", filetypes=(("CSV files", "*.csv"),
                                                                                              ("all files", "*.*")))
@@ -38,7 +38,7 @@ class TestSetup(Frame):
                 next(setup_file_reader)                                     # goes to second line of csv file
 
                 for row in setup_file_reader:
-                    barcodes[row[0]] = {row[1]: 'he', row[2]: 'nrc', row[3]: 'ab'}  # saves csv info to dictionary
+                    self.barcodes[row[0]] = {row[1]: 'he', row[2]: 'nrc', row[3]: 'ab'}  # saves csv info to dictionary
 
             with open(selected_file, 'r', newline='') as temp_setup_file:  # opens selected file for reading
                 temp_file_reader = csv.reader(temp_setup_file)
@@ -62,14 +62,13 @@ class TestSetup(Frame):
 
             # button to read the scanned barcode, command calls 'compare' function
             Button(self, text='Read\nBarcode', font='Arial 12 bold', bg='#00cc66', activebackground='#80ffbf',
-                   height='3', width='10', command=lambda: compare(barcode_entry.get(), barcodes)).place(anchor='n',
-                                                                                                         relx=.2,
-                                                                                                         rely=.5)
+                   height='3', width='10', command=lambda: compare(barcode_entry.get())).place(anchor='n',
+                                                                                               relx=.2, rely=.5)
 
             # prompts user to place slide in the correct slot depending on the barcode scanned
-            def compare(barcode_entry, barcodes):
+            def compare(barcode_entry):
 
-                for case, case_info in barcodes.items():            # loops through 'barcodes' dictionary
+                for case, case_info in self.barcodes.items():            # loops through 'barcodes' dictionary
                     for key in case_info:
                         if barcode_entry == key:        # checks to see if scanned barcode matches a value from csv file
                             Label(self, text="Place scanned slide in the illuminated slot.",
