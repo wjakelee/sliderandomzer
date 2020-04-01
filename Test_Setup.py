@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import filedialog
+from tkinter import messagebox
 import csv
 
 # research running this module on its own, for now use dummy app
@@ -27,6 +28,9 @@ class TestSetup(Frame):
         # initializes dictionary to store barcode information
         self.barcodes = {}
 
+        # initialize list to store only barcodes from setup file (used for comparison)
+        self.only_codes = []
+
         # function opens file selection window and saves selected csv file information into dictionaries
         def select_file():
             # opens file selector window
@@ -38,7 +42,7 @@ class TestSetup(Frame):
                 next(setup_file_reader)                                     # goes to second line of csv file
 
                 for row in setup_file_reader:
-                    self.barcodes[row[0]] = {row[1]: 'he', row[2]: 'nrc', row[3]: 'ab'}  # saves csv info to dictionary
+                    self.barcodes[row[0]] = {'he': row[1], 'nrc': row[2], 'ab': row[3]}  # saves csv info to dictionary
 
             with open(selected_file, 'r', newline='') as temp_setup_file:  # opens selected file for reading
                 temp_file_reader = csv.reader(temp_setup_file)
@@ -48,6 +52,16 @@ class TestSetup(Frame):
                     temp_file_writer = csv.writer(temp_file)               # creates a csv writer
                     for line in temp_file_reader:
                         temp_file_writer.writerow(line)                    # copies setup file to temporary file
+
+            with open(selected_file, 'r', newline='') as setup_file:        # opens selected file for reading
+                setup_file_reader = csv.reader(setup_file)                  # reads selected file
+                next(setup_file_reader)                                     # goes to second line of csv file
+
+                # saves only the barcodes from the setup file to a list (used in compare function)
+                for row in setup_file_reader:
+                    self.only_codes.append(row[1])
+                    self.only_codes.append(row[2])
+                    self.only_codes.append(row[3])
 
             # prompts user to scan and read barcode once setup file is selected
             Label(self, text="Setup file read.\nScan and read a slide to determine its corresponding case and slot:",
@@ -69,15 +83,23 @@ class TestSetup(Frame):
             def compare(barcode_entry):
 
                 for case, case_info in self.barcodes.items():            # loops through 'barcodes' dictionary
-                    for key in case_info:
-                        if barcode_entry == key:        # checks to see if scanned barcode matches a value from csv file
-                            Label(self, text="Place scanned slide in the illuminated slot.",
-                                  font='Arial 12 bold').place(anchor='n', relx=.5, rely=.7)
-                            key_val = StringVar()
-                            key_val.set(case)
-                            Label(self, textvariable=key_val, font='Arial 12 bold').place(anchor='n', relx=.52,
-                                                                                          rely=.75)
-                            Label(self, text='Slot #:', font='Arial 12 bold').place(anchor='n', relx=.48, rely=.75)
+
+                    # checks to see if scanned barcode matches a value from csv file
+                    if barcode_entry == case_info['he'] or barcode_entry == case_info['nrc']\
+                            or barcode_entry == case_info['ab']:
+
+                        Label(self, text="Place scanned slide in the illuminated slot.",
+                              font='Arial 12 bold').place(anchor='n', relx=.5, rely=.7)
+                        key_val = StringVar()
+                        key_val.set(case)
+                        Label(self, textvariable=key_val, font='Arial 12 bold').place(anchor='n', relx=.53,
+                                                                                      rely=.75, width='20')
+                        Label(self, text='Slot #:', font='Arial 12 bold').place(anchor='n', relx=.48, rely=.75)
+
+                if barcode_entry not in self.only_codes:
+                    Label(self, text="This barcode is not listed in the setup file.\nEither choose a new setup file or "
+                                     "select a slide\nthat is listed in the setup file.",
+                          font='Arial 12 bold').place(anchor='n', relx=.5, rely=.7)
 
 
 # need to figure how to run this module on its own
