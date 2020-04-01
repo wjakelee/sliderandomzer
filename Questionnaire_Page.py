@@ -7,7 +7,7 @@ from Test_Intro_Page import TestIntro
 from collections import defaultdict
 
 
-# initializing port directions for LED illumination
+# initializing port directions for LED illumination (COMMENT LINES 11-25 WHEN TESTING WITHOUT HARDWARE)
 # bus1 = IOPi(0x20)
 # bus1.set_port_direction(0, 0x00)                 # set port direction
 # bus1.write_port(0, 0x00)                         # write port
@@ -118,34 +118,42 @@ class QuestionPage(Frame):
                 Label(self, textvariable=value, font='Arial 18',
                       background='light gray').place(anchor='w', relx=.15, rely=.3, width='35', height='50')
 
-                # # dictionary stores 4 different bus addresses
-                # buses = {'1': IOPi(0x20), '2': IOPi(0x21), '3': IOPi(0x22), '4': IOPi(0x23)}
-                # # dictionary maps each slot to a bus and pin (need to add the rest of the slots)
-                # map = {1: {'bus': 1, 'pin': 1}, 2: {'bus': 1, 'pin': 2}, 3: {'bus': 1, 'pin': 3},
-                #        4: {'bus': 1, 'pin': 4}, 5: {'bus': 1, 'pin': 5}, 6: {'bus': 1, 'pin': 6},
-                #        7: {'bus': 1, 'pin': 7}, 8: {'bus': 1, 'pin': 8}, 9: {'bus': 1, 'pin': 9},
-                #        10: {'bus': 1, 'pin': 10}, 11: {'bus': 1, 'pin': 11}, 12: {'bus': 1, 'pin': 12},
-                #        13: {'bus': 1, 'pin': 13}, 14: {'bus': 1, 'pin': 14}, 15: {'bus': 1, 'pin': 15},
-                #        16: {'bus': 1, 'pin': 16}, 17: {'bus': 2, 'pin': 1}, 18: {'bus': 2, 'pin': 2},
-                #        19: {'bus': 2, 'pin': 3}, 20: {'bus': 2, 'pin': 4}, 21: {'bus': 2, 'pin': 5},
-                #        22: {'bus': 2, 'pin': 6}, 23: {'bus': 2, 'pin': 7}, 24: {'bus': 2, 'pin': 8},
-                #        25: {'bus': 2, 'pin': 9}, 26: {'bus': 2, 'pin': 10}, 27: {'bus': 2, 'pin': 11},
-                #        28: {'bus': 2, 'pin': 12}, 29: {'bus': 2, 'pin': 13}, 30: {'bus': 2, 'pin': 14},
-                #        31: {'bus': 2, 'pin': 11}, 32: {'bus': 2, 'pin': 12}, 33: {'bus': 3, 'pin': 13},
-                #        34: {'bus': 3, 'pin': 14}, 35: {'bus': 3, 'pin': 15}, 36: {'bus': 3, 'pin': 16},
-                #        37: {'bus': 3, 'pin': 1}, 38: {'bus': 3, 'pin': 2}, 39: {'bus': 3, 'pin': 3},
-                #        40: {'bus': 3, 'pin': 4}, 41: {'bus': 3, 'pin': 5}, 42: {'bus': 3, 'pin': 6},
-                #        43: {'bus': 3, 'pin': 7}, 44: {'bus': 3, 'pin': 8}, 45: {'bus': 3, 'pin': 9},
-                #        46: {'bus': 3, 'pin': 10}, 47: {'bus': 3, 'pin': 11}, 48: {'bus': 3, 'pin': 12},
-                #        49: {'bus': 4, 'pin': 13}, 50: {'bus': 4, 'pin': 14}, 51: {'bus': 4, 'pin': 5},
-                #        52: {'bus': 4, 'pin': 6}, 53: {'bus': 4, 'pin': 7}, 54: {'bus': 4, 'pin': 8},
-                #        55: {'bus': 4, 'pin': 9}, 56: {'bus': 4, 'pin': 10}, 57: {'bus': 4, 'pin': 11},
-                #        58: {'bus': 4, 'pin': 12}, 59: {'bus': 4, 'pin': 13}, 60: {'bus': 4, 'pin': 14}}
-                #
-                # bus_number = map[self.next_number]['bus']       # determines bus number of current case
-                # pin_number = map[self.next_number]['pin']       # determines pin number of current case
-                # bus = buses[bus_number]                         # determines which bus address to use
-                # bus.write_pin(pin_number, 1)                    # turns on LED for current slot
+                # dictionary stores 4 different bus addresses (COMMENT WHEN TESTING WITHOUT HARDWARE)
+                buses = {1: IOPi(0x20), 2: IOPi(0x21), 3: IOPi(0x22), 4: IOPi(0x23)}
+
+                # test_buses = {1: '0x20', 2: '0x21', 3: '0x22', 4: '0x23'}   # UNCOMMENT WHEN TESTING WITHOUT HARDWARE
+
+                # dictionary maps each slot to a bus and pin (need to add the rest of the slots)
+                map = {'1': {'bus': 1, 'pin': 1}, '2': {'bus': 1, 'pin': 2}, '3': {'bus': 1, 'pin': 3},
+                       '4': {'bus': 1, 'pin': 4}, '5': {'bus': 1, 'pin': 5}, '6': {'bus': 1, 'pin': 6},
+                       '7': {'bus': 1, 'pin': 7}, '8': {'bus': 1, 'pin': 8}, '9': {'bus': 1, 'pin': 9},
+                       '10': {'bus': 1, 'pin': 10}, '11': {'bus': 1, 'pin': 11}, '12': {'bus': 1, 'pin': 12},
+                       '13': {'bus': 1, 'pin': 13}, '14': {'bus': 1, 'pin': 14}, '15': {'bus': 1, 'pin': 15},
+                       '16': {'bus': 1, 'pin': 16}, '17': {'bus': 2, 'pin': 1}, '18': {'bus': 2, 'pin': 2},
+                       '19': {'bus': 2, 'pin': 3}, '20': {'bus': 2, 'pin': 4}, '21': {'bus': 2, 'pin': 5},
+                       '22': {'bus': 2, 'pin': 6}, '23': {'bus': 2, 'pin': 7}, '24': {'bus': 2, 'pin': 8},
+                       '25': {'bus': 2, 'pin': 9}, '26': {'bus': 2, 'pin': 10}, '27': {'bus': 2, 'pin': 11},
+                       '28': {'bus': 2, 'pin': 12}, '29': {'bus': 2, 'pin': 13}, '30': {'bus': 2, 'pin': 14},
+                       '31': {'bus': 2, 'pin': 11}, '32': {'bus': 2, 'pin': 12}, '33': {'bus': 3, 'pin': 13},
+                       '34': {'bus': 3, 'pin': 14}, '35': {'bus': 3, 'pin': 15}, '36': {'bus': 3, 'pin': 16},
+                       '37': {'bus': 3, 'pin': 1}, '38': {'bus': 3, 'pin': 2}, '39': {'bus': 3, 'pin': 3},
+                       '40': {'bus': 3, 'pin': 4}, '41': {'bus': 3, 'pin': 5}, '42': {'bus': 3, 'pin': 6},
+                       '43': {'bus': 3, 'pin': 7}, '44': {'bus': 3, 'pin': 8}, '45': {'bus': 3, 'pin': 9},
+                       '46': {'bus': 3, 'pin': 10}, '47': {'bus': 3, 'pin': 11}, '48': {'bus': 3, 'pin': 12},
+                       '49': {'bus': 4, 'pin': 13}, '50': {'bus': 4, 'pin': 14}, '51': {'bus': 4, 'pin': 5},
+                       '52': {'bus': 4, 'pin': 6}, '53': {'bus': 4, 'pin': 7}, '54': {'bus': 4, 'pin': 8},
+                       '55': {'bus': 4, 'pin': 9}, '56': {'bus': 4, 'pin': 10}, '57': {'bus': 4, 'pin': 11},
+                       '58': {'bus': 4, 'pin': 12}, '59': {'bus': 4, 'pin': 13}, '60': {'bus': 4, 'pin': 14}}
+
+                bus_number = map[self.next_number]['bus']       # determines bus number of current case
+                pin_number = map[self.next_number]['pin']       # determines pin number of current case
+
+                # bus = test_buses[bus_number]  # UNCOMMENT FOR TESTING WITHOUT HARDWARE
+                # print(bus)  # UNCOMMENT FOR TESTING WITHOUT HARDWARE
+                # print(pin_number)  # UNCOMMENT FOR TESTING WITHOUT HARDWARE
+
+                bus = buses[bus_number]    # determines which bus address to use (COMMENT WHEN TESTING WITHOUT HARDWARE)
+                bus.write_pin(pin_number, 1)     # turns on LED for current slot (COMMENT WHEN TESTING WITHOUT HARDWARE)
 
             # label for question 1
             Label(self, text='1. H&E Acceptable? (Yes/No)',
@@ -225,7 +233,7 @@ class QuestionPage(Frame):
                   background='light gray', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03, rely=.5,
                                                                                 width='200', height='120')
 
-            # button calls save_answers function to save the first case answers only
+            # button calls save_answers function
             Button(self, text='Save Answers', bg='#33adff', fg='black', font='Arial 16 bold',
                    command=lambda: save_answers(ans_1, ans_2, ans_3, ans_4, ans_5, ans_6,
                                                 comments)).place(anchor='w', relx=0.725, rely=0.9,
@@ -233,12 +241,15 @@ class QuestionPage(Frame):
 
             # button calls next_case function
             Button(self, text='Next Case', bg='#bfbfbf', fg='black',
-                   font='Arial 16 bold', command=lambda: next_case(case_order, ans_1, ans_2, ans_3, ans_4, ans_5, ans_6, comments)).place(anchor='w', relx=0.03, rely=0.9,
-                                                                                      width='120', height='60')
+                   font='Arial 16 bold', command=lambda: next_case(case_order, ans_1, ans_2, ans_3, ans_4, ans_5,
+                                                                   ans_6, comments)).place(anchor='w', relx=0.03,
+                                                                                           rely=0.9, width='120',
+                                                                                           height='60')
 
             # button calls end_test function
             Button(self, text='End Test', bg='#ff4d4d', fg='black', font='Arial 16 bold',
-                   command=lambda: controller.show_frame("ConfirmationPage")).place(anchor='w', relx=0.225, rely=0.9, width='120', height='60')
+                   command=lambda: controller.show_frame("ConfirmationPage")).place(anchor='w', relx=0.225, rely=0.9,
+                                                                                    width='120', height='60')
 
         # button calls start_test function
         Button(self, text='Start Test', bg='#47d147', fg='black', font='Arial 16 bold',
