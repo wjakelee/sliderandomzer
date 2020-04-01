@@ -123,6 +123,7 @@ class QuestionPage(Frame):
             print(bus)  # COMMENT WHEN USING HARDWARE
             print(pin_number)  # COMMENT WHEN USING HARDWARE
             print('ON')  # COMMENT WHEN USING HARDWARE
+            print('------')  # COMMENT WHEN USING HARDWARE
 
             # bus = buses[bus_number]    # determines which bus address to use (COMMENT WHEN TESTING WITHOUT HARDWARE)
             # bus.write_pin(pin_number, 1)     # turns ON LED for current slot (COMMENT WHEN TESTING WITHOUT HARDWARE)
@@ -144,7 +145,7 @@ class QuestionPage(Frame):
                 bus = self.test_buses[bus_number]  # COMMENT WHEN USING HARDWARE
                 print(bus)  # COMMENT WHEN USING HARDWARE
                 print(pin_number)  # COMMENT WHEN USING HARDWARE
-                print('OFF')  # COMMENT WHEN USING HARDWARE
+                print('OFF\n')  # COMMENT WHEN USING HARDWARE
 
                 # bus = buses[bus_number]    # determines which bus address to use (COMMENT WHEN TESTING WITHOUT HARDWARE)
                 # bus.write_pin(pin_number, 0)     # turns OFF LED for current slot (COMMENT WHEN TESTING WITHOUT HARDWARE)
@@ -172,8 +173,9 @@ class QuestionPage(Frame):
                 print(bus)  # COMMENT WHEN USING HARDWARE
                 print(pin_number)  # COMMENT WHEN USING HARDWARE
                 print('ON')  # COMMENT WHEN USING HARDWARE
+                print('------')  # COMMENT WHEN USING HARDWARE
 
-                # bus = buses[bus_number]    # determines which bus address to use (COMMENT WHEN TESTING WITHOUT HARDWARE)
+                # bus = self.buses[bus_number]    # determines which bus address to use (COMMENT WHEN TESTING WITHOUT HARDWARE)
                 # bus.write_pin(pin_number, 1)     # turns ON LED for current slot (COMMENT WHEN TESTING WITHOUT HARDWARE)
 
             # label for question 1
