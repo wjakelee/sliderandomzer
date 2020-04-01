@@ -61,6 +61,8 @@ class TestIntro(Frame):                         # start up / home page, class in
 
         def next_page():
             name.set("")
+            Label(self, text='You have already taken this test.', fg="black", bg="white", font="Arial 14", width='200',
+                  height='20', ).place(relx=0.5, rely=0, anchor='n')
             controller.show_frame("QuestionPage")
 
         # function writes user information to export file
@@ -77,8 +79,7 @@ class TestIntro(Frame):                         # start up / home page, class in
             if name.get() != "":
                 # Button takes user them to the questionnaire page
                 Button(self, text="Begin The Test", fg="black", bg="#47d147", font="Arial 14", width='20',
-                       height='2', command=next_page).place(relx=.5, rely=.8,
-                                                                                                anchor=CENTER)
+                       height='2', command=next_page).place(relx=.5, rely=.8, anchor=CENTER)
 
 
 if __name__ == "__main__":
