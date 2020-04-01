@@ -1,9 +1,6 @@
 from tkinter import *
 from tkinter import filedialog
-from tkinter import messagebox
 import csv
-
-# research running this module on its own, for now use dummy app
 
 
 class TestSetup(Frame):
