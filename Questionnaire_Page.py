@@ -4,6 +4,25 @@ import csv
 import itertools
 from Start_Page import StartPage
 from Test_Intro_Page import TestIntro
+from collections import defaultdict
+
+
+# initializing port directions for LED illumination
+# bus1 = IOPi(0x20)
+# bus1.set_port_direction(0, 0x00)                 # set port direction
+# bus1.write_port(0, 0x00)                         # write port
+#
+# bus2 = IOPi(0x21)
+# bus2.set_port_direction(0, 0x00)                 # set port direction
+# bus2.write_port(0, 0x00)                         # write port
+#
+# bus3 = IOPi(0x22)
+# bus3.set_port_direction(0, 0x00)                 # set port direction
+# bus3.write_port(0, 0x00)                         # write port
+#
+# bus4 = IOPi(0x23)
+# bus4.set_port_direction(0, 0x00)                 # set port direction
+# bus4.write_port(0, 0x00)                         # write port
 
 
 # class is used here to run this page alone
@@ -45,67 +64,21 @@ class QuestionPage(Frame):
                                     # case function executes
 
         # initialize empty dictionary to save test answers (empty values are called upon in next_case function)
-        self.test_answers = {'1': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '2': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '3': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '4': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '5': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '6': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '7': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '8': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '9': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '10': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '11': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '12': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '13': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '14': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '15': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '16': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '17': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '18': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '19': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '20': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '21': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '22': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '23': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '24': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '25': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '26': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '27': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '28': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '29': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '30': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '31': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '32': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '33': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '34': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '35': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '36': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '37': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '38': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '39': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '40': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '41': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '42': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '43': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '44': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '45': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '46': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '47': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '48': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '49': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '50': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '51': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '52': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '53': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '54': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '55': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '56': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '57': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '58': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '59': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''},
-                             '60': {'Q1': '', 'Q2': '', 'Q3': '', 'Q4': '', 'Q5': '', 'Q6': '', 'Comments': ''}}
+        self.test_answers = defaultdict(dict)
+        n_list = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18',
+                  '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35',
+                  '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52',
+                  '53', '54', '55', '56', '57', '58', '59', '60']
+        for i in n_list:
+            self.test_answers[i]['Q1'] = ''
+            self.test_answers[i]['Q2'] = ''
+            self.test_answers[i]['Q3'] = ''
+            self.test_answers[i]['Q4'] = ''
+            self.test_answers[i]['Q5'] = ''
+            self.test_answers[i]['Q6'] = ''
+            self.test_answers[i]['Comments'] = ''
 
+        # print(self.test_answers)
 
         # reads randomization order from temporary_file.csv and begins test
         def start_test():
@@ -120,8 +93,9 @@ class QuestionPage(Frame):
 
             # function saves answers to test_answers dictionary for each case
             def save_answers(ans_1, ans_2, ans_3, ans_4, ans_5, ans_6, comments):
-                self.test_answers[self.next_number] = {'Q1': ans_1.get(), 'Q2': ans_2.get(), 'Q3': ans_3.get(), 'Q4': ans_4.get(),
-                                                       'Q5': ans_5.get(), 'Q6': ans_6.get(), 'Comments':  comments.get()}
+                self.test_answers[self.next_number] = {'Q1': ans_1.get(), 'Q2': ans_2.get(), 'Q3': ans_3.get(),
+                                                       'Q4': ans_4.get(), 'Q5': ans_5.get(), 'Q6': ans_6.get(),
+                                                       'Comments':  comments.get()}
 
                 print(self.test_answers)
 
@@ -130,6 +104,7 @@ class QuestionPage(Frame):
 
                 self.next_number = next(case_order)        # next number in randomization order
 
+                # displays previously saved answers for each case depending on which case is requested
                 ans_1.set(self.test_answers[self.next_number]['Q1'])
                 ans_2.set(self.test_answers[self.next_number]['Q2'])
                 ans_3.set(self.test_answers[self.next_number]['Q3'])
@@ -151,13 +126,25 @@ class QuestionPage(Frame):
                 #        7: {'bus': 1, 'pin': 7}, 8: {'bus': 1, 'pin': 8}, 9: {'bus': 1, 'pin': 9},
                 #        10: {'bus': 1, 'pin': 10}, 11: {'bus': 1, 'pin': 11}, 12: {'bus': 1, 'pin': 12},
                 #        13: {'bus': 1, 'pin': 13}, 14: {'bus': 1, 'pin': 14}, 15: {'bus': 1, 'pin': 15},
-                #        16: {'bus': 1, 'pin': 16}}
+                #        16: {'bus': 1, 'pin': 16}, 17: {'bus': 2, 'pin': 1}, 18: {'bus': 2, 'pin': 2},
+                #        19: {'bus': 2, 'pin': 3}, 20: {'bus': 2, 'pin': 4}, 21: {'bus': 2, 'pin': 5},
+                #        22: {'bus': 2, 'pin': 6}, 23: {'bus': 2, 'pin': 7}, 24: {'bus': 2, 'pin': 8},
+                #        25: {'bus': 2, 'pin': 9}, 26: {'bus': 2, 'pin': 10}, 27: {'bus': 2, 'pin': 11},
+                #        28: {'bus': 2, 'pin': 12}, 29: {'bus': 2, 'pin': 13}, 30: {'bus': 2, 'pin': 14},
+                #        31: {'bus': 2, 'pin': 11}, 32: {'bus': 2, 'pin': 12}, 33: {'bus': 3, 'pin': 13},
+                #        34: {'bus': 3, 'pin': 14}, 35: {'bus': 3, 'pin': 15}, 36: {'bus': 3, 'pin': 16},
+                #        37: {'bus': 3, 'pin': 1}, 38: {'bus': 3, 'pin': 2}, 39: {'bus': 3, 'pin': 3},
+                #        40: {'bus': 3, 'pin': 4}, 41: {'bus': 3, 'pin': 5}, 42: {'bus': 3, 'pin': 6},
+                #        43: {'bus': 3, 'pin': 7}, 44: {'bus': 3, 'pin': 8}, 45: {'bus': 3, 'pin': 9},
+                #        46: {'bus': 3, 'pin': 10}, 47: {'bus': 3, 'pin': 11}, 48: {'bus': 3, 'pin': 12},
+                #        49: {'bus': 4, 'pin': 13}, 50: {'bus': 4, 'pin': 14}, 51: {'bus': 4, 'pin': 5},
+                #        52: {'bus': 4, 'pin': 6}, 53: {'bus': 4, 'pin': 7}, 54: {'bus': 4, 'pin': 8},
+                #        55: {'bus': 4, 'pin': 9}, 56: {'bus': 4, 'pin': 10}, 57: {'bus': 4, 'pin': 11},
+                #        58: {'bus': 4, 'pin': 12}, 59: {'bus': 4, 'pin': 13}, 60: {'bus': 4, 'pin': 14}}
                 #
                 # bus_number = map[self.next_number]['bus']       # determines bus number of current case
                 # pin_number = map[self.next_number]['pin']       # determines pin number of current case
                 # bus = buses[bus_number]                         # determines which bus address to use
-                # bus.set_port_direction(0, 0x00)                 # set port direction
-                # bus.write_port(0, 0x00)                         # write port
                 # bus.write_pin(pin_number, 1)                    # turns on LED for current slot
 
             # label for question 1
