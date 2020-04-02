@@ -1,26 +1,28 @@
 from tkinter import *
 from tkinter import filedialog
 from tkinter import messagebox
-# from IOPi import IOPi # (COMMENT  WHEN TESTING WITHOUT HARDWARE)
 import csv
+try:
+    from IOPi import IOPi
+except ModuleNotFoundError:
+    from test import Bus as IOPi
 
+# initializing port directions for LED illumination
+bus1 = IOPi(0x20)
+bus1.set_port_direction(0, 0x00)                 # set port direction
+bus1.write_port(0, 0x00)                         # write port
 
-# initializing port directions for LED illumination (COMMENT LINES 11-25 WHEN TESTING WITHOUT HARDWARE)
-# bus1 = IOPi(0x20)
-# bus1.set_port_direction(0, 0x00)                 # set port direction
-# bus1.write_port(0, 0x00)                         # write port
-#
-# bus2 = IOPi(0x21)
-# bus2.set_port_direction(0, 0x00)                 # set port direction
-# bus2.write_port(0, 0x00)                         # write port
-#
-# bus3 = IOPi(0x22)
-# bus3.set_port_direction(0, 0x00)                 # set port direction
-# bus3.write_port(0, 0x00)                         # write port
-#
-# bus4 = IOPi(0x23)
-# bus4.set_port_direction(0, 0x00)                 # set port direction
-# bus4.write_port(0, 0x00)                         # write port
+bus2 = IOPi(0x21)
+bus2.set_port_direction(0, 0x00)                 # set port direction
+bus2.write_port(0, 0x00)                         # write port
+
+bus3 = IOPi(0x22)
+bus3.set_port_direction(0, 0x00)                 # set port direction
+bus3.write_port(0, 0x00)                         # write port
+
+bus4 = IOPi(0x23)
+bus4.set_port_direction(0, 0x00)                 # set port direction
+bus4.write_port(0, 0x00)                         # write port
 
 
 class TestSetup(Frame):
@@ -35,9 +37,7 @@ class TestSetup(Frame):
         self.only_codes = []
 
         # dictionary stores 4 different bus addresses (COMMENT WHEN TESTING WITHOUT HARDWARE)
-        # self.buses = {1: IOPi(0x20), 2: IOPi(0x21), 3: IOPi(0x22), 4: IOPi(0x23)}
-
-        self.test_buses = {1: '0x20', 2: '0x21', 3: '0x22', 4: '0x23'}  # COMMENT WHEN USING HARDWARE
+        self.buses = {1: bus1, 2: bus2, 3: bus3, 4: bus4}
 
         # dictionary maps each slot to a bus and pin (need to add the rest of the slots)
         self.map = {'1': {'bus': 1, 'pin': 1}, '2': {'bus': 1, 'pin': 2}, '3': {'bus': 1, 'pin': 3},
@@ -117,14 +117,8 @@ class TestSetup(Frame):
                 bus_number = self.map[self.prev_slot]['bus']  # determines bus number of current case
                 pin_number = self.map[self.prev_slot]['pin']  # determines pin number of current case
 
-                bus = self.test_buses[bus_number]  # COMMENT FOR TESTING WITH HARDWARE
-                print(bus)  # COMMENT WHEN USING HARDWARE
-                print(pin_number)  # COMMENT WHEN USING HARDWARE
-                print('OFF\n')  # COMMENT WHEN USING HARDWARE
-
-                # bus = self.buses[bus_number]    # determines which bus address to use (COMMENT WHEN TESTING WITHOUT HARDWARE)
-                # bus.write_pin(pin_number, 0)     # turns OFF LED for previous slot (COMMENT WHEN TESTING WITHOUT HARDWARE)
-
+                bus = self.buses[bus_number]    # determines which bus address to use
+                bus.write_pin(pin_number, 0)     # turns OFF LED for previous slot
 
                 for case, case_info in self.barcodes.items():            # loops through 'barcodes' dictionary
 
@@ -142,14 +136,8 @@ class TestSetup(Frame):
                         bus_number = self.map[case]['bus']  # determines bus number of current case
                         pin_number = self.map[case]['pin']  # determines pin number of current case
 
-                        bus = self.test_buses[bus_number]  # COMMENT FOR TESTING WITH HARDWARE
-                        print(bus)  # COMMENT WHEN USING HARDWARE
-                        print(pin_number)  # COMMENT WHEN USING HARDWARE
-                        print('ON')  # COMMENT WHEN USING HARDWARE
-                        print('-------')  # COMMENT WHEN USING HARDWARE
-
-                        # bus = self.buses[bus_number]    # determines which bus address to use (COMMENT WHEN TESTING WITHOUT HARDWARE)
-                        # bus.write_pin(pin_number, 1)     # turns ON LED for current slot (COMMENT WHEN TESTING WITHOUT HARDWARE)
+                        bus = self.buses[bus_number]    # determines which bus address to use
+                        bus.write_pin(pin_number, 1)     # turns ON LED for current slot
 
                         self.prev_slot = case   # save previous slot number to turn off for a new scan
 
@@ -164,13 +152,8 @@ class TestSetup(Frame):
             bus_number = self.map[self.prev_slot]['bus']  # determines bus number of current case
             pin_number = self.map[self.prev_slot]['pin']  # determines pin number of current case
 
-            bus = self.test_buses[bus_number]  # COMMENT FOR TESTING WITH HARDWARE
-            print(bus)  # COMMENT WHEN USING HARDWARE
-            print(pin_number)  # COMMENT WHEN USING HARDWARE
-            print('OFF\n')  # COMMENT WHEN USING HARDWARE
-
-            # bus = self.buses[bus_number]    # determines which bus address to use (COMMENT WHEN TESTING WITHOUT HARDWARE)
-            # bus.write_pin(pin_number, 0)     # turns OFF LED for previous slot (COMMENT WHEN TESTING WITHOUT HARDWARE)
+            bus = self.buses[bus_number]    # determines which bus address to use
+            bus.write_pin(pin_number, 0)     # turns OFF LED for previous slot
 
             controller.show_frame("SetDatRand")
 
@@ -178,13 +161,8 @@ class TestSetup(Frame):
             bus_number = self.map[self.prev_slot]['bus']  # determines bus number of current case
             pin_number = self.map[self.prev_slot]['pin']  # determines pin number of current case
 
-            bus = self.test_buses[bus_number]  # COMMENT FOR TESTING WITH HARDWARE
-            print(bus)  # COMMENT WHEN USING HARDWARE
-            print(pin_number)  # COMMENT WHEN USING HARDWARE
-            print('OFF\n')  # COMMENT WHEN USING HARDWARE
-
-            # bus = self.buses[bus_number]    # determines which bus address to use (COMMENT WHEN TESTING WITHOUT HARDWARE)
-            # bus.write_pin(pin_number, 0)     # turns OFF LED for previous slot (COMMENT WHEN TESTING WITHOUT HARDWARE)
+            bus = self.buses[bus_number]    # determines which bus address to use
+            bus.write_pin(pin_number, 0)     # turns OFF LED for previous slot
             controller.show_frame("StartPage")
 
         Label(self, text="TEST SETUP", font='Arial 20 bold underline').place(anchor='n', relx=0.5, rely=0.05)
