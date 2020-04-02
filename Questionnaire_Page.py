@@ -1,28 +1,31 @@
 from tkinter import *
-# from IOPi import IOPi # (COMMENT  WHEN TESTING WITHOUT HARDWARE)
 import csv
 import itertools
 from Start_Page import StartPage
 from Test_Intro_Page import TestIntro
 from collections import defaultdict
+try:
+    from IOPi import IOPi
+except ModuleNotFoundError:
+    from test import Bus as IOPi
 
 
-# initializing port directions for LED illumination (COMMENT LINES 11-25 WHEN TESTING WITHOUT HARDWARE)
-# bus1 = IOPi(0x20)
-# bus1.set_port_direction(0, 0x00)                 # set port direction
-# bus1.write_port(0, 0x00)                         # write port
-#
-# bus2 = IOPi(0x21)
-# bus2.set_port_direction(0, 0x00)                 # set port direction
-# bus2.write_port(0, 0x00)                         # write port
-#
-# bus3 = IOPi(0x22)
-# bus3.set_port_direction(0, 0x00)                 # set port direction
-# bus3.write_port(0, 0x00)                         # write port
-#
-# bus4 = IOPi(0x23)
-# bus4.set_port_direction(0, 0x00)                 # set port direction
-# bus4.write_port(0, 0x00)                         # write port
+# initializing port directions for LED illumination
+bus1 = IOPi(0x20)
+bus1.set_port_direction(0, 0x00)                 # set port direction
+bus1.write_port(0, 0x00)                         # write port
+
+bus2 = IOPi(0x21)
+bus2.set_port_direction(0, 0x00)                 # set port direction
+bus2.write_port(0, 0x00)                         # write port
+
+bus3 = IOPi(0x22)
+bus3.set_port_direction(0, 0x00)                 # set port direction
+bus3.write_port(0, 0x00)                         # write port
+
+bus4 = IOPi(0x23)
+bus4.set_port_direction(0, 0x00)                 # set port direction
+bus4.write_port(0, 0x00)                         # write port
 
 
 # class is used here to run this page alone
@@ -59,14 +62,14 @@ class QuestionPage(Frame):
 
     def __init__(self, parent, controller):
         Frame.__init__(self, parent)
+        self.barcode_info = {}
+        self.current_case_codes = {}
 
         self.next_number = 0        # initialization of attribute next_number, this value gets updated when next
                                     # case function executes
 
-        # dictionary stores 4 different bus addresses (COMMENT WHEN TESTING WITHOUT HARDWARE)
-        # self.buses = {1: IOPi(0x20), 2: IOPi(0x21), 3: IOPi(0x22), 4: IOPi(0x23)}
-
-        self.test_buses = {1: '0x20', 2: '0x21', 3: '0x22', 4: '0x23'}  # COMMENT WHEN USING HARDWARE
+        # dictionary stores 4 different bus addresses
+        self.buses = {1: bus1, 2: bus2, 3: bus3, 4: bus4}
 
         # dictionary maps each slot to a bus and pin (need to add the rest of the slots)
         self.map = {'1': {'bus': 1, 'pin': 1}, '2': {'bus': 1, 'pin': 2}, '3': {'bus': 1, 'pin': 3},
@@ -108,6 +111,9 @@ class QuestionPage(Frame):
         # reads randomization order from temporary_file.csv and begins test
         def start_test():
 
+            Label(self, text='Test is in progress.', font='Arial 12',
+                  bg='light gray').place(anchor='w', relx=0.03, rely=0.125, width='160', height='80')
+
             with open('temporary_file.csv', 'r', newline="") as temp_file:          # open temporary file
                 reader = csv.reader(temp_file)
                 order_list = []                              # initialize empty list
@@ -119,14 +125,56 @@ class QuestionPage(Frame):
             bus_number = self.map[self.next_number]['bus']  # determines bus number of current case
             pin_number = self.map[self.next_number]['pin']  # determines pin number of current case
 
-            bus = self.test_buses[bus_number]  # COMMENT WHEN USING HARDWARE
-            print(bus)  # COMMENT WHEN USING HARDWARE
-            print(pin_number)  # COMMENT WHEN USING HARDWARE
-            print('ON')  # COMMENT WHEN USING HARDWARE
-            print('------')  # COMMENT WHEN USING HARDWARE
+            bus = self.buses[bus_number]    # determines which bus address to use
+            bus.write_pin(pin_number, 1)     # turns ON LED for current slot
 
-            # bus = buses[bus_number]    # determines which bus address to use (COMMENT WHEN TESTING WITHOUT HARDWARE)
-            # bus.write_pin(pin_number, 1)     # turns ON LED for current slot (COMMENT WHEN TESTING WITHOUT HARDWARE)
+            def compare(entry):
+
+                self.current_case_codes = {}
+
+                with open('temporary_file.csv', 'r', newline="") as temp_file:  # open temporary file
+                    reader = csv.reader(temp_file)
+                    for row in reader:
+                        # saves csv info to dictionary
+                        self.barcode_info[row[0]] = {'he': row[1], 'nrc': row[2], 'ab': row[3]}
+
+                # saves current case codes to its own dictionary
+                self.current_case_codes[self.next_number] = self.barcode_info[self.next_number]
+
+                # checks to see if scanned barcode matches current case codes
+                if entry == self.current_case_codes[self.next_number]['he'] or entry ==\
+                        self.current_case_codes[self.next_number]['nrc'] or entry ==\
+                        self.current_case_codes[self.next_number]['ab']:
+                    Label(self, text='Correct case selected:\n\n1. Evaluate all slides in case.'
+                                     '\n2. Answer all questions.\n3. Save Answers.\n4. Press "next case" for'
+                                     '\nnew case evaluation.', background='light gray', font='Arial 10',
+                          justify=LEFT).place(anchor='w', relx=.03, rely=.5, width='230', height='130')
+
+                # checks to see if scanned barcode does not match current case codes
+                if entry != self.current_case_codes[self.next_number]['he'] and entry != \
+                        self.current_case_codes[self.next_number]['nrc'] and entry !=\
+                        self.current_case_codes[self.next_number]['ab']:
+                    Label(self, text='Wrong case selected:\n\nPlease select the correct\n'
+                                     '(illuminated) case and rescan\nall slides.',
+                          background='light gray', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03,
+                                                                                        rely=.5, width='200',
+                                                                                        height='130')
+
+            # initial message to start scanning
+            Label(self, text='Scan and read the barcode\nof each slide for the case\nshown above (illuminated).',
+                  background='light gray', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03, rely=.5,
+                                                                                width='230', height='130')
+            # initializes barcode_entry variable as type: string
+            barcode_entry = StringVar()
+
+            # entry field for scanned barcode
+            Entry(self, textvariable=barcode_entry, background='light grey', font='Arial 20', ).place(
+                anchor='w', relx=.15, rely=.725, width='170', height='50')
+
+            # button to read the scanned barcode, command calls 'compare' function
+            Button(self, text='Read\nBarcode', font='Arial 12 bold', bg='#00cc66', activebackground='#80ffbf',
+                   height='2', width='8', command=lambda: compare(barcode_entry.get())).place(anchor='w',
+                                                                                              relx=.03, rely=.725)
 
             # function saves answers to test_answers dictionary for each case
             def save_answers(ans_1, ans_2, ans_3, ans_4, ans_5, ans_6, comments):
@@ -139,16 +187,16 @@ class QuestionPage(Frame):
             # displays next case number
             def next_case(case_order, ans_1, ans_2, ans_3, ans_4, ans_5, ans_6, comments):
 
+                # initial message to start scanning
+                Label(self, text='Scan and read the barcode\nof each slide for the case\nshown above (illuminated).',
+                      background='light gray', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03, rely=.5,
+                                                                                    width='230', height='130')
+
                 bus_number = self.map[self.next_number]['bus']  # determines bus number of current case
                 pin_number = self.map[self.next_number]['pin']  # determines pin number of current case
 
-                bus = self.test_buses[bus_number]  # COMMENT WHEN USING HARDWARE
-                print(bus)  # COMMENT WHEN USING HARDWARE
-                print(pin_number)  # COMMENT WHEN USING HARDWARE
-                print('OFF\n')  # COMMENT WHEN USING HARDWARE
-
-                # bus = buses[bus_number]    # determines which bus address to use (COMMENT WHEN TESTING WITHOUT HARDWARE)
-                # bus.write_pin(pin_number, 0)     # turns OFF LED for current slot (COMMENT WHEN TESTING WITHOUT HARDWARE)
+                bus = self.buses[bus_number]    # determines which bus address to use
+                bus.write_pin(pin_number, 0)     # turns OFF LED for current slot
 
                 self.next_number = next(case_order)        # next number in randomization order
 
@@ -169,18 +217,11 @@ class QuestionPage(Frame):
                 bus_number = self.map[self.next_number]['bus']       # determines bus number of current case
                 pin_number = self.map[self.next_number]['pin']       # determines pin number of current case
 
-                bus = self.test_buses[bus_number]  # COMMENT FOR TESTING WITH HARDWARE
-                print(bus)  # COMMENT WHEN USING HARDWARE
-                print(pin_number)  # COMMENT WHEN USING HARDWARE
-                print('ON')  # COMMENT WHEN USING HARDWARE
-                print('------')  # COMMENT WHEN USING HARDWARE
-
-                # bus = self.buses[bus_number]    # determines which bus address to use (COMMENT WHEN TESTING WITHOUT HARDWARE)
-                # bus.write_pin(pin_number, 1)     # turns ON LED for current slot (COMMENT WHEN TESTING WITHOUT HARDWARE)
+                bus = self.buses[bus_number]    # determines which bus address to use
+                bus.write_pin(pin_number, 1)     # turns ON LED for current slot
 
             # label for question 1
-            Label(self, text='1. H&E Acceptable? (Yes/No)',
-                  font='Arial 12').place(anchor='w', relx=.4, rely=.1)
+            Label(self, text='1. H&E Acceptable? (Yes/No)', font='Arial 12').place(anchor='w', relx=.4, rely=.1)
 
             ans_1 = StringVar()  # initialize entry variable for question 1
             # entry field for question 1
@@ -249,12 +290,6 @@ class QuestionPage(Frame):
             value.set(self.next_number)               # initial case number to be displayed
             Label(self, textvariable=value, font='Arial 18',
                   background='light gray').place(anchor='w', relx=.15, rely=.3, width='35', height='50')
-
-            # instructional display
-            Label(self, text='1. Evaluate all slides in case.\n2. Answer all questions.'
-                             '\n3. Save Answers.\n4. Press "next case" for\nnew case evaluation.',
-                  background='light gray', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03, rely=.5,
-                                                                                width='200', height='120')
 
             # button calls save_answers function
             Button(self, text='Save Answers', bg='#33adff', fg='black', font='Arial 16 bold',
