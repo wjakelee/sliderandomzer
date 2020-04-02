@@ -45,6 +45,8 @@ class RandAndFile(Frame):
 
     def __init__(self, parent, controller):
         Frame.__init__(self, parent)
+        self.parent = parent
+        self.controller = controller
 
         # generates a list of random numbers from 1-60 w/o repeats
         def generate_random():
@@ -103,6 +105,14 @@ class RandAndFile(Frame):
                                                                     " the test setup file (case_information.csv).")
             # print(import_list)
 
+        def export():
+            answers = self.controller.frames['QuestionPage'].test_answers
+            barcode_info = self.controller.frames['TestSetup'].barcodes
+
+            # need to add zip dictionaries and output to export file------------------------------------------------------
+            print(answers)
+            print(barcode_info)
+
         Button(self, text="Import Randomization Order", fg="black", font='Arial 14 bold', width='30',
                height='3', bg="#cc99ff", command=import_random).place(relx=0.5, rely=0.2, anchor=CENTER)
 
@@ -110,7 +120,7 @@ class RandAndFile(Frame):
                fg="black", bg="#ffcc66", command=generate_random).place(relx=0.5, rely=0.45, anchor=CENTER)
 
         Button(self, text="Export Data", font='Arial 14 bold', width='30', height='3',
-               fg="black", bg="#99ff66").place(relx=0.5, rely=0.7, anchor=CENTER)
+               fg="black", bg="#99ff66", command=export).place(relx=0.5, rely=0.7, anchor=CENTER)
 
         # button calls show_frame method and takes you page to Start Page
         Button(self, text="Back To Home", fg="black", bg="#81DAF5", font="Arial 14", width='12', height='1',
