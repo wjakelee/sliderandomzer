@@ -44,16 +44,16 @@ class TestIntro(Frame):                         # start up / home page, class in
 
         # name label
         Label(self, text="(first and last)", fg="black",
-              font='Arial 12').place(relx=0.7, rely=0.35, anchor=CENTER)
+              font='Arial 12').place(relx=0.7, rely=0.4, anchor=CENTER)
 
         name = StringVar()
 
         # entry for users name
-        Entry(self, background='light gray', textvariable=name, font="Arial 12").place(relx=0.5, rely=0.35, anchor=CENTER, width='190', height='30')
+        Entry(self, background='#BDBDBD', textvariable=name, font="Arial 18").place(relx=0.5, rely=0.4, anchor=CENTER, width='200', height='50')
 
         # Button saves users entries
         Button(self, text="Save", fg="black", bg="#80bfff", font="Arial 14", width='20',
-               height='2', command=lambda: user_info(name)).place(relx=.5, rely=.55, anchor=CENTER)
+               height='2', command=lambda: user_info(name)).place(relx=.5, rely=.625, anchor=CENTER)
 
         # button calls show_frame method and takes you page to Start Page
         Button(self, text="Back To Home", fg="black", bg="#81DAF5", font="Arial 14", width='15', height='1',
