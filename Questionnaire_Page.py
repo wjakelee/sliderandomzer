@@ -151,7 +151,7 @@ class QuestionPage(Frame):
                         self.current_case_codes[self.next_number]['ab']:
                     Label(self, text='Correct case selected:\n\n1. Evaluate all slides in case.'
                                      '\n2. Answer all questions.\n3. Save Answers.\n4. Press "next case" for'
-                                     '\nnew case evaluation.', background='light gray', font='Arial 10',
+                                     '\nnew case evaluation.', background='#BDBDBD', font='Arial 10',
                           justify=LEFT).place(anchor='w', relx=.03, rely=.5, width='230', height='130')
 
                 # checks to see if scanned barcode does not match current case codes
@@ -160,19 +160,19 @@ class QuestionPage(Frame):
                         self.current_case_codes[self.next_number]['ab']:
                     Label(self, text='Wrong case selected:\n\nPlease select the correct\n'
                                      '(illuminated) case and rescan\nall slides.',
-                          background='light gray', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03,
+                          background='#BDBDBD', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03,
                                                                                         rely=.5, width='200',
                                                                                         height='130')
 
             # initial message to start scanning
             Label(self, text='Scan and read the barcode\nof each slide for the case\nshown above (illuminated).',
-                  background='light gray', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03, rely=.5,
+                  background='#BDBDBD', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03, rely=.5,
                                                                                 width='230', height='130')
             # initializes barcode_entry variable as type: string
             barcode_entry = StringVar()
 
             # entry field for scanned barcode
-            Entry(self, textvariable=barcode_entry, background='light grey', font='Arial 20', ).place(
+            Entry(self, textvariable=barcode_entry, background='#BDBDBD', font='Arial 20', ).place(
                 anchor='w', relx=.15, rely=.725, width='170', height='50')
 
             # button to read the scanned barcode, command calls 'compare' function
@@ -193,7 +193,7 @@ class QuestionPage(Frame):
 
                 # initial message to start scanning
                 Label(self, text='Scan and read the barcode\nof each slide for the case\nshown above (illuminated).',
-                      background='light gray', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03, rely=.5,
+                      background='#BDBDBD', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03, rely=.5,
                                                                                     width='230', height='130')
 
                 bus_number = self.map[self.next_number]['bus']  # determines bus number of current case
@@ -216,7 +216,7 @@ class QuestionPage(Frame):
                 value = StringVar()                        # makes number variable type String
                 value.set(self.next_number)                # sets number variable to next number in randomization order
                 Label(self, textvariable=value, font='Arial 18',
-                      background='light gray').place(anchor='w', relx=.15, rely=.3, width='35', height='50')
+                      background='#BDBDBD').place(anchor='w', relx=.15, rely=.3, width='35', height='50')
 
                 bus_number = self.map[self.next_number]['bus']       # determines bus number of current case
                 pin_number = self.map[self.next_number]['pin']       # determines pin number of current case
@@ -229,7 +229,7 @@ class QuestionPage(Frame):
 
             ans_1 = StringVar()  # initialize entry variable for question 1
             # entry field for question 1
-            Entry(self, textvariable=ans_1, background='light grey',
+            Entry(self, textvariable=ans_1, background='#BDBDBD',
                   font='Arial 12').place(anchor='w', relx=0.7, rely=0.1, width='100')
 
             # label for question 2
@@ -238,7 +238,7 @@ class QuestionPage(Frame):
 
             ans_2 = StringVar()  # initialize entry variable for question 2
             # entry field for question 2
-            Entry(self, textvariable=ans_2, background='light grey',
+            Entry(self, textvariable=ans_2, background='#BDBDBD',
                   font='Arial 12').place(anchor='w', relx=0.8, rely=0.17, width='100')
 
             # label for question 3
@@ -247,7 +247,7 @@ class QuestionPage(Frame):
 
             ans_3 = StringVar()  # initialize entry variable for question 3
             # entry field for question 3
-            Entry(self, textvariable=ans_3, background='light grey',
+            Entry(self, textvariable=ans_3, background='#BDBDBD',
                   font='Arial 12').place(anchor='w', relx=0.8, rely=0.24, width='100')
 
             # label for question 4
@@ -256,7 +256,7 @@ class QuestionPage(Frame):
 
             ans_4 = StringVar()  # initialize entry variable for question 4
             # entry field for question 4
-            Entry(self, textvariable=ans_4, background='light grey',
+            Entry(self, textvariable=ans_4, background='#BDBDBD',
                   font='Arial 12').place(anchor='w', relx=0.75, rely=0.31, width='100')
 
             # label for question 5
@@ -265,7 +265,7 @@ class QuestionPage(Frame):
 
             ans_5 = StringVar()  # initialize entry variable for question 5
             # entry field for question 5
-            Entry(self, textvariable=ans_5, background='light grey',
+            Entry(self, textvariable=ans_5, background='#BDBDBD',
                   font='Arial 12').place(anchor='w', relx=0.75, rely=0.38, width='100')
 
             # label for question 6
@@ -274,7 +274,7 @@ class QuestionPage(Frame):
 
             ans_6 = StringVar()  # initialize entry variable for question 6
             # entry field for question 6
-            Entry(self, textvariable=ans_6, background='light grey',
+            Entry(self, textvariable=ans_6, background='#BDBDBD',
                   font='Arial 12').place(anchor='w', relx=0.65, rely=0.45, width='100')
 
             # label for comments
@@ -283,17 +283,17 @@ class QuestionPage(Frame):
 
             comments = StringVar()
             # entry field for comments
-            Entry(self, textvariable=comments, background='light grey', font='Arial 12',
+            Entry(self, textvariable=comments, background='#BDBDBD', font='Arial 12',
                   justify=LEFT).place(anchor='w', relx=.41, rely=.7, width='430', height='120')
 
             # Case number display
-            Label(self, text='Case #', background='light gray',
+            Label(self, text='Case #', background='#BDBDBD',
                   font='Arial 18').place(anchor='w', relx=.03, rely=.3, width='100', height='50')
 
             value = StringVar()                       # makes number variable type String
             value.set(self.next_number)               # initial case number to be displayed
             Label(self, textvariable=value, font='Arial 18',
-                  background='light gray').place(anchor='w', relx=.15, rely=.3, width='35', height='50')
+                  background='#BDBDBD').place(anchor='w', relx=.15, rely=.3, width='35', height='50')
 
             # button calls save_answers function
             Button(self, text='Save Answers', bg='#33adff', fg='black', font='Arial 16 bold',
