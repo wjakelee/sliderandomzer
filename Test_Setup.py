@@ -8,21 +8,25 @@ except ModuleNotFoundError:
     from test import Bus as IOPi
 
 # initializing port directions for LED illumination
-bus1 = IOPi(0x20)
-bus1.set_port_direction(0, 0x00)                 # set port direction
-bus1.write_port(0, 0x00)                         # write port
+bus1 = IOPi(0x20)                                # I2C address (bus 1, board 1)
+bus1.set_port_direction(0, 0x00)                 # 0: pins 1-8, 0x00: set port direction as output
+bus1.set_port_direction(1, 0x00)                 # 1: pins 9-16, 0x00: set port direction as output
+bus1.write_port(0, 0x00)                         # initially turn off all pins
 
-bus2 = IOPi(0x21)
-bus2.set_port_direction(0, 0x00)                 # set port direction
-bus2.write_port(0, 0x00)                         # write port
+bus2 = IOPi(0x21)                                # I2C address (bus 2, board 1)
+bus2.set_port_direction(0, 0x00)                 # 0: pins 1-8, 0x00: set port direction as output
+bus2.set_port_direction(1, 0x00)                 # 1: pins 9-16, 0x00: set port direction as output
+bus2.write_port(0, 0x00)                         # initially turn off all pins
 
-bus3 = IOPi(0x22)
-bus3.set_port_direction(0, 0x00)                 # set port direction
-bus3.write_port(0, 0x00)                         # write port
+bus3 = IOPi(0x22)                                # I2C address (bus 1, board 2)
+bus3.set_port_direction(0, 0x00)                 # 0: pins 1-8, 0x00: set port direction as output
+bus3.set_port_direction(1, 0x00)                 # 1: pins 9-16, 0x00: set port direction as output
+bus3.write_port(0, 0x00)                         # initially turn off all pins
 
-bus4 = IOPi(0x23)
-bus4.set_port_direction(0, 0x00)                 # set port direction
-bus4.write_port(0, 0x00)                         # write port
+bus4 = IOPi(0x23)                                # I2C address (bus 2, board 2)
+bus4.set_port_direction(0, 0x00)                 # 0: pins 1-8, 0x00: set port direction as output
+bus4.set_port_direction(1, 0x00)                 # 1: pins 9-16, 0x00: set port direction as output
+bus4.write_port(0, 0x00)                         # initially turn off all pins
 
 
 class TestSetup(Frame):
@@ -36,10 +40,10 @@ class TestSetup(Frame):
         # initialize list to store only barcodes from setup file (used for comparison)
         self.only_codes = []
 
-        # dictionary stores 4 different bus addresses (COMMENT WHEN TESTING WITHOUT HARDWARE)
+        # dictionary stores 4 different bus addresses
         self.buses = {1: bus1, 2: bus2, 3: bus3, 4: bus4}
 
-        # dictionary maps each slot to a bus and pin (need to add the rest of the slots)
+        # dictionary maps each slot to a bus and pin
         self.map = {'1': {'bus': 1, 'pin': 1}, '2': {'bus': 1, 'pin': 2}, '3': {'bus': 1, 'pin': 3},
                     '4': {'bus': 1, 'pin': 4}, '5': {'bus': 1, 'pin': 5}, '6': {'bus': 1, 'pin': 6},
                     '7': {'bus': 1, 'pin': 7}, '8': {'bus': 1, 'pin': 8}, '9': {'bus': 1, 'pin': 9},
