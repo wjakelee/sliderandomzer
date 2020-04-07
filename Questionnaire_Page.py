@@ -161,19 +161,19 @@ class QuestionPage(Frame):
                     Label(self, text='Wrong case selected:\n\nPlease select the correct\n'
                                      '(illuminated) case and rescan\nall slides.',
                           background='#BDBDBD', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03,
-                                                                                        rely=.5, width='200',
-                                                                                        height='130')
+                                                                                     rely=.5, width='200',
+                                                                                     height='130')
 
             # initial message to start scanning
             Label(self, text='Scan and read the barcode\nof each slide for the case\nshown above (illuminated).',
                   background='#BDBDBD', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03, rely=.5,
-                                                                                width='230', height='130')
+                                                                             width='230', height='130')
             # initializes barcode_entry variable as type: string
             barcode_entry = StringVar()
 
             # entry field for scanned barcode
-            Entry(self, textvariable=barcode_entry, background='#BDBDBD', font='Arial 20', ).place(
-                anchor='w', relx=.15, rely=.725, width='170', height='50')
+            Entry(self, textvariable=barcode_entry, background='#BDBDBD', font='Arial 14', bd=4).place(
+                anchor='w', relx=.17, rely=.725, width='170', height='50')
 
             # button to read the scanned barcode, command calls 'compare' function
             Button(self, text='Read\nBarcode', font='Arial 12 bold', bg='#00cc66', activebackground='#80ffbf',
@@ -225,66 +225,66 @@ class QuestionPage(Frame):
                 bus.write_pin(pin_number, 1)     # turns ON LED for current slot
 
             # label for question 1
-            Label(self, text='1. H&E Acceptable? (Yes/No)', font='Arial 12').place(anchor='w', relx=.4, rely=.1)
+            Label(self, text='1. H&E Acceptable? (Yes/No)', font='Arial 12').place(anchor='w', relx=.4, rely=.075)
 
             ans_1 = StringVar()  # initialize entry variable for question 1
             # entry field for question 1
             Entry(self, textvariable=ans_1, background='#BDBDBD',
-                  font='Arial 12').place(anchor='w', relx=0.7, rely=0.1, width='100')
+                  font='Arial 12').place(anchor='w', relx=0.7, rely=0.075, width='100')
 
             # label for question 2
             Label(self, text='2. Negative Control Acceptable? (Yes/No)',
-                  font='Arial 12').place(anchor='w', relx=.4, rely=.17)
+                  font='Arial 12').place(anchor='w', relx=.4, rely=.155)
 
             ans_2 = StringVar()  # initialize entry variable for question 2
             # entry field for question 2
             Entry(self, textvariable=ans_2, background='#BDBDBD',
-                  font='Arial 12').place(anchor='w', relx=0.8, rely=0.17, width='100')
+                  font='Arial 12').place(anchor='w', relx=0.8, rely=0.155, width='100')
 
             # label for question 3
             Label(self, text='3. Case Morphology Acceptable? (Yes/No)',
-                  font='Arial 12').place(anchor='w', relx=.4, rely=.24)
+                  font='Arial 12').place(anchor='w', relx=.4, rely=.235)
 
             ans_3 = StringVar()  # initialize entry variable for question 3
             # entry field for question 3
             Entry(self, textvariable=ans_3, background='#BDBDBD',
-                  font='Arial 12').place(anchor='w', relx=0.8, rely=0.24, width='100')
+                  font='Arial 12').place(anchor='w', relx=0.8, rely=0.235, width='100')
 
             # label for question 4
             Label(self, text='4. Background Acceptable? (Yes/No)',
-                  font='Arial 12').place(anchor='w', relx=.4, rely=.31)
+                  font='Arial 12').place(anchor='w', relx=.4, rely=.315)
 
             ans_4 = StringVar()  # initialize entry variable for question 4
             # entry field for question 4
             Entry(self, textvariable=ans_4, background='#BDBDBD',
-                  font='Arial 12').place(anchor='w', relx=0.75, rely=0.31, width='100')
+                  font='Arial 12').place(anchor='w', relx=0.75, rely=0.315, width='100')
 
             # label for question 5
             Label(self, text='5. % Cell Staining (Raw Score, 0-100):',
-                  font='Arial 12').place(anchor='w', relx=.4, rely=.38)
+                  font='Arial 12').place(anchor='w', relx=.4, rely=.395)
 
             ans_5 = StringVar()  # initialize entry variable for question 5
             # entry field for question 5
             Entry(self, textvariable=ans_5, background='#BDBDBD',
-                  font='Arial 12').place(anchor='w', relx=0.75, rely=0.38, width='100')
+                  font='Arial 12').place(anchor='w', relx=0.75, rely=0.395, width='100')
 
             # label for question 6
             Label(self, text='6. Case Status (Pos/Neg):',
-                  font='Arial 12').place(anchor='w', relx=.4, rely=.45)
+                  font='Arial 12').place(anchor='w', relx=.4, rely=.475)
 
             ans_6 = StringVar()  # initialize entry variable for question 6
             # entry field for question 6
             Entry(self, textvariable=ans_6, background='#BDBDBD',
-                  font='Arial 12').place(anchor='w', relx=0.65, rely=0.45, width='100')
+                  font='Arial 12').place(anchor='w', relx=0.65, rely=0.475, width='100')
 
             # label for comments
             Label(self, text='7. Comments:',
-                  font='Arial 12').place(anchor='w', relx=.4, rely=.52)
+                  font='Arial 12').place(anchor='w', relx=.4, rely=.555)
 
             comments = StringVar()
             # entry field for comments
-            Entry(self, textvariable=comments, background='#BDBDBD', font='Arial 12',
-                  justify=LEFT).place(anchor='w', relx=.41, rely=.7, width='430', height='120')
+            Entry(self, textvariable=comments, background='#BDBDBD', font='Arial 12', bd=4,
+                  justify=LEFT).place(anchor='w', relx=.41, rely=.675, width='430', height='70')
 
             # Case number display
             Label(self, text='Case #', background='#BDBDBD',
@@ -302,7 +302,7 @@ class QuestionPage(Frame):
                                                                  width='160', height='40')
 
             # button calls next_case function
-            Button(self, text='Next Case', bg='#bfbfbf', fg='black',
+            Button(self, text='Next Case', bg='#FF9F2A', fg='black',
                    font='Arial 16 bold', command=lambda: next_case(case_order, ans_1, ans_2, ans_3, ans_4, ans_5,
                                                                    ans_6, comments)).place(anchor='w', relx=0.03,
                                                                                            rely=0.9, width='120',
@@ -310,8 +310,8 @@ class QuestionPage(Frame):
 
             # button calls end_test function
             Button(self, text='End Test', bg='#ff4d4d', fg='black', font='Arial 16 bold',
-                   command=lambda: controller.show_frame("ConfirmationPage")).place(anchor='w', relx=0.225, rely=0.9,
-                                                                                    width='120', height='60')
+                   command=lambda: controller.show_frame("ConfirmationPage")).place(anchor='n', relx=0.5, rely=0.85,
+                                                                                    width='120', height='50')
 
         # button calls start_test function
         Button(self, text='Start Test', bg='#47d147', fg='black', font='Arial 16 bold',
