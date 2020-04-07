@@ -7,7 +7,7 @@ try:
 except ModuleNotFoundError:
     from test import Bus as IOPi
 
-# initializing port directions for LED illumination
+# initialize port directions for LED illumination
 bus1 = IOPi(0x20)                                # I2C address (bus 1, board 1)
 bus1.set_port_direction(0, 0x00)                 # 0: pins 1-8, 0x00: set port direction as output
 bus1.set_port_direction(1, 0x00)                 # 1: pins 9-16, 0x00: set port direction as output
