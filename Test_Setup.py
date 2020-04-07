@@ -34,6 +34,8 @@ class TestSetup(Frame):
     def __init__(self, parent, controller):
         Frame.__init__(self, parent)
 
+        self.map = {} # initialize empty dictionary for pinout map
+
         # initializes dictionary to store barcode information
         self.barcodes = {}
 
@@ -41,29 +43,15 @@ class TestSetup(Frame):
         self.only_codes = []
 
         # dictionary stores 4 different bus addresses
-        self.buses = {1: bus1, 2: bus2, 3: bus3, 4: bus4}
+        self.buses = {'1': bus1, '2': bus2, '3': bus3, '4': bus4}
 
         # dictionary maps each slot to a bus and pin
-        self.map = {'1': {'bus': 1, 'pin': 1}, '2': {'bus': 1, 'pin': 2}, '3': {'bus': 1, 'pin': 3},
-                    '4': {'bus': 1, 'pin': 4}, '5': {'bus': 1, 'pin': 5}, '6': {'bus': 1, 'pin': 6},
-                    '7': {'bus': 1, 'pin': 7}, '8': {'bus': 1, 'pin': 8}, '9': {'bus': 1, 'pin': 9},
-                    '10': {'bus': 1, 'pin': 10}, '11': {'bus': 1, 'pin': 11}, '12': {'bus': 1, 'pin': 12},
-                    '13': {'bus': 1, 'pin': 13}, '14': {'bus': 1, 'pin': 14}, '15': {'bus': 1, 'pin': 15},
-                    '16': {'bus': 1, 'pin': 16}, '17': {'bus': 2, 'pin': 1}, '18': {'bus': 2, 'pin': 2},
-                    '19': {'bus': 2, 'pin': 3}, '20': {'bus': 2, 'pin': 4}, '21': {'bus': 2, 'pin': 5},
-                    '22': {'bus': 2, 'pin': 6}, '23': {'bus': 2, 'pin': 7}, '24': {'bus': 2, 'pin': 8},
-                    '25': {'bus': 2, 'pin': 9}, '26': {'bus': 2, 'pin': 10}, '27': {'bus': 2, 'pin': 11},
-                    '28': {'bus': 2, 'pin': 12}, '29': {'bus': 2, 'pin': 13}, '30': {'bus': 2, 'pin': 14},
-                    '31': {'bus': 2, 'pin': 15}, '32': {'bus': 2, 'pin': 16}, '33': {'bus': 3, 'pin': 1},
-                    '34': {'bus': 3, 'pin': 2}, '35': {'bus': 3, 'pin': 3}, '36': {'bus': 3, 'pin': 4},
-                    '37': {'bus': 3, 'pin': 5}, '38': {'bus': 3, 'pin': 6}, '39': {'bus': 3, 'pin': 7},
-                    '40': {'bus': 3, 'pin': 8}, '41': {'bus': 3, 'pin': 9}, '42': {'bus': 3, 'pin': 10},
-                    '43': {'bus': 3, 'pin': 11}, '44': {'bus': 3, 'pin': 12}, '45': {'bus': 3, 'pin': 13},
-                    '46': {'bus': 3, 'pin': 14}, '47': {'bus': 3, 'pin': 15}, '48': {'bus': 3, 'pin': 16},
-                    '49': {'bus': 4, 'pin': 1}, '50': {'bus': 4, 'pin': 2}, '51': {'bus': 4, 'pin': 3},
-                    '52': {'bus': 4, 'pin': 4}, '53': {'bus': 4, 'pin': 5}, '54': {'bus': 4, 'pin': 6},
-                    '55': {'bus': 4, 'pin': 7}, '56': {'bus': 4, 'pin': 8}, '57': {'bus': 4, 'pin': 9},
-                    '58': {'bus': 4, 'pin': 10}, '59': {'bus': 4, 'pin': 11}, '60': {'bus': 4, 'pin': 12}}
+        with open('Pinout_Map.csv', 'r', newline='') as map_file:       # opens selected file for reading
+            reader = csv.reader(map_file)   # reads selected file
+            next(reader)                    # goes to second line of csv file
+
+            for row in reader:
+                self.map[row[0]] = {'bus': row[1], 'pin': row[2]}     # saves csv info to dictionary
 
         self.prev_slot = '1'
 
