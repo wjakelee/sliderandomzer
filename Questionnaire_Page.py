@@ -4,6 +4,7 @@ import itertools
 from Start_Page import StartPage
 from Test_Intro_Page import TestIntro
 from collections import defaultdict
+from tkinter import messagebox
 try:
     from IOPi import IOPi
 except ModuleNotFoundError:
@@ -68,6 +69,7 @@ class QuestionPage(Frame):
         Frame.__init__(self, parent)
         self.barcode_info = {}
         self.current_case_codes = {}
+        self.flag_values = {}       # empty dictionary for flagging cases
 
         self.next_number = 0        # initialization of attribute next_number, this value gets updated when next
                                     # case function executes
@@ -104,13 +106,14 @@ class QuestionPage(Frame):
                   '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52',
                   '53', '54', '55', '56', '57', '58', '59', '60']
         for i in n_list:
-            self.test_answers[i]['Q1'] = ''
-            self.test_answers[i]['Q2'] = ''
-            self.test_answers[i]['Q3'] = ''
-            self.test_answers[i]['Q4'] = ''
-            self.test_answers[i]['Q5'] = ''
-            self.test_answers[i]['Q6'] = ''
-            self.test_answers[i]['Comments'] = ''
+            self.test_answers[i]['Q1'] = ' '
+            self.test_answers[i]['Q2'] = ' '
+            self.test_answers[i]['Q3'] = ' '
+            self.test_answers[i]['Q4'] = ' '
+            self.test_answers[i]['Q5'] = ' '
+            self.test_answers[i]['Q6'] = ' '
+            self.test_answers[i]['Comments'] = ' '
+            self.flag_values[i] = 'Unflag'
 
         # reads randomization order from temporary_file.csv and begins test
         def start_test():
@@ -164,32 +167,16 @@ class QuestionPage(Frame):
                                                                                      rely=.5, width='200',
                                                                                      height='130')
 
-            # initial message to start scanning
-            Label(self, text='Scan and read the barcode\nof each slide for the case\nshown above (illuminated).',
-                  background='#BDBDBD', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03, rely=.5,
-                                                                             width='230', height='130')
-            # initializes barcode_entry variable as type: string
-            barcode_entry = StringVar()
-
-            # entry field for scanned barcode
-            Entry(self, textvariable=barcode_entry, background='#BDBDBD', font='Arial 14', bd=4).place(
-                anchor='w', relx=.17, rely=.725, width='170', height='50')
-
-            # button to read the scanned barcode, command calls 'compare' function
-            Button(self, text='Read\nBarcode', font='Arial 12 bold', bg='#00cc66', activebackground='#80ffbf',
-                   height='2', width='8', command=lambda: compare(barcode_entry.get())).place(anchor='w',
-                                                                                              relx=.03, rely=.725)
-
             # function saves answers to test_answers dictionary for each case
             def save_answers(ans_1, ans_2, ans_3, ans_4, ans_5, ans_6, comments):
                 self.test_answers[self.next_number] = {'Q1': ans_1.get(), 'Q2': ans_2.get(), 'Q3': ans_3.get(),
                                                        'Q4': ans_4.get(), 'Q5': ans_5.get(), 'Q6': ans_6.get(),
                                                        'Comments':  comments.get()}
 
-                print(self.test_answers)
+                messagebox.showinfo(title="Saved", message="Answers saved.")
 
             # displays next case number
-            def next_case(case_order, ans_1, ans_2, ans_3, ans_4, ans_5, ans_6, comments):
+            def next_case(flag, case_order, ans_1, ans_2, ans_3, ans_4, ans_5, ans_6, comments):
 
                 # initial message to start scanning
                 Label(self, text='Scan and read the barcode\nof each slide for the case\nshown above (illuminated).',
@@ -213,6 +200,9 @@ class QuestionPage(Frame):
                 ans_6.set(self.test_answers[self.next_number]['Q6'])
                 comments.set(self.test_answers[self.next_number]['Comments'])
 
+                # set flag to correct setting for current case
+                flag.set(self.flag_values[self.next_number])
+
                 value = StringVar()                        # makes number variable type String
                 value.set(self.next_number)                # sets number variable to next number in randomization order
                 Label(self, textvariable=value, font='Arial 18',
@@ -224,62 +214,105 @@ class QuestionPage(Frame):
                 bus = self.buses[bus_number]    # determines which bus address to use
                 bus.write_pin(pin_number, 1)     # turns ON LED for current slot
 
+            def flagging():
+                self.flag_values[self.next_number] = 'Flag'
+                print(self.flag_values)
+
+            def unflagging():
+                self.flag_values[self.next_number] = 'Unflag'
+
+            # initial message to start scanning
+            Label(self, text='Scan and read the barcode\nof each slide for the case\nshown above (illuminated).',
+                  background='#BDBDBD', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03, rely=.5,
+                                                                                 width='230', height='130')
+            # initializes barcode_entry variable as type: string
+            barcode_entry = StringVar()
+
+            # entry field for scanned barcode
+            Entry(self, textvariable=barcode_entry, background='#BDBDBD', font='Arial 14', bd=4).place(
+                anchor='w', relx=.17, rely=.725, width='150', height='50')
+
+            # button to read the scanned barcode, command calls 'compare' function
+            Button(self, text='Read\nBarcode', font='Arial 12 bold', bg='#00cc66', activebackground='#80ffbf',
+                   height='2', width='8', command=lambda: compare(barcode_entry.get())).place(anchor='w',
+                                                                                              relx=.03, rely=.725)
+
             # label for question 1
-            Label(self, text='1. H&E Acceptable? (Yes/No)', font='Arial 12').place(anchor='w', relx=.4, rely=.075)
+            Label(self, text='1. H&E Acceptable?', font='Arial 12').place(anchor='w', relx=.385, rely=.075)
 
             ans_1 = StringVar()  # initialize entry variable for question 1
-            # entry field for question 1
-            Entry(self, textvariable=ans_1, background='#BDBDBD',
-                  font='Arial 12').place(anchor='w', relx=0.7, rely=0.075, width='100')
+            ans_1.set(" ")
+            Radiobutton(self, text='Yes', font='Arial 12 bold', variable=ans_1,
+                        value='Yes').place(anchor='w', relx=0.7, rely=0.075)
+            Radiobutton(self, text='No', font='Arial 12 bold', variable=ans_1,
+                        value='No').place(anchor='w', relx=0.8, rely=0.075)
+            Radiobutton(self, text='N/A', font='Arial 12 bold', variable=ans_1,
+                        value='N/A').place(anchor='w', relx=0.9, rely=0.075)
 
             # label for question 2
-            Label(self, text='2. Negative Control Acceptable? (Yes/No)',
-                  font='Arial 12').place(anchor='w', relx=.4, rely=.155)
+            Label(self, text='2. Negative Control Acceptable?',
+                  font='Arial 12').place(anchor='w', relx=.385, rely=.155)
 
             ans_2 = StringVar()  # initialize entry variable for question 2
-            # entry field for question 2
-            Entry(self, textvariable=ans_2, background='#BDBDBD',
-                  font='Arial 12').place(anchor='w', relx=0.8, rely=0.155, width='100')
+            ans_2.set(" ")
+            Radiobutton(self, text='Yes', font='Arial 12 bold', variable=ans_2,
+                        value='Yes').place(anchor='w', relx=0.7, rely=.155)
+            Radiobutton(self, text='No', font='Arial 12 bold', variable=ans_2,
+                        value='No').place(anchor='w', relx=0.8, rely=.155)
+            Radiobutton(self, text='N/A', font='Arial 12 bold', variable=ans_2,
+                        value='N/A').place(anchor='w', relx=0.9, rely=.155)
 
             # label for question 3
-            Label(self, text='3. Case Morphology Acceptable? (Yes/No)',
-                  font='Arial 12').place(anchor='w', relx=.4, rely=.235)
+            Label(self, text='3. Case Morphology Acceptable?',
+                  font='Arial 12').place(anchor='w', relx=.385, rely=.235)
 
             ans_3 = StringVar()  # initialize entry variable for question 3
-            # entry field for question 3
-            Entry(self, textvariable=ans_3, background='#BDBDBD',
-                  font='Arial 12').place(anchor='w', relx=0.8, rely=0.235, width='100')
+            ans_3.set(" ")
+            Radiobutton(self, text='Yes', font='Arial 12 bold', variable=ans_3,
+                        value='Yes').place(anchor='w', relx=0.7, rely=.235)
+            Radiobutton(self, text='No', font='Arial 12 bold', variable=ans_3,
+                        value='No').place(anchor='w', relx=0.8, rely=.235)
+            Radiobutton(self, text='N/A', font='Arial 12 bold', variable=ans_3,
+                        value='N/A').place(anchor='w', relx=0.9, rely=.235)
 
             # label for question 4
-            Label(self, text='4. Background Acceptable? (Yes/No)',
-                  font='Arial 12').place(anchor='w', relx=.4, rely=.315)
+            Label(self, text='4. Background Acceptable?',
+                  font='Arial 12').place(anchor='w', relx=.385, rely=.315)
 
             ans_4 = StringVar()  # initialize entry variable for question 4
-            # entry field for question 4
-            Entry(self, textvariable=ans_4, background='#BDBDBD',
-                  font='Arial 12').place(anchor='w', relx=0.75, rely=0.315, width='100')
+            ans_4.set(" ")
+            Radiobutton(self, text='Yes', font='Arial 12 bold', variable=ans_4,
+                        value='Yes').place(anchor='w', relx=0.7, rely=.315)
+            Radiobutton(self, text='No', font='Arial 12 bold', variable=ans_4,
+                        value='No').place(anchor='w', relx=0.8, rely=.315)
+            Radiobutton(self, text='N/A', font='Arial 12 bold', variable=ans_4,
+                        value='N/A').place(anchor='w',  relx=0.9, rely=.315)
 
             # label for question 5
             Label(self, text='5. % Cell Staining (Raw Score, 0-100):',
-                  font='Arial 12').place(anchor='w', relx=.4, rely=.395)
+                  font='Arial 12').place(anchor='w', relx=.385, rely=.395)
 
             ans_5 = StringVar()  # initialize entry variable for question 5
             # entry field for question 5
-            Entry(self, textvariable=ans_5, background='#BDBDBD',
-                  font='Arial 12').place(anchor='w', relx=0.75, rely=0.395, width='100')
+            Entry(self, textvariable=ans_5, background='#BDBDBD', bd=4, justify=CENTER,
+                  font='Arial 12').place(anchor='w', relx=0.75, rely=0.395, width='120', height='35')
 
             # label for question 6
-            Label(self, text='6. Case Status (Pos/Neg):',
-                  font='Arial 12').place(anchor='w', relx=.4, rely=.475)
+            Label(self, text='6. Case Status:',
+                  font='Arial 12').place(anchor='w', relx=.385, rely=.475)
 
             ans_6 = StringVar()  # initialize entry variable for question 6
-            # entry field for question 6
-            Entry(self, textvariable=ans_6, background='#BDBDBD',
-                  font='Arial 12').place(anchor='w', relx=0.65, rely=0.475, width='100')
+            ans_6.set(" ")
+            Radiobutton(self, text='Positive', font='Arial 12 bold', variable=ans_6,
+                        value='Positive').place(anchor='w', relx=0.55, rely=.475)
+            Radiobutton(self, text='Negative', font='Arial 12 bold', variable=ans_6,
+                        value='Negative').place(anchor='w', relx=0.7, rely=.475)
+            Radiobutton(self, text='N/A', font='Arial 12 bold', variable=ans_6,
+                        value='N/A').place(anchor='w', relx=0.85, rely=.475)
 
             # label for comments
             Label(self, text='7. Comments:',
-                  font='Arial 12').place(anchor='w', relx=.4, rely=.555)
+                  font='Arial 12').place(anchor='w', relx=.385, rely=.555)
 
             comments = StringVar()
             # entry field for comments
@@ -299,19 +332,27 @@ class QuestionPage(Frame):
             Button(self, text='Save Answers', bg='#33adff', fg='black', font='Arial 16 bold',
                    command=lambda: save_answers(ans_1, ans_2, ans_3, ans_4, ans_5, ans_6,
                                                 comments)).place(anchor='w', relx=0.725, rely=0.9,
-                                                                 width='160', height='40')
+                                                                 width='160', height='60')
 
-            # button calls next_case function
-            Button(self, text='Next Case', bg='#FF9F2A', fg='black',
-                   font='Arial 16 bold', command=lambda: next_case(case_order, ans_1, ans_2, ans_3, ans_4, ans_5,
-                                                                   ans_6, comments)).place(anchor='w', relx=0.03,
-                                                                                           rely=0.9, width='120',
-                                                                                           height='60')
+            # Flag case number buttons
+            flag = StringVar()
+            flag.set("Unflag")
+            Radiobutton(self, text='Flag', font='Arial 16 bold', fg='red', variable=flag,
+                        command=flagging, value='Flag').place(anchor='w', relx=0.245, rely=.1)
+            Radiobutton(self, text='Unflag', font='Arial 16 bold', variable=flag, command=unflagging,
+                        value='Unflag').place(anchor='w', relx=0.245, rely=.2)
 
             # button calls end_test function
             Button(self, text='End Test', bg='#ff4d4d', fg='black', font='Arial 16 bold',
                    command=lambda: controller.show_frame("ConfirmationPage")).place(anchor='n', relx=0.5, rely=0.85,
                                                                                     width='120', height='50')
+
+            # button calls next_case function
+            Button(self, text='Next Case', bg='#FF9F2A', fg='black',
+                   font='Arial 16 bold', command=lambda: next_case(flag, case_order, ans_1, ans_2, ans_3, ans_4, ans_5,
+                                                                   ans_6, comments)).place(anchor='w', relx=0.03,
+                                                                                           rely=0.9, width='120',
+                                                                                           height='60')
 
         # button calls start_test function
         Button(self, text='Start Test', bg='#47d147', fg='black', font='Arial 16 bold',
