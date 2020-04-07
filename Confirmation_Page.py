@@ -1,5 +1,30 @@
 from tkinter import *
-# from IOPi import IOPi # (COMMENT  WHEN TESTING WITHOUT HARDWARE)
+try:
+    from IOPi import IOPi
+except ModuleNotFoundError:
+    from test import Bus as IOPi
+
+
+# initializing port directions for LED illumination
+bus1 = IOPi(0x20)                                # I2C address (bus 1, board 1)
+bus1.set_port_direction(0, 0x00)                 # 0: pins 1-8, 0x00: set port direction as output
+bus1.set_port_direction(1, 0x00)                 # 1: pins 9-16, 0x00: set port direction as output
+bus1.write_port(0, 0x00)                         # initially turn off all pins
+
+bus2 = IOPi(0x21)                                # I2C address (bus 2, board 1)
+bus2.set_port_direction(0, 0x00)                 # 0: pins 1-8, 0x00: set port direction as output
+bus2.set_port_direction(1, 0x00)                 # 1: pins 9-16, 0x00: set port direction as output
+bus2.write_port(0, 0x00)                         # initially turn off all pins
+
+bus3 = IOPi(0x22)                                # I2C address (bus 1, board 2)
+bus3.set_port_direction(0, 0x00)                 # 0: pins 1-8, 0x00: set port direction as output
+bus3.set_port_direction(1, 0x00)                 # 1: pins 9-16, 0x00: set port direction as output
+bus3.write_port(0, 0x00)                         # initially turn off all pins
+
+bus4 = IOPi(0x23)                                # I2C address (bus 2, board 2)
+bus4.set_port_direction(0, 0x00)                 # 0: pins 1-8, 0x00: set port direction as output
+bus4.set_port_direction(1, 0x00)                 # 1: pins 9-16, 0x00: set port direction as output
+bus4.write_port(0, 0x00)                         # initially turn off all pins
 
 
 class ConfirmationPage(Frame):
@@ -8,29 +33,13 @@ class ConfirmationPage(Frame):
         Frame.__init__(self, parent)
 
         def end_test():
-            # initializing port directions for LED illumination (COMMENT LINES 11-25 WHEN TESTING WITHOUT HARDWARE)
-            # bus1 = IOPi(0x20)
-            # bus1.set_port_direction(0, 0x00)                 # set port direction
-            # bus1.write_port(0, 0x00)                         # write port
-            #
-            # bus2 = IOPi(0x21)
-            # bus2.set_port_direction(0, 0x00)                 # set port direction
-            # bus2.write_port(0, 0x00)                         # write port
-            #
-            # bus3 = IOPi(0x22)
-            # bus3.set_port_direction(0, 0x00)                 # set port direction
-            # bus3.write_port(0, 0x00)                         # write port
-            #
-            # bus4 = IOPi(0x23)
-            # bus4.set_port_direction(0, 0x00)                 # set port direction
-            # bus4.write_port(0, 0x00)                         # write port
-            #
-            # # makes sure ALL LEDs are OFF when test ends (COMMENT WHEN TESTING WITHOUT HARDWARE)
-            # for i in range(1, 17):
-            #     bus1.write_pin(i, 0)
-            #     bus2.write_pin(i, 0)
-            #     bus3.write_pin(i, 0)
-            #     bus4.write_pin(i, 0)
+
+            # makes sure ALL LEDs are OFF when test ends
+            for i in range(1, 17):
+                bus1.write_pin(i, 0)
+                bus2.write_pin(i, 0)
+                bus3.write_pin(i, 0)
+                bus4.write_pin(i, 0)
 
             # show next page
             controller.show_frame("TestCompletePage")
