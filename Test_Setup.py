@@ -107,7 +107,7 @@ class TestSetup(Frame):
             barcode_entry = StringVar()
 
             # entry field for scanned barcode
-            Entry(self, textvariable=barcode_entry, background='light grey', font='Arial 20', ).place(
+            Entry(self, textvariable=barcode_entry, background='#BDBDBD', font='Arial 20', ).place(
                 anchor='n', relx=.575, rely=.5, width='450', height='70')
 
             # button to read the scanned barcode, command calls 'compare' function
