@@ -41,8 +41,6 @@ class Application(Tk):
         frame = self.frames[page]               # selects frame to be raised, determined by button click
         frame.tkraise()                         # raises frame called
 
-class YamlReaderError(Exception):
-    pass
 
 class RandAndFile(Frame):
 
@@ -154,6 +152,11 @@ class RandAndFile(Frame):
                 writer.writeheader()
                 for case, values in final_dictionary.items():
                     writer.writerow(merge_dict({'Case': case}, values))
+
+            messagebox.showinfo(title="File Exported", message="The file 'export_file.csv' can be found\n"
+                                                               "in the program file directory. This file\n"
+                                                               "contains all of the information from the\n"
+                                                               "previous test.")
 
         Button(self, text="Import Randomization Order", fg="black", font='Arial 14 bold', width='30',
                height='3', bg="#cc99ff", command=import_random).place(relx=0.5, rely=0.2, anchor=CENTER)
