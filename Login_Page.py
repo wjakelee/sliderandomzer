@@ -48,7 +48,7 @@ class Login(Frame):  # Sample Login page
 
         number = StringVar()
 
-        Entry(self, textvariable=number, background='#BDBDBD',
+        Entry(self, textvariable=number, background='#BDBDBD', justify=CENTER,
               font='Arial 18').place(relx=0.5, rely=0.375, anchor='n', height='50', width='200',)  # username entry
 
         # button commands check_entry function
