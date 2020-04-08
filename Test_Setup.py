@@ -43,7 +43,7 @@ class TestSetup(Frame):
         self.only_codes = []
 
         # dictionary stores 4 different bus addresses
-        self.buses = {'1': bus1, '2': bus2, '3': bus3, '4': bus4}
+        self.buses = {1: bus1, 2: bus2, 3: bus3, 4: bus4}
 
         # dictionary maps each slot to a bus and pin
         with open('Pinout_Map.csv', 'r', newline='') as map_file:       # opens selected file for reading
@@ -56,8 +56,6 @@ class TestSetup(Frame):
         for case, key in self.map.items():
             key['bus'] = int(key['bus'])
             key['pin'] = int(key['pin'])
-
-        print(self.map)
 
         self.prev_slot = '1'
 
