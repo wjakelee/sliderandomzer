@@ -208,6 +208,23 @@ class QuestionPage(Frame):
             def unflagging():
                 self.flag_values[self.next_number] = 'Unflag'
 
+            def end_test():
+
+                def merge_dict(a, b):
+                    a.update(b)
+                    return a
+
+                # saves answers to a temporary answer CSV file, this is used in the export button of Rand_and_Data.py
+                fields = ['Case', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Comments']
+                with open('previous_ans.csv', 'w', newline='') as prev_ans_file:  # opens selected file for reading
+                    writer = csv.DictWriter(prev_ans_file, fields)
+                    writer.writeheader()
+                    for case, question in self.test_answers.items():
+                        writer.writerow(merge_dict({'Case': case}, question))
+
+                # show next frame
+                controller.show_frame("ConfirmationPage")
+
             # initial message to start scanning
             Label(self, text='Scan and read the barcode\nof each slide for the case\nshown above (illuminated).',
                   background='#BDBDBD', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03, rely=.5,
@@ -331,8 +348,7 @@ class QuestionPage(Frame):
 
             # button calls end_test function
             Button(self, text='End Test', bg='#ff4d4d', fg='black', font='Arial 16 bold',
-                   command=lambda: controller.show_frame("ConfirmationPage")).place(anchor='n', relx=0.5, rely=0.85,
-                                                                                    width='120', height='50')
+                   command=end_test).place(anchor='n', relx=0.5, rely=0.85, width='120', height='50')
 
             # button calls next_case function
             Button(self, text='Next Case', bg='#FF9F2A', fg='black',
