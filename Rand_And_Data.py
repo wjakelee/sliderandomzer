@@ -4,6 +4,7 @@ from tkinter import filedialog
 from tkinter import messagebox
 import csv
 import random
+from collections import MutableMapping
 from Test_Setup import TestSetup
 from Start_Page import StartPage
 from Test_Intro_Page import TestIntro
@@ -40,6 +41,8 @@ class Application(Tk):
         frame = self.frames[page]               # selects frame to be raised, determined by button click
         frame.tkraise()                         # raises frame called
 
+class YamlReaderError(Exception):
+    pass
 
 class RandAndFile(Frame):
 
@@ -106,12 +109,51 @@ class RandAndFile(Frame):
             # print(import_list)
 
         def export():
-            answers = self.controller.frames['QuestionPage'].test_answers
-            barcode_info = self.controller.frames['TestSetup'].barcodes
 
-            # need to add zip dictionaries and output to export file------------------------------------------------------
-            print(answers)
-            print(barcode_info)
+            answers = {}
+            # pulls answers from the LAST test taken
+            with open('previous_ans.csv', 'r', newline='') as prev_ans_file:  # opens selected file for reading
+                reader = csv.reader(prev_ans_file)
+                next(reader)
+                for row in reader:
+                    answers[row[0]] = {'Q1': row[1], 'Q2': row[2], 'Q3': row[3], 'Q4': row[4], 'Q5': row[5],
+                                       'Q6': row[6], 'Comments':  row[7]}
+
+            barcode_info = {}
+            # pulls barcode info from LAST test taken
+            with open('temporary_file.csv', 'r', newline='') as temp_file:  # opens selected file for reading
+                temp_file_reader = csv.reader(temp_file)
+                for row in temp_file_reader:
+                    barcode_info[row[0]] = {'he': row[1], 'nrc': row[2], 'ab': row[3]}
+
+            def rec_merge(d1, d2):
+                '''
+                Update two dicts of dicts recursively,
+                if either mapping has leaves that are non-dicts,
+                the second's leaf overwrites the first's.
+                '''
+                for k, v in d1.items():  # in Python 2, use .iteritems()!
+                    if k in d2:
+                        # this next check is the only difference!
+                        if all(isinstance(e, MutableMapping) for e in (v, d2[k])):
+                            d2[k] = rec_merge(v, d2[k])
+                        # we could further check types and merge as appropriate here.
+                d3 = d1.copy()
+                d3.update(d2)
+                return d3
+
+            final_dictionary = dict(rec_merge(answers, barcode_info))
+
+            def merge_dict(a, b):
+                a.update(b)
+                return a
+
+            fields = ['Case', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Comments', 'he', 'nrc', 'ab']
+            with open('export_file.csv', 'w', newline='') as export_file:  # opens selected file for reading
+                writer = csv.DictWriter(export_file, fields)
+                writer.writeheader()
+                for case, values in final_dictionary.items():
+                    writer.writerow(merge_dict({'Case': case}, values))
 
         Button(self, text="Import Randomization Order", fg="black", font='Arial 14 bold', width='30',
                height='3', bg="#cc99ff", command=import_random).place(relx=0.5, rely=0.2, anchor=CENTER)
