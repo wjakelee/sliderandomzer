@@ -34,7 +34,7 @@ class TestSetup(Frame):
     def __init__(self, parent, controller):
         Frame.__init__(self, parent)
 
-        self.map = {} # initialize empty dictionary for pinout map
+        self.map = {}  # initialize empty dictionary for pinout map
 
         # initializes dictionary to store barcode information
         self.barcodes = {}
@@ -52,6 +52,12 @@ class TestSetup(Frame):
 
             for row in reader:
                 self.map[row[0]] = {'bus': row[1], 'pin': row[2]}     # saves csv info to dictionary
+
+        for case, key in self.map.items():
+            key['bus'] = int(key['bus'])
+            key['pin'] = int(key['pin'])
+
+        print(self.map)
 
         self.prev_slot = '1'
 
