@@ -76,7 +76,7 @@ class QuestionPage(Frame):
                                     # case function executes
 
         # dictionary stores 4 different bus addresses
-        self.buses = {'1': bus1, '2': bus2, '3': bus3, '4': bus4}
+        self.buses = {1: bus1, 2: bus2, 3: bus3, 4: bus4}
 
         # dictionary maps each slot to a bus and pin
         with open('Pinout_Map.csv', 'r', newline='') as map_file:       # opens selected file for reading
@@ -85,6 +85,10 @@ class QuestionPage(Frame):
 
             for row in reader:
                 self.map[row[0]] = {'bus': row[1], 'pin': row[2]}     # saves csv info to dictionary
+
+        for case, key in self.map.items():
+            key['bus'] = int(key['bus'])
+            key['pin'] = int(key['pin'])
 
         # initialize empty dictionary to save test answers (empty values are called upon in next_case function)
         self.test_answers = defaultdict(dict)
@@ -203,7 +207,6 @@ class QuestionPage(Frame):
 
             def flagging():
                 self.flag_values[self.next_number] = 'Flag'
-                print(self.flag_values)
 
             def unflagging():
                 self.flag_values[self.next_number] = 'Unflag'
