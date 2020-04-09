@@ -69,7 +69,7 @@ class TestIntro(Frame):                         # start up / home page, class in
         def user_info(name):
             x = datetime.datetime.now()             # records date and time when "save" is pressed
             info_list = [name.get(), x]
-            with open('export_file.csv', 'w') as export_file:       # opens a temporary file used later
+            with open('name_date.txt', 'w') as export_file:       # opens a temporary file used later
                 export_file_writer = csv.writer(export_file)        # creates a csv writer
                 export_file_writer.writerow(info_list)
 
