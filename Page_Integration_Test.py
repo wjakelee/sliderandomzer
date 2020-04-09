@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from tkinter import *
 from Test_Setup import TestSetup
 from Set_Dat_Rand import SetDatRand
