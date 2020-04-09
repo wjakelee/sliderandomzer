@@ -146,8 +146,12 @@ class RandAndFile(Frame):
                 a.update(b)
                 return a
 
+            # opens file selector window to choose where to save export file
+            selected_file = filedialog.asksaveasfilename(title="Choose where to dave your file.",
+                                                         filetypes=(("CSV files", "*.csv"), ("all files", "*.*")))
+
             fields = ['Case', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Comments', 'he', 'nrc', 'ab']
-            with open('export_file.csv', 'w', newline='') as export_file:  # opens selected file for reading
+            with open(selected_file, 'w', newline='') as export_file:  # opens selected file for reading
                 writer = csv.DictWriter(export_file, fields)
                 writer.writeheader()
                 for case, values in final_dictionary.items():
@@ -174,11 +178,6 @@ class RandAndFile(Frame):
                 name_date_time = name_file.read()
 
             prepend_line("export_file.csv", name_date_time)
-
-            messagebox.showinfo(title="File Exported", message="The file 'export_file.csv' can be found\n"
-                                                               "in the program file directory. This file\n"
-                                                               "contains all of the information from the\n"
-                                                               "previous test.")
 
         Button(self, text="Import Randomization Order", fg="black", font='Arial 14 bold', width='30',
                height='3', bg="#cc99ff", command=import_random).place(relx=0.5, rely=0.2, anchor=CENTER)
