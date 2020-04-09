@@ -153,6 +153,28 @@ class RandAndFile(Frame):
                 for case, values in final_dictionary.items():
                     writer.writerow(merge_dict({'Case': case}, values))
 
+            # function adds name date and time to top of export file
+            def prepend_line(file_name, line):
+                """ Insert given string as a new line at the beginning of a file """
+                # define name of temporary dummy file
+                dummy_file = file_name + '.bak'
+                # open original file in read mode and dummy file in write mode
+                with open(file_name, 'r') as read_obj, open(dummy_file, 'w') as write_obj:
+                    # Write given line to the dummy file
+                    write_obj.write(line + '\n')
+                    # Read lines from original file one by one and append them to the dummy file
+                    for line in read_obj:
+                        write_obj.write(line)
+                # remove original file
+                os.remove(file_name)
+                # Rename dummy file as the original file
+                os.rename(dummy_file, file_name)
+
+            with open('name_date.txt', 'r', newline='') as name_file:  # opens selected file for reading
+                name_date_time = name_file.read()
+
+            prepend_line("export_file.csv", name_date_time)
+
             messagebox.showinfo(title="File Exported", message="The file 'export_file.csv' can be found\n"
                                                                "in the program file directory. This file\n"
                                                                "contains all of the information from the\n"
