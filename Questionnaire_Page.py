@@ -167,7 +167,9 @@ class QuestionPage(Frame):
                 messagebox.showinfo(title="Saved", message="Answers saved.")
 
             # displays next case number
-            def next_case(flag, case_order, ans_1, ans_2, ans_3, ans_4, ans_5, ans_6, comments):
+            def next_case(flag, case_order, ans_1, ans_2, ans_3, ans_4, ans_5, ans_6, comments, barcode_entry):
+
+                barcode_entry.set('')
 
                 # initial message to start scanning
                 Label(self, text='Scan and read the barcode\nof each slide for the case\nshown above (illuminated).',
@@ -356,9 +358,11 @@ class QuestionPage(Frame):
             # button calls next_case function
             Button(self, text='Next Case', bg='#FF9F2A', fg='black',
                    font='Arial 16 bold', command=lambda: next_case(flag, case_order, ans_1, ans_2, ans_3, ans_4, ans_5,
-                                                                   ans_6, comments)).place(anchor='w', relx=0.03,
-                                                                                           rely=0.9, width='120',
-                                                                                           height='60')
+                                                                   ans_6, comments, barcode_entry)).place(anchor='w',
+                                                                                                          relx=0.03,
+                                                                                                          rely=0.9,
+                                                                                                          width='120',
+                                                                                                          height='60')
 
         # button calls start_test function
         Button(self, text='Start Test', bg='#47d147', fg='black', font='Arial 16 bold',
