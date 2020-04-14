@@ -6,8 +6,8 @@ class StartPage(Frame):                         # start up / home page, class in
     def __init__(self, parent, controller):
         Frame.__init__(self, parent)
 
-        Label(self, text="Please select an option below:", font='Arial 22 bold').place(relx=0.5, rely=0.2,
-                                                                                                   anchor='n')
+        # intro prompt for user
+        Label(self, text="Please select an option below:", font='Arial 22 bold').place(relx=0.5, rely=0.2, anchor='n')
 
         # Button takes you to take test intro page
         Button(self, text="Take Test", fg="black", font='Arial 14 bold', width='15', height='4',
@@ -21,10 +21,3 @@ class StartPage(Frame):                         # start up / home page, class in
         # Button exits desktop
         Button(self, text="Exit to Desktop", font="Arial 14", fg="black", bg="#ff4d4d", width='12',
                height='1', command=parent.master.destroy).place(relx=1.0, rely=1.0, anchor=SE)
-
-
-# need to figure how to run this module on its own
-
-if __name__ == "__main__":
-    app = Tk()
-    app.mainloop()
