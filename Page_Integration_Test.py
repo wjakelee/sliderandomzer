@@ -11,6 +11,7 @@ from Confirmation_Page import ConfirmationPage
 from Test_Return_Home_Page import TestCompletePage
 
 
+# class runs entire application and lifts all pages
 class Application(Tk):
 
     def __init__(self, *args, **kwargs):
