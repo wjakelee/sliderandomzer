@@ -4,6 +4,7 @@ from tkinter import filedialog
 from tkinter import messagebox
 import csv
 import random
+import operator
 from collections import MutableMapping
 from Test_Setup import TestSetup
 from Start_Page import StartPage
@@ -106,6 +107,7 @@ class RandAndFile(Frame):
                                                                     " the test setup file (case_information.csv).")
             # print(import_list)
 
+        # export file with answers and barcodes
         def export():
 
             answers = {}
@@ -177,7 +179,7 @@ class RandAndFile(Frame):
             with open('name_date.txt', 'r', newline='') as name_file:  # opens selected file for reading
                 name_date_time = name_file.read()
 
-            prepend_line("export_file.csv", name_date_time)
+            prepend_line(selected_file, name_date_time)
 
         Button(self, text="Import Randomization Order", fg="black", font='Arial 14 bold', width='30',
                height='3', bg="#cc99ff", command=import_random).place(relx=0.5, rely=0.2, anchor=CENTER)
