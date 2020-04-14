@@ -3,7 +3,7 @@ from tkinter import filedialog
 from tkinter import messagebox
 import csv
 try:
-    from IOPi import IOPi
+    from IOPi import IOPi           # checks if hardware connected
 except ModuleNotFoundError:
     from test import Bus as IOPi
 
@@ -53,6 +53,7 @@ class TestSetup(Frame):
             for row in reader:
                 self.map[row[0]] = {'bus': row[1], 'pin': row[2]}     # saves csv info to dictionary
 
+        # sets dictionary values to integer types
         for case, key in self.map.items():
             key['bus'] = int(key['bus'])
             key['pin'] = int(key['pin'])
@@ -122,6 +123,7 @@ class TestSetup(Frame):
                     if barcode_entry == case_info['he'] or barcode_entry == case_info['nrc']\
                             or barcode_entry == case_info['ab']:
 
+                        # prompts trainer to place slide in correct slot
                         Label(self, text="Place scanned slide in the illuminated slot.",
                               font='Arial 12 bold').place(anchor='n', relx=.5, rely=.7)
                         key_val = StringVar()
@@ -144,6 +146,7 @@ class TestSetup(Frame):
                                                                   "Either choose a new setup file or select a slide\n"
                                                                   "that is listed in the setup file.")
 
+        # shows previous page and turns of LEDs
         def back_page():
             bus_number = self.map[self.prev_slot]['bus']  # determines bus number of current case
             pin_number = self.map[self.prev_slot]['pin']  # determines pin number of current case
@@ -153,6 +156,7 @@ class TestSetup(Frame):
 
             controller.show_frame("SetDatRand")
 
+        # shows home page and turns off LEDs
         def back_to_home():
             bus_number = self.map[self.prev_slot]['bus']  # determines bus number of current case
             pin_number = self.map[self.prev_slot]['pin']  # determines pin number of current case
@@ -174,10 +178,3 @@ class TestSetup(Frame):
         # button calls show_frame method and takes you back one page to SetDatRand
         Button(self, text="Back", fg="black", bg="#81DAF5", font="Arial 14", width='12', height='1',
                command=back_page).place(relx=0.8, rely=1.0, anchor=SE)
-
-
-# need to figure how to run this module on its own
-
-if __name__ == "__main__":
-    app = Tk()
-    app.mainloop()
