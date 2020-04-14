@@ -32,6 +32,7 @@ class ConfirmationPage(Frame):
     def __init__(self, parent, controller):
         Frame.__init__(self, parent)
 
+        # function turns off all LEDs when test is ended
         def end_test():
 
             # makes sure ALL LEDs are OFF when test ends
@@ -44,12 +45,14 @@ class ConfirmationPage(Frame):
             # show next page
             controller.show_frame("TestCompletePage")
 
+        # label for confirmation
         Label(self, text="Are You Sure You Want To End The Test?", font='Arial 20 bold',).place(relx=0.5,
                                                                                                 rely=0.1, anchor='n')
-
+        # button to finish test
         Button(self, text="Yes.\nI am finished.", fg="black", font="Arial 14 bold", width="25", height="3",
                bg="#47d147", command=end_test).place(relx=.5, rely=.4, anchor=CENTER)
 
+        # button to return to test, shows different page
         Button(self, text="No.\nReturn to test.", fg="black", font="Arial 14 bold", width="25", height="3",
                bg="#ff4d4d", command=lambda: controller.show_frame("QuestionPage")).place(relx=.5, rely=.7,
                                                                                           anchor=CENTER)
