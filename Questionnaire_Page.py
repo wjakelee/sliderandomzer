@@ -1,12 +1,10 @@
 from tkinter import *
 import csv
 import itertools
-from Start_Page import StartPage
-from Test_Intro_Page import TestIntro
 from collections import defaultdict
 from tkinter import messagebox
 try:
-    from IOPi import IOPi
+    from IOPi import IOPi           # checks to see if hardware connected or not
 except ModuleNotFoundError:
     from test import Bus as IOPi
 
@@ -33,42 +31,12 @@ bus4.set_port_direction(1, 0x00)                 # 1: pins 9-16, 0x00: set port 
 bus4.write_port(0, 0x00)                         # initially turn off all pins
 
 
-# class is used here to run this page alone
-class Application(Tk):
-
-    def __init__(self, *args, **kwargs):
-        Tk.__init__(self, *args, **kwargs)
-        self.title("Application")                               # window title
-        self.geometry('800x480')                                # window geometry
-        self.configure(background='white')                      # window background
-        container = Frame(self, background='white')                 # creates a frame in tkinter
-        container.place(anchor='nw', relwidth=1, relheight=1)       # location of frame covers entire window
-
-        container.grid_rowconfigure(0, weight=1)
-        container.grid_columnconfigure(0, weight=1)
-
-        self.frames = {}                      # initializes a dictionary that will store different page frames
-        self.pages = {'StartPage': StartPage, 'TestIntro': TestIntro, 'QuestionPage': QuestionPage}
-
-        # loop creates a frame for each page
-        for name, F in self.pages.items():                      # loops through dictionary 'pages'
-            frame = F(container, self)                              # assigns iterated frame to a variable 'frame'
-            frame.grid(row=0, column=0, sticky="nsew")              # frame positioning
-            self.frames[name] = frame                               # adds each page frame to dictionary of frames
-
-        self.show_frame("QuestionPage")              # calls show_frame method to raise StartPage frame when run
-
-    def show_frame(self, page):
-        frame = self.frames[page]               # selects frame to be raised, determined by button click
-        frame.tkraise()                         # raises frame called
-
-
 class QuestionPage(Frame):
 
     def __init__(self, parent, controller):
         Frame.__init__(self, parent)
-        self.barcode_info = {}
-        self.current_case_codes = {}
+        self.barcode_info = {}          # initialize empty dictionary to store barcod info
+        self.current_case_codes = {}         # initialize empty dictionary to store curent case barcodes
         self.flag_values = {}       # initialize empty dictionary for flagging cases
         self.map = {}               # initialize empty dictionary for pinout map
 
@@ -78,7 +46,7 @@ class QuestionPage(Frame):
         # dictionary stores 4 different bus addresses
         self.buses = {1: bus1, 2: bus2, 3: bus3, 4: bus4}
 
-        # dictionary maps each slot to a bus and pin
+        # reads pinout map file to create dictionary that maps each slot to a bus and pin
         with open('Pinout_Map.csv', 'r', newline='') as map_file:       # opens selected file for reading
             reader = csv.reader(map_file)   # reads selected file
             next(reader)                    # goes to second line of csv file
@@ -86,6 +54,7 @@ class QuestionPage(Frame):
             for row in reader:
                 self.map[row[0]] = {'bus': row[1], 'pin': row[2]}     # saves csv info to dictionary
 
+        # change var type to integers
         for case, key in self.map.items():
             key['bus'] = int(key['bus'])
             key['pin'] = int(key['pin'])
@@ -96,6 +65,8 @@ class QuestionPage(Frame):
                   '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35',
                   '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52',
                   '53', '54', '55', '56', '57', '58', '59', '60']
+
+        # set all values to blank
         for i in n_list:
             self.test_answers[i]['Q1'] = ' '
             self.test_answers[i]['Q2'] = ' '
@@ -109,6 +80,7 @@ class QuestionPage(Frame):
         # reads randomization order from temporary_file.csv and begins test
         def start_test():
 
+            # label to show test in progress
             Label(self, text='Test is in progress.', font='Arial 12',
                   bg='light gray').place(anchor='w', relx=0.03, rely=0.125, width='160', height='80')
 
@@ -126,9 +98,10 @@ class QuestionPage(Frame):
             bus = self.buses[bus_number]    # determines which bus address to use
             bus.write_pin(pin_number, 1)     # turns ON LED for current slot
 
+            # function compares scanned barcode with current case barcodes to see if user is evaluating correct case
             def compare(entry):
 
-                self.current_case_codes = {}
+                self.current_case_codes = {}    # initialize empty dictionary
 
                 with open('temporary_file.csv', 'r', newline="") as temp_file:  # open temporary file
                     reader = csv.reader(temp_file)
@@ -164,12 +137,13 @@ class QuestionPage(Frame):
                                                        'Q4': ans_4.get(), 'Q5': ans_5.get(), 'Q6': ans_6.get(),
                                                        'Comments':  comments.get()}
 
+                # notification for user
                 messagebox.showinfo(title="Saved", message="Answers saved.")
 
             # displays next case number
             def next_case(flag, case_order, ans_1, ans_2, ans_3, ans_4, ans_5, ans_6, comments, barcode_entry):
 
-                barcode_entry.set('')
+                barcode_entry.set('')   # resets barcode entry to blank
 
                 # initial message to start scanning
                 Label(self, text='Scan and read the barcode\nof each slide for the case\nshown above (illuminated).',
@@ -207,14 +181,18 @@ class QuestionPage(Frame):
                 bus = self.buses[bus_number]    # determines which bus address to use
                 bus.write_pin(pin_number, 1)     # turns ON LED for current slot
 
+            # function adds flag value to current case key in a dictionary
             def flagging():
                 self.flag_values[self.next_number] = 'Flag'
 
+            # function adds unflag value to current case key in a dictionary
             def unflagging():
                 self.flag_values[self.next_number] = 'Unflag'
 
+            # writes all saved answers to a temp saved answer file
             def end_test():
 
+                # merges dictionaries
                 def merge_dict(a, b):
                     a.update(b)
                     return a
@@ -223,9 +201,9 @@ class QuestionPage(Frame):
                 fields = ['Case', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Comments']
                 with open('previous_ans.csv', 'w', newline='') as prev_ans_file:  # opens selected file for reading
                     writer = csv.DictWriter(prev_ans_file, fields)
-                    writer.writeheader()
+                    writer.writeheader()                # writes dictionary header
                     for case, question in self.test_answers.items():
-                        writer.writerow(merge_dict({'Case': case}, question))
+                        writer.writerow(merge_dict({'Case': case}, question))       # writes rows from nested dictionary
 
                 # show next frame
                 controller.show_frame("ConfirmationPage")
@@ -233,7 +211,7 @@ class QuestionPage(Frame):
             # initial message to start scanning
             Label(self, text='Scan and read the barcode\nof each slide for the case\nshown above (illuminated).',
                   background='#BDBDBD', font='Arial 10', justify=LEFT).place(anchor='w', relx=.03, rely=.5,
-                                                                                 width='230', height='130')
+                                                                             width='230', height='130')
             # initializes barcode_entry variable as type: string
             barcode_entry = StringVar()
 
@@ -251,6 +229,7 @@ class QuestionPage(Frame):
 
             ans_1 = StringVar()  # initialize entry variable for question 1
             ans_1.set(" ")
+            # radio button selectors for question answers
             Radiobutton(self, text='Yes', font='Arial 12 bold', variable=ans_1,
                         value='Yes').place(anchor='w', relx=0.7, rely=0.075)
             Radiobutton(self, text='No', font='Arial 12 bold', variable=ans_1,
@@ -264,6 +243,7 @@ class QuestionPage(Frame):
 
             ans_2 = StringVar()  # initialize entry variable for question 2
             ans_2.set(" ")
+            # radio button selectors for question answers
             Radiobutton(self, text='Yes', font='Arial 12 bold', variable=ans_2,
                         value='Yes').place(anchor='w', relx=0.7, rely=.155)
             Radiobutton(self, text='No', font='Arial 12 bold', variable=ans_2,
@@ -277,6 +257,7 @@ class QuestionPage(Frame):
 
             ans_3 = StringVar()  # initialize entry variable for question 3
             ans_3.set(" ")
+            # radio button selectors for question answers
             Radiobutton(self, text='Yes', font='Arial 12 bold', variable=ans_3,
                         value='Yes').place(anchor='w', relx=0.7, rely=.235)
             Radiobutton(self, text='No', font='Arial 12 bold', variable=ans_3,
@@ -290,6 +271,7 @@ class QuestionPage(Frame):
 
             ans_4 = StringVar()  # initialize entry variable for question 4
             ans_4.set(" ")
+            # radio button selectors for question answers
             Radiobutton(self, text='Yes', font='Arial 12 bold', variable=ans_4,
                         value='Yes').place(anchor='w', relx=0.7, rely=.315)
             Radiobutton(self, text='No', font='Arial 12 bold', variable=ans_4,
@@ -312,6 +294,7 @@ class QuestionPage(Frame):
 
             ans_6 = StringVar()  # initialize entry variable for question 6
             ans_6.set(" ")
+            # radio button selectors for question answers
             Radiobutton(self, text='Positive', font='Arial 12 bold', variable=ans_6,
                         value='Positive').place(anchor='w', relx=0.55, rely=.475)
             Radiobutton(self, text='Negative', font='Arial 12 bold', variable=ans_6,
@@ -346,6 +329,7 @@ class QuestionPage(Frame):
             # Flag case number buttons
             flag = StringVar()
             flag.set("Unflag")
+            # radio button selectors for flagging
             Radiobutton(self, text='Flag', font='Arial 16 bold', fg='red', variable=flag,
                         command=flagging, value='Flag').place(anchor='w', relx=0.245, rely=.1)
             Radiobutton(self, text='Unflag', font='Arial 16 bold', variable=flag, command=unflagging,
@@ -367,8 +351,3 @@ class QuestionPage(Frame):
         # button calls start_test function
         Button(self, text='Start Test', bg='#47d147', fg='black', font='Arial 16 bold',
                command=start_test).place(anchor='w', relx=0.03, rely=0.125, width='120', height='80')
-
-
-if __name__ == "__main__":
-    app = Application()
-    app.mainloop()
